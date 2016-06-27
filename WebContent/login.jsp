@@ -11,6 +11,8 @@
 <script type="text/javascript" src="sources/extjs/ext-all.js"></script>
 <script type="text/javascript" src="sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
+<script type="text/javascript" src="login/login.js"></script>
+
 </head>
 <script type="text/javascript">
 var obj = new Object();
