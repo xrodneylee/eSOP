@@ -12,6 +12,23 @@
 <script type="text/javascript" src="sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
 </head>
+<script type="text/javascript">
+var obj = new Object();
+obj.USER="Lee Guan Pu";
+Ext.Ajax.request({
+    url: '/eSOP/api/ajax/hello',
+    method: "POST",
+    params:{
+		data : Ext.encode(obj)
+	},
+    success: function (response) {
+        alert(response.responseText);
+    },
+    failure: function (response) {
+        //top.location.replace("InitSet.jsp");
+    }
+});
+</script>
 <body>
 	
 </body>
