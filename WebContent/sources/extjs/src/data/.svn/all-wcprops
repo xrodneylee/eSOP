@@ -1,0 +1,191 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data
+END
+StoreManager.js
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/StoreManager.js
+END
+Errors.js
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Errors.js
+END
+TreeModel.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/TreeModel.js
+END
+XmlStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/XmlStore.js
+END
+Model.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Model.js
+END
+ArrayStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/ArrayStore.js
+END
+Operation.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Operation.js
+END
+TreeStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/TreeStore.js
+END
+Store.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Store.js
+END
+AbstractStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/AbstractStore.js
+END
+Field.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Field.js
+END
+validations.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/validations.js
+END
+Batch.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Batch.js
+END
+JsonPStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/JsonPStore.js
+END
+JsonStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/JsonStore.js
+END
+IdGenerator.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/IdGenerator.js
+END
+DirectStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/DirectStore.js
+END
+NodeInterface.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/NodeInterface.js
+END
+Request.js
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Request.js
+END
+PageMap.js
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/PageMap.js
+END
+JsonP.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/JsonP.js
+END
+ResultSet.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/ResultSet.js
+END
+BufferStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/BufferStore.js
+END
+Group.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Group.js
+END
+NodeStore.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/NodeStore.js
+END
+Tree.js
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Tree.js
+END
+Connection.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Connection.js
+END
+SortTypes.js
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/SortTypes.js
+END
+Types.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/Types.js
+END
+SequentialIdGenerator.js
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/SequentialIdGenerator.js
+END
+UuidGenerator.js
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/SFT_Project/!svn/ver/62633/Tools/KPI/WebContent/sources/extjs/src/data/UuidGenerator.js
+END
