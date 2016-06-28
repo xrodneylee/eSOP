@@ -5,9 +5,9 @@ import net.sf.json.JSONObject;
 public class SqlFile {
 	/**
 	 * 取得檢核檔或開窗檔語法
-	 * @param table：資料表名稱
-	 * @param NumberOfGroups：組數
-	 * @param type：0：檢核檔；1：開窗檔
+	 * @param table 資料表名稱
+	 * @param NumberOfGroups 組數
+	 * @param type 0：檢核檔；1：開窗檔
 	 * @return
 	 */
 	public String getSql(String table, String NumberOfGroups, String type){
