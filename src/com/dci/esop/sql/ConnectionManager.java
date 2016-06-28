@@ -57,7 +57,7 @@ public class ConnectionManager {
 		if(driverManagerDataSource==null){
 			driverManagerDataSource=new DriverManagerDataSource();
 			driverManagerDataSource.setDriverClassName("net.sourceforge.jtds.jdbc.Driver");
-			driverManagerDataSource.setUrl("jdbc:jtds:sqlserver://10.40.70.106:1433/KPI");
+			driverManagerDataSource.setUrl("jdbc:jtds:sqlserver://10.40.70.106:1433/ESOPSYS");
 			driverManagerDataSource.setUsername("sa");
 			driverManagerDataSource.setPassword("05989");
 		}
