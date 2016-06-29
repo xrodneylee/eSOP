@@ -32,16 +32,18 @@ Ext.onReady(function() {
 				var form = this.up("form").getForm();
 				var values = form.getValues();
 				var loginInfo = new Object();
-				loginInfo.USERID = values["userid"];
-				loginInfo.PASSWORD = values["password"];
+				loginInfo.AUTH_ID = values["userid"];
+				loginInfo.AUTH_PASSWORD = values["password"];
 				Ext.Ajax.request({
-				    url : '/eSOP/api/ajax/hello',//userCheck
+				    url : '/eSOP/api/ajax/userCheck',//userCheck
 				    method : "POST",
 				    params :{
 						data : Ext.encode(loginInfo)
 					},
 				    success : function (response) {
-				        Ext.Msg.alert('訊息',response.responseText);
+				    	response = Ext.decode(response.responseText);
+				    	window.location.replace(response.url);
+//				        Ext.Msg.alert('訊息',response.result);
 				    },
 				    failure : function (response) {
 				    	Ext.Msg.alert('','驗證失敗');

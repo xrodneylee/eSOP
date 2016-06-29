@@ -26,7 +26,7 @@ public class ajaxController {
 	@Path("/hello")
 	public String sayHelloPost(@FormParam("data") String jsonObj) throws UnsupportedEncodingException, IllegalDataException {
 		JSONObject jsonObject = JSONObject.fromObject(jsonObj);
-		return "Hello, " + jsonObject.getString("USERID");
+		return "Hello, " + jsonObject.getString("AUTH_ID");
 	}
 	
 	@POST
