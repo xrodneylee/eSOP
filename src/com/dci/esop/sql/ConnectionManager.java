@@ -23,6 +23,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import com.dci.esop.util.Config;
 import com.dci.esop.util.Util;
 
 
@@ -54,12 +55,13 @@ public class ConnectionManager {
 	 * @return
 	 */
 	private DriverManagerDataSource getDriverManagerDataSource() {
+		Config config = Config.getInstance();
 		if(driverManagerDataSource==null){
 			driverManagerDataSource=new DriverManagerDataSource();
-			driverManagerDataSource.setDriverClassName("net.sourceforge.jtds.jdbc.Driver");
-			driverManagerDataSource.setUrl("jdbc:jtds:sqlserver://10.40.70.106:1433/ESOPSYS");
-			driverManagerDataSource.setUsername("sa");
-			driverManagerDataSource.setPassword("05989");
+			driverManagerDataSource.setDriverClassName(config.getConfig("DatabaseDriver"));
+			driverManagerDataSource.setUrl(config.getConfig("DatabaseUrl").replace("[DatabaseIp]", config.getConfig("DatabaseIp")));
+			driverManagerDataSource.setUsername(config.getConfig("DatabaseUsername"));
+			driverManagerDataSource.setPassword(config.getConfig("DatabasePassword"));
 		}
 		return driverManagerDataSource;
 	}
