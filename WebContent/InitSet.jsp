@@ -10,11 +10,13 @@
 <link rel="stylesheet" type="text/css" href="sources/css/eSOP.css">
 <script type="text/javascript" src="sources/extjs/ext-all.js"></script>
 <script type="text/javascript" src="sources/extjs/locale/ext-lang-zh_TW.js"></script>
-<!--  
+ 
 <script type="text/javascript" src="initSet/initSet.js"></script>
--->
+<script type="text/javascript" src="initSet/initSetFun.js"></script>
+
 </head>
 <body>
+<!-- 
 <h1>File Upload with Jersey</h1>
  
 	<form action="api/ajax/upload" method="post" enctype="multipart/form-data" >
@@ -25,5 +27,6 @@
  
 	   <input type="submit" value="Upload It" />
 	</form>
+-->
 </body>
 </html>
