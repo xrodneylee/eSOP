@@ -20,6 +20,8 @@ import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import com.dci.esop.authentication.UserCheck;
+import com.dci.esop.sql.ConnectionManager;
+import com.dci.esop.util.Config;
 import com.digwin.cross.exception.IllegalDataException;
 import com.digwin.cross.util.CodeUtil;
 
@@ -48,6 +50,27 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/saveDataSource")
+	public String saveDataSource(@FormParam("data") String jsonObj) {
+		Config config = Config.getInstance();
+		return config.setConfigBatch(jsonObj);
+	}
+	
+	@POST
+	@Path("/getInitData")
+	public String getInitData() {
+		Config config = Config.getInstance();
+		return config.getConfigBatch();
+	}
+	
+	@POST
+	@Path("/connectionTest")
+	public String connectionTest() {
+		ConnectionManager conm = new ConnectionManager();
+		return conm.queryForSingleString(" SELECT '1' ", null);
+	}
+	
+	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadFile(
@@ -55,8 +78,7 @@ public class ajaxController {
 		@FormDataParam("file") FormDataContentDisposition fileDetail) {
 
 		System.out.println(fileDetail.getFileName());
-		System.out.println(fileDetail.getName());
-		String uploadedFileLocation = "d://" + fileDetail.getFileName();
+		String uploadedFileLocation = "D://" + fileDetail.getFileName();
 
 		// save it
 		writeToFile(uploadedInputStream, uploadedFileLocation);

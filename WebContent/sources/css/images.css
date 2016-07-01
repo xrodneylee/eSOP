@@ -35,6 +35,13 @@
     background-image: url(images/save.gif) !important;
 }
 
+.icon-list {
+    background-image: url(images/List.gif) !important;
+}
+
+.icon-refresh{
+ 	background-image: url(images/Refresh.gif) !important;
+}
 /* 查詢作業標準icons */
 
 .icon-chart {

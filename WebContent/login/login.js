@@ -35,7 +35,7 @@ Ext.onReady(function() {
 				loginInfo.AUTH_ID = values["userid"];
 				loginInfo.AUTH_PASSWORD = values["password"];
 				Ext.Ajax.request({
-				    url : '/eSOP/api/ajax/userCheck',//userCheck
+				    url : '/eSOP/api/ajax/userCheck',
 				    method : "POST",
 				    params :{
 						data : Ext.encode(loginInfo)
@@ -43,7 +43,6 @@ Ext.onReady(function() {
 				    success : function (response) {
 				    	response = Ext.decode(response.responseText);
 				    	window.location.replace(response.url);
-//				        Ext.Msg.alert('訊息',response.result);
 				    },
 				    failure : function (response) {
 				    	Ext.Msg.alert('','驗證失敗');

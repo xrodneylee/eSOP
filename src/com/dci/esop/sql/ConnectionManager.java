@@ -59,7 +59,7 @@ public class ConnectionManager {
 		if(driverManagerDataSource==null){
 			driverManagerDataSource=new DriverManagerDataSource();
 			driverManagerDataSource.setDriverClassName(config.getConfig("DatabaseDriver"));
-			driverManagerDataSource.setUrl(config.getConfig("DatabaseUrl").replace("[DatabaseIp]", config.getConfig("DatabaseIp")));
+			driverManagerDataSource.setUrl(config.getConfig("DatabaseUrl").replace("[DatabaseIp]", config.getConfig("DatabaseIp")).replace("[DatabaseName]", config.getConfig("DatabaseName")));
 			driverManagerDataSource.setUsername(config.getConfig("DatabaseUsername"));
 			driverManagerDataSource.setPassword(config.getConfig("DatabasePassword"));
 		}
