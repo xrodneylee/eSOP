@@ -25,10 +25,10 @@ Ext.onReady(function(){
 		disabled:true
 	});
 	
-	var eSopSetting = Ext.create('Ext.form.Panel',{
+	var firstTab = Ext.create('Ext.form.Panel',{
 		title : "eSOP 系統環境設定",
 		frame : true,
-		id : 'eSopSetting',
+		id : 'firstTab',
 		bodyPadding : 10,
 		fieldDefaults : {
 			labelAlign : "right",
@@ -89,11 +89,52 @@ Ext.onReady(function(){
 	});
 	getInitData();
 	
+	Ext.create('Ext.data.Store', {
+	    storeId:'secondTabStore',
+	    fields:['CD001', 'CD003'],
+	    proxy: {
+	        type: 'memory',
+	        reader: {
+	            type: 'json',
+	            root: 'CONFIG'
+	        }
+	    }
+	});
+	
+	var secondTab = Ext.create('Ext.grid.Panel', {
+		id : 'secondTab',
+	    title: '整合設定',
+	    height: 200,
+	    width: 400,
+	    store: Ext.data.StoreManager.lookup('secondTabStore'),
+	    columns: [
+	        {header: '設定說明', width:300, dataIndex: 'CD001'},
+	        {
+	        	header: '值',
+	        	id: 'CD003',
+	        	width:200,
+	        	field: 'textfield', 
+	        	dataIndex: 'CD003'
+	        }
+	    ],
+	    selType: 'cellmodel',
+	    plugins: [
+	        Ext.create('Ext.grid.plugin.CellEditing', {
+	            clicksToEdit: 1,
+	            listeners: {
+//	            	edit :cd001Edit
+	        		beforeedit : cd001Edit
+	    	    }
+	        })
+	    ]
+	});
+	getConfigData();
+	
 	Ext.create('Ext.tab.Panel',{
 		activeTab : 0,
         width : vpWidth_c1,
         height : vpHeight_c1,
-		items : [eSopSetting],
+		items : [firstTab,secondTab],
 	    renderTo : Ext.getBody()
 	});
 });
