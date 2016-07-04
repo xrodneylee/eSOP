@@ -64,6 +64,15 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/getConfigData")
+	public String getConfigData() {
+		JSONObject jsonObj = new JSONObject();
+		ConnectionManager conm = new ConnectionManager();
+		jsonObj.put("CONFIG", conm.queryForList("select CD001,CD003 from CONFIG ", null));
+		return jsonObj.toString();
+	}
+	
+	@POST
 	@Path("/connectionTest")
 	public String connectionTest() {
 		ConnectionManager conm = new ConnectionManager();
