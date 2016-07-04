@@ -64,6 +64,21 @@ function getInitData(){
 	});
 }
 
+function getConfigData(){
+	Ext.Ajax.request({
+		waitMsg: 'Please wait...',
+		url : '/eSOP/api/ajax/getConfigData',
+	    method : "POST",
+	    success : function (response) {
+	    	response = Ext.decode(response.responseText);
+	    	Ext.data.StoreManager.lookup('secondTabStore').loadData(response.CONFIG,true);
+	    },
+	    failure : function (response) {
+	    	Ext.Msg.alert('','初始化失敗');
+	    }
+	});
+}
+
 function connectionTest(){
 	Ext.Ajax.request({
 		waitMsg: 'Please wait...',
@@ -73,11 +88,35 @@ function connectionTest(){
 	    	if(response.responseText == "1"){
 	    		Ext.Msg.alert('','連線成功');
 	    	}else{
-	    		Ext.Msg.alert('','連線失敗1');
+	    		Ext.Msg.alert('','連線失敗');
 	    	}
 	    },
 	    failure : function (response) {
 	    	Ext.Msg.alert('','連線失敗');
 	    }
 	});
+}
+
+function cd001Edit(editor,e,eOpts){
+	
+	if(e.record.get("CD001") == "CROSSEncodingState"){
+		var states = Ext.create('Ext.data.Store', {
+		    fields: ['value', 'name'],
+		    data : [
+		        {"value":"-1", "name":"否"},
+		        {"value":"0", "name":"是"}
+		    ]
+		});
+
+		var aaa = Ext.create('Ext.form.field.ComboBox', {
+	        store: states,
+	        queryMode: 'local',
+	        displayField: 'name',
+	        valueField: 'abbr',
+	        editable: false
+		});
+		Ext.getCmp('CD003').setEditor(aaa);
+	}else{
+		 Ext.getCmp('CD003').setEditor(new Ext.form.field.Text());
+	}
 }
