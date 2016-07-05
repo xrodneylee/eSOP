@@ -2,11 +2,11 @@
  * 
  */
 Ext.application({
-    name: 'ConfigEdit',
-    appFolder: '../ConfigEdit',
+    name: 'spotRegister',
+    appFolder: '../spotRegister',
     autoCreateViewport: true,
 	models : [],
 	stores : [],
 	views : ['Viewport'],
-	controllers : ['ConfigEditControl']
+	controllers : ['spotRegisterControl']
 });
