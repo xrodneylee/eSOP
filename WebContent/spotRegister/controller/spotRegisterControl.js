@@ -8,7 +8,12 @@ Ext.define('spotRegister.controller.spotRegisterControl', {
 	models : [],
 	init : function(application) {
 		this.control({
-			
+			'#check' : {
+				click : this.onClick
+			}
 		});
+	},
+	onClick : function(){
+		
 	}
 });

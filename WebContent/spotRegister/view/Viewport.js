@@ -4,11 +4,11 @@
 Ext.define('spotRegister.view.Viewport', {
 	extend : 'Ext.container.Viewport',
 	requires : [],
-	layout: {
-        type: 'vbox',
-        align: 'center',
-        pack: 'center'
-    },
+	layout : {
+		type : 'vbox',
+		align : 'center',
+		pack : 'center'
+	},
 	items : [ {
 		width : 450,
 		id : 'loginForm',
@@ -31,12 +31,28 @@ Ext.define('spotRegister.view.Viewport', {
 			fieldLabel : '本機狀態 ',
 			margin : '10 0 0 0'
 		}, {
-			xtype : 'textfield',
-			name : 'station',
-			id : 'station',
-			fieldLabel : '工位編號 ',
-			allowBlank : false,
-			margin : '5 0 0 0'
+			xtype : 'fieldset',
+			layout : 'column',
+			border : false,
+			margin : '5 0 0 0',
+			style: 'padding-left: 0px;',
+			items : [ {
+				xtype : 'textfield',
+				name : 'station',
+				id : 'station',
+				fieldLabel : '工位編號 ',
+				allowBlank : false,
+				border : false,
+				labelWidth : 75,
+				labelAlign : "left",
+				width : 380
+				
+			},{
+				xtype : 'button',
+				id : 'check',
+				text : '檢查'
+			} ]
+
 		}, {
 			xtype : 'textfield',
 			name : 'stationExplanation',
