@@ -15,10 +15,10 @@ public class UserCheck {
 		try {
 			checkSql = SqlFile.getCheckSqlFile("PRINCIPAL", "01");
 			if(conm.queryForSingleInteger(checkSql, loginInfo) > 0){
-				resultInfo.put("result", "登入成功");
+				resultInfo.put("result", "success");
 				resultInfo.put("url", "/eSOP/centerPage/centerPage.jsp?userId="+loginInfo.getString("AUTH_ID"));
 			}else{
-				resultInfo.put("result", "帳密錯誤");
+				resultInfo.put("result", "failure");
 			}
 		} catch (Exception e) {
 			resultInfo.put("result", e.getMessage());
