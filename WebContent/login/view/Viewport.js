@@ -37,7 +37,7 @@ Ext.define('login.view.Viewport', {
 		buttons : [ {
 			text : "登入",
 			id : "login",
-			formBind : true,
+			formBind : true
 		} ]
 	} ]
 });

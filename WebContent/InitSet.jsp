@@ -11,7 +11,7 @@
 <script type="text/javascript" src="sources/extjs/ext-all.js"></script>
 <script type="text/javascript" src="sources/extjs/locale/ext-lang-zh_TW.js"></script>
  
-<script type="text/javascript" src="ConfigEdit/ConfigEdit.js"></script>
+<script type="text/javascript" src="initSet/initSet.js"></script>
 
 </head>
 <body>
