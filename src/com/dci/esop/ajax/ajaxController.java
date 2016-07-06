@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
@@ -47,6 +48,34 @@ public class ajaxController {
 	public String userCheck(@FormParam("data") String jsonObj) {
 		UserCheck UserCheck = new UserCheck();
 		return UserCheck.loginProcess(jsonObj);
+	}
+	
+	@POST
+	@Path("/stationCheck")
+	public String stationCheck(@FormParam("data") String jsonObj) {
+		Station station = new Station();
+		return station.stationCheck(jsonObj);
+	}
+	
+	@POST
+	@Path("/isValid")
+	public String isValid(@FormParam("data") String jsonObj) {
+		Station station = new Station();
+		return station.isValid(jsonObj);
+	}
+	
+	@POST
+	@Path("/getStationInit")
+	public String getStationInit(@FormParam("data") String jsonObj) {
+		Station station = new Station();
+		return station.getStationInit(jsonObj);
+	}
+	
+	@POST
+	@Path("/register")
+	public String register(@FormParam("data") String jsonObj) {
+		Station station = new Station();
+		return station.register(jsonObj);
 	}
 	
 	@POST

@@ -11,7 +11,7 @@ Ext.define('spotRegister.view.Viewport', {
 	},
 	items : [ {
 		width : 450,
-		id : 'loginForm',
+		id : 'registerForm',
 		xtype : 'form',
 		title : 'eSOP註冊',
 		layout : {
@@ -26,9 +26,12 @@ Ext.define('spotRegister.view.Viewport', {
 		frame : true,
 		items : [ {
 			xtype : 'textfield',
+			fieldStyle : 'color:#FF0000;',
+			labelStyle : 'color:#FF0000;',
 			name : 'status',
 			id : 'status',
 			fieldLabel : '本機狀態 ',
+			readOnly : true,
 			margin : '10 0 0 0'
 		}, {
 			xtype : 'fieldset',
@@ -43,10 +46,7 @@ Ext.define('spotRegister.view.Viewport', {
 				fieldLabel : '工位編號 ',
 				allowBlank : false,
 				border : false,
-				labelWidth : 75,
-				labelAlign : "left",
 				width : 380
-				
 			},{
 				xtype : 'button',
 				id : 'check',
@@ -64,6 +64,8 @@ Ext.define('spotRegister.view.Viewport', {
 			name : 'mac',
 			id : 'mac',
 			fieldLabel : 'MAC位址 ',
+//			disabled : true,
+			readOnly : true,
 			margin : '5 0 0 0'
 		}, {
 			xtype : 'textfield',
@@ -81,7 +83,7 @@ Ext.define('spotRegister.view.Viewport', {
 		buttons : [ {
 			text : '註冊',
 			id : 'register',
-			formBind : true,
+			formBind : true
 		} ]
 	} ]
 });
