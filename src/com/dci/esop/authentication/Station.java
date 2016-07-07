@@ -1,6 +1,8 @@
 package com.dci.esop.authentication;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -8,6 +10,11 @@ import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
 
 public class Station {
+	public static final String itemid = "1";
+	public static final String operation = "2";
+	public static final String factory = "3";
+	public static final String area = "4";
+	
 	ConnectionManager conm = new ConnectionManager();
 	
 	public String stationCheck(String jsonString){
@@ -73,14 +80,33 @@ public class Station {
 		JSONObject registerInfo = JSONObject.fromObject(jsonString);
 		JSONObject resultInfo = new JSONObject();
 		String insertSql = "INSERT INTO STATION (ST001, ST002, ST003, ST004, ST005) VALUES(:ST001, :ST002, :ST003, :ST004, :ST005)";
+		conm.setAutoCommit(false);
 		try {
 			conm.sqlUpdate(insertSql, registerInfo);
+			insertATTRIBUTE_LIST(area,registerInfo.getString("ST004"));
+			insertATTRIBUTE_LIST(factory,registerInfo.getString("ST005"));
 			resultInfo.put("result", "success");
+			conm.transactionCommit();
 		} catch (Exception e) {
 			resultInfo.put("result", e.getMessage());
+			conm.transactionRollback();
 			e.printStackTrace();
 		}
 		
 		return resultInfo.toString();
+	}
+	
+	public void insertATTRIBUTE_LIST(String al001,String al002) throws Exception{
+		Map data = new HashMap();
+		String checkSql = SqlFile.getCheckSqlFile("ATTRIBUTE_LIST", "01");
+		String insertSql = "INSERT INTO ATTRIBUTE_LIST (AL001, AL002) VALUES(:AL001, :AL002)";
+		
+		data.put("AL001", al001);
+		data.put("AL002", al002);
+		
+		if(conm.queryForSingleInteger(checkSql, data) == 0){
+			conm.sqlUpdate(insertSql, data);
+		}
+		
 	}
 }

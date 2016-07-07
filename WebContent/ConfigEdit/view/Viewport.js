@@ -106,7 +106,7 @@ Ext.define('ConfigEdit.view.Viewport', {
 										[ 'ERP', 'ERP' ] ]
 							} ]
 				}, {
-					xtype : 'form',
+					xtype : 'panel',
 					id : 'crossSetting',
 					title : 'CROSS整合設定',
 					frame : true,
@@ -125,7 +125,22 @@ Ext.define('ConfigEdit.view.Viewport', {
 						border : 1,
 						iconCls : 'icon-refresh'
 					} ],
-					items : []
+					items : [ {
+						xtype : 'gridpanel',
+						id : 'crossSettingGrid',
+						store : 'crossSettingStore',
+						frame : true,
+						autoScroll : true,
+						columns : [ {
+							header : '設定說明',
+							dataIndex : 'key',
+							width : 200
+						}, {
+							header : '值',
+							dataIndex : 'value',
+							width : 150
+						} ]
+					} ]
 				}, {
 					xtype : 'form',
 					id : 'vmSetting',

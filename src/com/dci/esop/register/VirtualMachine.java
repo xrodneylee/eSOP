@@ -1,5 +1,10 @@
 package com.dci.esop.register;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import com.dci.esop.sql.ConnectionManager;
+
 public class VirtualMachine extends Machine{
 	private boolean getVMData() {
 		boolean checkResult = false;
@@ -22,5 +27,24 @@ public class VirtualMachine extends Machine{
 	
 	public boolean isVM(){
 		return getVMData();
+	}
+	
+	public boolean getVMCertification() throws Exception {
+		boolean cerification = false;
+		ConnectionManager conm = new ConnectionManager();
+		String sql = "SELECT ISNULL(CD003,'') AS CD003 FROM CONFIG WHERE CD001='HardwareKey'";
+		String cd003 = conm.queryForSingleString(sql, null);
+		String getHardwareKey = getHardwareKey();
+		if (getHardwareKey.equals(cd003) && (!getHardwareKey.equals(""))) {
+			cerification = true;
+		} else {
+			cerification = false;
+		}
+		return cerification;
+	}
+	
+	public String getHardwareKey() throws UnknownHostException, IOException {
+		HardwareEncrypt enHardware = HardwareEncrypt.getInstance();
+		return enHardware.encrypt();
 	}
 }

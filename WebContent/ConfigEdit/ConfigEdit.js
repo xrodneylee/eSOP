@@ -5,8 +5,8 @@ Ext.application({
     name: 'ConfigEdit',
     appFolder: '../ConfigEdit',
     autoCreateViewport: true,
-	models : [],
-	stores : [],
+	models : ['crossSetting'],
+	stores : ['crossSetting'],
 	views : ['Viewport'],
 	controllers : ['ConfigEditControl']
 });

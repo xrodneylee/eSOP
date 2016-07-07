@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.UnknownHostException;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -21,6 +22,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
+import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
 import com.digwin.cross.exception.IllegalDataException;
@@ -41,6 +43,23 @@ public class ajaxController {
 	public String sayHelloPost(@FormParam("data") String jsonObj) throws UnsupportedEncodingException, IllegalDataException {
 		JSONObject jsonObject = JSONObject.fromObject(jsonObj);
 		return "Hello, " + jsonObject.getString("AUTH_ID");
+	}
+	
+	@GET
+	@Produces({ "text/plain" })
+	@Path("getMachineNumber")
+	public String getMachineNumber() {
+		HardwareEncrypt enHardware = HardwareEncrypt.getInstance();
+		String machineNumber = null;
+		try {
+			machineNumber = enHardware.encrypt();
+		} catch (UnknownHostException e) {
+			machineNumber = "GuardService";
+		} catch (IOException e) {
+			machineNumber = "GuardService";
+		}
+
+		return machineNumber;
 	}
 	
 	@POST
@@ -98,6 +117,7 @@ public class ajaxController {
 		JSONObject jsonObj = new JSONObject();
 		ConnectionManager conm = new ConnectionManager();
 		jsonObj.put("CONFIG", conm.queryForList("select CD001,CD003 from CONFIG ", null));
+		System.out.println(jsonObj);
 		return jsonObj.toString();
 	}
 	
