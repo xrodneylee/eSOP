@@ -103,6 +103,6 @@ Ext.define('ConfigEdit.controller.ConfigEditControl', {
 		});
 	},
 	undo : function(){
-		alert()
+		window.location.replace("/eSOP/InitSet.jsp");
 	}
 });
