@@ -13,15 +13,13 @@
 <script type="text/javascript" src="../sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
 <script type="text/javascript" src="../centerPage/centerPage.js"></script>
-<script type="text/javascript" src="../centerPage/centerPageFun.js"></script>
-
-</head>
-<body>
 <%
 	String userId=request.getParameter("userId");
-	
-	System.out.println(session.getId());
-	System.out.println(new VirtualMachine().isVM());
 %>
+</head>
+<body>
+<script language="JavaScript" type="text/JavaScript">
+	var userID="<%=userId%>";
+</script>
 </body>
 </html>

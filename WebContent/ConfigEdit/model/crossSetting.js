@@ -4,10 +4,10 @@
 Ext.define('ConfigEdit.model.crossSetting', {
 	extend : 'Ext.data.Model',
 	fields : [ {
-		name : 'key',
+		name : 'CD001',
 		type : 'string'
 	}, {
-		name : 'value',
+		name : 'CD003',
 		type : 'string'
 	} ]
 });
