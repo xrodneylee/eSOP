@@ -13,6 +13,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -22,6 +23,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
+import com.dci.esop.dao.CONFIG;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
@@ -59,6 +61,23 @@ public class ajaxController {
 			machineNumber = "GuardService";
 		}
 
+		return machineNumber;
+	}
+	
+	@GET
+	@Produces({ "text/plain" })
+	@Path("getMachineNumber/{ip}/{apip}")
+	public String getMachineNumberByGuardService(@PathParam("ip") String ip, @PathParam("apip") String apip) {
+		HardwareEncrypt enHardware = HardwareEncrypt.getInstance();
+		String machineNumber = null;
+		try {
+			enHardware.setHARDWAREID(null);
+			machineNumber = enHardware.encrypt(ip, apip);
+		} catch (UnknownHostException e) {
+			machineNumber = "GuardService";
+		} catch (IOException e) {
+			machineNumber = "GuardService";
+		}
 		return machineNumber;
 	}
 	
@@ -111,14 +130,18 @@ public class ajaxController {
 		return config.getConfigBatch();
 	}
 	
-	@POST
+	@GET
 	@Path("/getConfigData")
 	public String getConfigData() {
-		JSONObject jsonObj = new JSONObject();
-		ConnectionManager conm = new ConnectionManager();
-		jsonObj.put("CONFIG", conm.queryForList("select CD001,CD003 from CONFIG ", null));
-		System.out.println(jsonObj);
-		return jsonObj.toString();
+		CONFIG CONFIG = new CONFIG();
+		return CONFIG.getConfigData();
+	}
+	
+	@POST
+	@Path("/saveConfigData")
+	public void saveConfigData(@FormParam("data") String jsonObj) {
+		CONFIG CONFIG = new CONFIG();
+		CONFIG.saveConfigData(jsonObj);
 	}
 	
 	@POST

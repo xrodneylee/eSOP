@@ -115,32 +115,79 @@ Ext.define('ConfigEdit.view.Viewport', {
 					tbar : [ {
 						xtype : 'button',
 						text : '儲存設定',
-						id : 'save_',
+						id : 'crossSettingSave',
 						border : 1,
 						iconCls : 'icon-save'
 					}, {
 						xtype : 'button',
 						text : '返回設定主頁',
-						id : 'undo_',
+						id : 'crossSettingUndo',
 						border : 1,
 						iconCls : 'icon-refresh'
 					} ],
 					items : [ {
 						xtype : 'gridpanel',
 						id : 'crossSettingGrid',
-						store : 'crossSettingStore',
-						frame : true,
-						autoScroll : true,
+						store : 'crossSetting',
+						selType : 'cellmodel',
+						height : 500,
 						columns : [ {
 							header : '設定說明',
-							dataIndex : 'key',
-							width : 200
+							dataIndex : 'CD001',
+							width : 200,
+							renderer: function(val, metaData){
+						       if(val == "CROSSEncodingState")val='是否整合 CROSS'
+						       else if(val == "CROSSHostIP")val='CROSS 主機 IP 位置'
+					    	   else if(val == "CROSSHostPORT")val='CROSS 主機 PORT'
+							    
+				    		   return val;
+							},
 						}, {
 							header : '值',
-							dataIndex : 'value',
-							width : 150
+							dataIndex : 'CD003',
+							width : 150,
+							renderer: function(val, metaData){
+							    var CD001 = metaData.record.get('CD001');
+							    if(CD001 == 'CROSSEncodingState'){
+							       if(val == "-1")val='否';
+							       else val='是';
+							    }
+							    return val;
+							},
+		                    getEditor: function (record,defaultField) {
+		                    	var CD001 = record.get('CD001');
+		                    	if(CD001 == 'CROSSEncodingState'){
+		                    		return Ext.create('Ext.grid.CellEditor', {
+			                            field: {
+			                            	xtype : 'combo',
+			                    			name : 'yesNo-'+CD001,
+			                    			mode : 'local',
+			                    			store : new Ext.data.ArrayStore({
+			                    				fields : [ 'id', 'name' ],
+			                    				data : [ [ '-1', '否' ], [ '0', '是' ] ]
+			                    			}),
+			                    			valueField : 'id',
+			                    			displayField : 'name',
+			                    			editable : false,
+			                    			typeAhead : true,
+			                    			selectOnFocus : true,
+			                    			forceSelection: true
+			                            }
+			                        });
+		                    	}else{
+		                    		return Ext.create('Ext.grid.CellEditor', {
+			                            field: {
+			                                xtype: 'textfield'
+			                            }
+			                        });
+		                    	}
+		                    }
+						} ],
+						plugins : [ {
+							ptype : 'cellediting',
+							clicksToEdit : 1
 						} ]
-					} ]
+					}]
 				}, {
 					xtype : 'form',
 					id : 'vmSetting',
@@ -167,7 +214,51 @@ Ext.define('ConfigEdit.view.Viewport', {
 						border : 1,
 						iconCls : 'icon-refresh'
 					} ],
-					items : []
+					items : [{
+						xtype : 'textfield',
+						fieldLabel : '主機 IP',
+						id : 'APIP',
+						labelAlign : "right",
+						labelWidth : 120,
+						anchor : "30%",
+						allowBlank : false,
+						disabled : true,
+						margin : '10 0 0 0',
+						value : getGuardManagerNetCard
+					},{
+						xtype : 'textfield',
+						fieldLabel : 'Guard Manager IP',
+						id : 'GuardManagerIP',
+						labelAlign : "right",
+						labelWidth : 120,
+						anchor : "30%",
+						allowBlank : false,
+						disabled : true,
+						margin : '5 0 0 0',
+						value : getGuardManagerIP
+					},{
+						xtype : 'textfield',
+						fieldLabel : 'Guard Manager Port',
+						id : 'GuardManagerPort',
+						labelAlign : "right",
+						labelWidth : 120,
+						anchor : "30%",
+						allowBlank : false,
+						disabled : true,
+						margin : '5 0 0 0',
+						value : getGuardManagerPort
+					},{
+						xtype : 'textfield',
+						fieldLabel : '硬體資訊',
+						id : 'MachineCode',
+						labelAlign : "right",
+						labelWidth : 120,
+						anchor : "30%",
+						allowBlank : false,
+						disabled : true,
+						margin : '5 0 0 0',
+						value : getHardwareKey
+					}]
 				} ]
 	} ]
 });

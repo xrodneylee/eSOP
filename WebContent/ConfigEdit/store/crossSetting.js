@@ -2,7 +2,6 @@
  * 
  */
 Ext.define('ConfigEdit.store.crossSetting', {
-	id:'crossSettingStore',
 	extend : 'Ext.data.Store',
     autoLoad: true,
     proxy: {
@@ -25,7 +24,6 @@ Ext.define('ConfigEdit.store.crossSetting', {
     listeners: {
         // 讀取完資料後，進行 load 
         write: function(store, operation) {
-        	alert()
             store.load();
         }
     },
