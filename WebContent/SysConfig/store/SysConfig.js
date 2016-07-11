@@ -1,12 +1,12 @@
 /**
  * 
  */
-Ext.define('ConfigEdit.store.crossSetting', {
+Ext.define('SysConfig.store.SysConfig', {
 	extend : 'Ext.data.Store',
     autoLoad: true,
     proxy: {
         type: 'ajax',
-        url: '/eSOP/api/ajax/getConfigData/99',
+        url: '/eSOP/api/ajax/getConfigData/1',
         reader: {
             type: 'json',
             root: 'CONFIG'
@@ -27,5 +27,5 @@ Ext.define('ConfigEdit.store.crossSetting', {
             store.load();
         }
     },
-	model : 'ConfigEdit.model.crossSetting'
+	model : 'SysConfig.model.SysConfig'
 });

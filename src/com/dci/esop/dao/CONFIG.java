@@ -8,9 +8,9 @@ import com.dci.esop.sql.ConnectionManager;
 public class CONFIG {
 	ConnectionManager conm = new ConnectionManager();
 	
-	public String getConfigData(){
+	public String getConfigData(String cd006){
 		JSONObject jsonObj = new JSONObject();
-		String sql = " select CD001,CD003 from CONFIG WHERE CD006='99' ";
+		String sql = " select CD001,CD003 from CONFIG WHERE CD006='"+cd006+"' ";
 		jsonObj.put("CONFIG", conm.queryForList(sql, null));
 		return jsonObj.toString();
 	}
@@ -47,4 +47,8 @@ public class CONFIG {
 	public String getGuardManagerNetCard(){
     	return getSingleConfig("GuardManagerNetCard");
     }
+	
+	public String getMaxInactiveInterval(){
+		return getSingleConfig("maxInactiveInterval");
+	}
 }

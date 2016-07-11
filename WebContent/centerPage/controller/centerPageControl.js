@@ -13,14 +13,27 @@ Ext.define('centerPage.controller.centerPageControl', {
 			},
 			'#sysConfig' : {
 				click : this.onSysConfig
+			},
+			'#centerPage' : {
+				afterrender : this.onCenterPageAfterrender
+			},
+			'#mainTabPanel' : {
+				tabchange : this.onMainTabPanelTabchange
 			}
 		});
 	},
 	onLogout : function(){
-		window.location.replace('/eSOP');
+		doLogout();
 	},
 	onSysConfig : function(){
 		openOperation('SysConfig');
+	},
+	onCenterPageAfterrender : function(){
+		ActivityMonitor.init({verbose : false, maxInactive: maxInactiveInterval * 1000});
+		ActivityMonitor.start();
+	},
+	onMainTabPanelTabchange : function(tabPanel, newCard, oldCard, eOpts){
+		ActivityMonitor.lastActive = new Date();
 	}
 });
 function openOperation(OPID){
@@ -38,7 +51,7 @@ function openOperation(OPID){
 	}else if(OPID=='loginCreater'){
 		title='登入者代號建立';
 		src='';
-	}else if(OPID=='sysConfig'){
+	}else if(OPID=='SysConfig'){
 		title='系統設定';
 		src='/eSOP/SysConfig/SysConfig.jsp';
 	}
@@ -56,4 +69,14 @@ function openOperation(OPID){
 		);
 	}
 	Ext.getCmp('mainTabPanel').setActiveTab(pageNum);
+}
+
+function doLogout(){
+	window.location.replace('/eSOP');
+}
+
+function doSessionReload(){
+	console.log('doSessionReload');
+//	parent.ActivityMonitor.lastActive = new Date();
+	
 }
