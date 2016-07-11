@@ -4,6 +4,7 @@
 Ext.define('centerPage.view.Viewport', {
     extend: 'Ext.container.Viewport',
     requires: [],
+    id : 'centerPage',
     layout: 'border',
     items:[
 		{
@@ -43,15 +44,7 @@ Ext.define('centerPage.view.Viewport', {
 			xtype:'tabpanel',
 			id:'mainTabPanel',
 			activeTab:0,
-			width:'100%',
-			items:[
-//				{
-//					title:'工時紀錄作業',
-//					closable: true,
-//					id:'startPage',
-//					html:"<iframe scrolling=no frameborder=0 src='/KPI/DailyWorkReporting/DailyWorkReporting.jsp?userId="+userID+"' width=100% height=100% 	/>"
-//				}
-			]
+			width:'100%'
 		}
 	]
 });

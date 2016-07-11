@@ -131,10 +131,10 @@ public class ajaxController {
 	}
 	
 	@GET
-	@Path("/getConfigData")
-	public String getConfigData() {
+	@Path("/getConfigData/{cd006}")
+	public String getConfigData(@PathParam("cd006") String cd006) {
 		CONFIG CONFIG = new CONFIG();
-		return CONFIG.getConfigData();
+		return CONFIG.getConfigData(cd006);
 	}
 	
 	@POST

@@ -130,11 +130,10 @@ Ext.define('ConfigEdit.view.Viewport', {
 						id : 'crossSettingGrid',
 						store : 'crossSetting',
 						selType : 'cellmodel',
-						height : 500,
 						columns : [ {
 							header : '設定說明',
 							dataIndex : 'CD001',
-							width : 200,
+							width : 300,
 							renderer: function(val, metaData){
 						       if(val == "CROSSEncodingState")val='是否整合 CROSS'
 						       else if(val == "CROSSHostIP")val='CROSS 主機 IP 位置'
@@ -145,7 +144,7 @@ Ext.define('ConfigEdit.view.Viewport', {
 						}, {
 							header : '值',
 							dataIndex : 'CD003',
-							width : 150,
+							width : 250,
 							renderer: function(val, metaData){
 							    var CD001 = metaData.record.get('CD001');
 							    if(CD001 == 'CROSSEncodingState'){

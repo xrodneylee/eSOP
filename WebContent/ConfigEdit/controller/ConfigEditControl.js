@@ -1,6 +1,7 @@
 /**
  * 
  */
+var vpHeight_c1 =Ext.getBody().getViewSize().height;
 Ext.define('ConfigEdit.controller.ConfigEditControl', {
 	extend : 'Ext.app.Controller',
 	views : [],
@@ -34,6 +35,9 @@ Ext.define('ConfigEdit.controller.ConfigEditControl', {
 			},
 			'#vmSave' : {
 				click : this.onVmSave
+			},
+			'#crossSettingGrid' : {
+				afterrender : this.crossSettingGridAfterrender
 			}
 		});
 	},
@@ -200,5 +204,14 @@ Ext.define('ConfigEdit.controller.ConfigEditControl', {
 		    	Ext.Msg.alert('','儲存失敗');
 		    }
 		});
+	},
+	crossSettingGridAfterrender : function(component, eOpts){
+		Ext.getCmp("crossSettingGrid").setHeight(vpHeight_c1);
+		Ext.EventManager.onWindowResize(function(w, h) {
+			try {
+				Ext.getCmp("crossSettingGrid").setHeight(h);
+			} catch (e) {
+			}
+		}, this, true);
 	}
 });

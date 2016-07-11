@@ -5,8 +5,8 @@ Ext.application({
     name: 'SysConfig',
     appFolder: '../SysConfig',
     autoCreateViewport: true,
-	models : [],
-	stores : [],
+	models : ['SysConfig'],
+	stores : ['SysConfig'],
 	views : ['Viewport'],
 	controllers : ['SysConfigControl']
 });
