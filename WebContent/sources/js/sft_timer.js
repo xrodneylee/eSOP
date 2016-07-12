@@ -97,7 +97,7 @@ var ActivityMonitor = {
 				this.log('MAXIMUM INACTIVE TIME HAS BEEN REACHED');
 				this.stop();	// remove event listeners
 				this.isInactive();
-				doLogout();
+//				doLogout();
 			}
 			else {	// 目前已閒置的時間
 				var inactiveSec = inactive / 1000;					// 閒置時間(秒)
@@ -105,14 +105,14 @@ var ActivityMonitor = {
 				var intervalInactive = maxInactiveSec - inactiveSec;
 				
 				if (intervalInactive <= 30) {
-					Ext.MessageBox.show({
-		        	title: '系統登出提示',// JSP_0036_00018系統登出提示
-		        	width:200
-		        	});
-					Ext.MessageBox.updateText('系統將於' + parseInt(intervalInactive--) + '秒登出');// JSP_0036_00019系統將於,JSP_0036_00020秒登出
+//					Ext.MessageBox.show({
+//		        	title: '系統登出提示',// JSP_0036_00018系統登出提示
+//		        	width:200
+//		        	});
+//					Ext.MessageBox.updateText('系統將於' + parseInt(intervalInactive--) + '秒登出');// JSP_0036_00019系統將於,JSP_0036_00020秒登出
 				} else {
 					doSessionReload();
-					if(Ext.window.MessageBox.getDialog().title=='系統登出提示')Ext.MessageBox.hide();
+//					if(Ext.window.MessageBox.getDialog().title=='系統登出提示')Ext.MessageBox.hide();
 				}
 				
 //				this.isActive();

@@ -19,6 +19,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 			},
 			'#mainTabPanel' : {
 				tabchange : this.onMainTabPanelTabchange
+			},
+			'#stationKanban' : {
+				click : this.onStationKanban
 			}
 		});
 	},
@@ -27,6 +30,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 	},
 	onSysConfig : function(){
 		openOperation('SysConfig');
+	},
+	onStationKanban : function(){
+		openOperation('stationKanban');
 	},
 	onCenterPageAfterrender : function(){
 		ActivityMonitor.init({verbose : false, maxInactive: maxInactiveInterval * 1000});
@@ -41,7 +47,7 @@ function openOperation(OPID){
 	var src='';
 	if(OPID=='stationKanban'){
 		title='工位狀態總覽';
-		src='';
+		src='/eSOP/stationKanban/stationKanban.jsp';
 	}else if(OPID=='FileExplorer'){
 		title='檔案管理';
 		src='';

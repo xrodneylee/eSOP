@@ -23,6 +23,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
+import com.dci.esop.dao.ATTRIBUTE_LIST;
 import com.dci.esop.dao.CONFIG;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
@@ -110,6 +111,13 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/getStationKanban")
+	public String getStationKanban(@FormParam("data") String jsonObj) {
+		Station station = new Station();
+		return station.getStationKanban(jsonObj);
+	}
+	
+	@POST
 	@Path("/register")
 	public String register(@FormParam("data") String jsonObj) {
 		Station station = new Station();
@@ -149,6 +157,13 @@ public class ajaxController {
 	public String connectionTest() {
 		ConnectionManager conm = new ConnectionManager();
 		return conm.queryForSingleString(" SELECT '1' ", null);
+	}
+	
+	@POST
+	@Path("/getATTRIBUTE_LIST01")
+	public String  getATTRIBUTE_LIST01(@FormParam("data") String jsonObj) {
+		ATTRIBUTE_LIST ATTRIBUTE_LIST = new ATTRIBUTE_LIST();
+		return ATTRIBUTE_LIST.getATTRIBUTE_LIST01(jsonObj);
 	}
 	
 	@POST
