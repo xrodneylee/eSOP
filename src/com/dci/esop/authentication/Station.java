@@ -109,4 +109,24 @@ public class Station {
 		}
 		
 	}
+
+	public String getStationKanban(String jsonString) {
+		JSONObject queryInfo = JSONObject.fromObject(jsonString);
+		JSONObject resultInfo = new JSONObject();
+		String querySql = " SELECT ST001,ST002,ST006,ST007,ST009,ST010,SP003, "+
+						"	CASE WHEN ST006='N' THEN '失效'	 WHEN ST007='Y' THEN '上線'	 ELSE '離線' END AS STATUS "+
+						" 	FROM STATION "+
+						" 	JOIN SOP ON ST009=SP001 AND ST010=SP002 "+
+						" 	WHERE ST004=:ST004 AND ST005=:ST005 "+
+						"	ORDER BY ST001 ";
+		List list = conm.queryForList(querySql, queryInfo);
+		if(list.size() > 0){
+			resultInfo.put("result", "success");
+			resultInfo.put("record", list);
+		}else{
+			resultInfo.put("result", "failure");
+		}
+		
+		return resultInfo.toString();
+	}
 }
