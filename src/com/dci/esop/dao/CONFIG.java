@@ -51,4 +51,8 @@ public class CONFIG {
 	public String getMaxInactiveInterval(){
 		return getSingleConfig("maxInactiveInterval");
 	}
+	
+	public String getESOPFileRoute(){
+		return getSingleConfig("eSOPFileRoute");
+	}
 }

@@ -2,6 +2,7 @@
  * 
  */
 var vpHeight_c1 =Ext.getBody().getViewSize().height;
+var vpWidth_c1 =Ext.getBody().getViewSize().width;
 Ext.define('stationKanban.controller.stationKanbanControl', {
 	extend : 'Ext.app.Controller',
 	views : [],
@@ -35,12 +36,10 @@ Ext.define('stationKanban.controller.stationKanbanControl', {
 			areaWin.show();
     	};
     	
-    	Ext.getCmp("stationKanbanPanel").setHeight(vpHeight_c1);
-    	Ext.getCmp("stationKanban").setHeight(vpHeight_c1-50);
+    	Ext.getCmp("stationKanban").setHeight(vpHeight_c1);
 		Ext.EventManager.onWindowResize(function(w, h) {
 			try {
-				Ext.getCmp("stationKanbanPanel").setHeight(h);
-				Ext.getCmp("stationKanban").setHeight(h-50);
+				Ext.getCmp("stationKanban").setHeight(h);
 			} catch (e) {
 			}
 		}, this, true);
@@ -73,6 +72,7 @@ Ext.define('stationKanban.controller.stationKanbanControl', {
 		    				st007 : response.record[i].ST007,
 		    				st009 : response.record[i].ST009,
 		    				st010 : response.record[i].ST010,
+		    				sp003 : response.record[i].SP003,
 		    			}).create());
 		    		}
 		    	}else{
@@ -113,7 +113,7 @@ function factory_Win(){
         stripeRows: true,
         width:335,
         height:300,
-        tbar: ['工廠:', ' ',factoryTriggerField] // 員工代號
+        tbar: ['工廠:', ' ',factoryTriggerField]
     });
     factoryTriggerField.onTriggerClick=function(){
     	sql_fun(factoryTriggerField.getValue(),3);
@@ -136,7 +136,7 @@ function factory_Win(){
     });
     return factoryformwin;
 }
-
+//區域_跳窗_建置
 var area_Win_grid, areaWin;
 function area_Win(){
 	var areaTriggerField=getTriggerField('areaTriggerField');
@@ -164,7 +164,7 @@ function area_Win(){
         stripeRows: true,
         width:335,
         height:300,
-        tbar: ['工位區域:', ' ',areaTriggerField] // 員工代號
+        tbar: ['工位區域:', ' ',areaTriggerField]
     });
     areaTriggerField.onTriggerClick=function(){
     	sql_fun(areaTriggerField.getValue(),4);
@@ -205,7 +205,6 @@ function sql_fun(value,al001){
     	success : function(response){
 			response=Ext.decode(response.responseText);
 			if (response != null){
-//				if (factory_Win_grid!=undefined){
 				if(al001 == 3){
 					factory_Win_grid.store.removeAll();
 					factory_Win_grid.store.loadRawData(response, true);
@@ -213,16 +212,6 @@ function sql_fun(value,al001){
 					area_Win_grid.store.removeAll();
 					area_Win_grid.store.loadRawData(response, true);
 				}
-					
-//				}else{
-//					for (var i=0;i<response.ATTRIBUTE_LIST_01.length;i++){
-//						if (response.ATTRIBUTE_LIST_01[i].AUTH_ID==userID){
-//							userNAME=response.ATTRIBUTE_LIST_01[i].AUTH_NAME;
-//							Ext.getCmp("userName").setText(userNAME);
-//							reloadData(Ext.getCmp("workDate").getValue(),userID,userNAME);
-//						}
-//					}
-//				}
 			}
 		}
 	});

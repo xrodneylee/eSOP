@@ -4,14 +4,16 @@
 Ext.define('stationKanban.view.Viewport',{
 	extend : 'Ext.container.Viewport',
 	requires : [],
-	layout : 'fit',
-	border : false,
+	layout : 'border',
 	items : [{
 		xtype : 'panel',
 		id : 'stationKanbanPanel',
+		region: 'center',
+		layout: 'fit',
 		frame : true,
 		border : false,
 		autoScroll : true,
+		manageHeight : false,
 		tbar : [ {
 			xtype : 'triggerfield',
 			id : 'factory',
@@ -40,7 +42,6 @@ Ext.define('stationKanban.view.Viewport',{
 			id : 'stationKanban',
 			title : '工位狀態',
 			frame : true,
-			autoScroll : true,
 			layout : 'column',
 			margin : '5 0 0 0'
 		}]
