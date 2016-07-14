@@ -29,7 +29,7 @@ function stationObj(parameter){
 					xtype : 'panel',
 					width : 90,
 					height : 100,
-					html : "<a href='/eSOP/stationKanban/PDFLoader.jsp?fileName="+this.sp003+"' target='_blank'><img src='/eSOP/stationKanban/ImageLoader.jsp?fileName="+(this.sp003).split(".")[0]+".jpg' width='90px' height='100px' border='0'></a>"
+					html : "<a href='/eSOP/StationKanban/PDFLoader.jsp?fileName="+this.sp003+"' target='_blank'><img src='/eSOP/StationKanban/ImageLoader.jsp?fileName="+(this.sp003).split(".")[0]+".jpg' width='90px' height='100px' border='0'></a>"
 				},{
 					xtype : 'label',
 					width : 100,

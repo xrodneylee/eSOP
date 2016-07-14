@@ -1,7 +1,7 @@
 /**
  * 
  */
-Ext.define('stationKanban.view.Viewport',{
+Ext.define('StationKanban.view.Viewport',{
 	extend : 'Ext.container.Viewport',
 	requires : [],
 	layout : 'border',

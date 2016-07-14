@@ -22,6 +22,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 			},
 			'#stationKanban' : {
 				click : this.onStationKanban
+			},
+			'#loginCreater' : {
+				click : this.onLoginCreater
 			}
 		});
 	},
@@ -32,7 +35,10 @@ Ext.define('centerPage.controller.centerPageControl', {
 		openOperation('SysConfig');
 	},
 	onStationKanban : function(){
-		openOperation('stationKanban');
+		openOperation('StationKanban');
+	},
+	onLoginCreater : function(){
+		openOperation('LoginCreater');
 	},
 	onCenterPageAfterrender : function(){
 		ActivityMonitor.init({verbose : false, maxInactive: maxInactiveInterval * 1000});
@@ -45,18 +51,18 @@ Ext.define('centerPage.controller.centerPageControl', {
 function openOperation(OPID){
 	var title='';
 	var src='';
-	if(OPID=='stationKanban'){
+	if(OPID=='StationKanban'){
 		title='工位狀態總覽';
-		src='/eSOP/stationKanban/stationKanban.jsp';
+		src='/eSOP/StationKanban/StationKanban.jsp';
 	}else if(OPID=='FileExplorer'){
 		title='檔案管理';
 		src='';
 	}else if(OPID=='stationManager'){
 		title='工位管理';
 		src='';
-	}else if(OPID=='loginCreater'){
+	}else if(OPID=='LoginCreater'){
 		title='登入者代號建立';
-		src='';
+		src='/eSOP/LoginCreater/LoginCreater.jsp';
 	}else if(OPID=='SysConfig'){
 		title='系統設定';
 		src='/eSOP/SysConfig/SysConfig.jsp';

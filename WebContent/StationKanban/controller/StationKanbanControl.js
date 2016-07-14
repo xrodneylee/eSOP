@@ -3,7 +3,7 @@
  */
 var vpHeight_c1 =Ext.getBody().getViewSize().height;
 var vpWidth_c1 =Ext.getBody().getViewSize().width;
-Ext.define('stationKanban.controller.stationKanbanControl', {
+Ext.define('StationKanban.controller.StationKanbanControl', {
 	extend : 'Ext.app.Controller',
 	views : [],
 	stores : [],

@@ -25,6 +25,7 @@ import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
 import com.dci.esop.dao.ATTRIBUTE_LIST;
 import com.dci.esop.dao.CONFIG;
+import com.dci.esop.dao.PRINCIPAL;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
@@ -164,6 +165,13 @@ public class ajaxController {
 	public String  getATTRIBUTE_LIST01(@FormParam("data") String jsonObj) {
 		ATTRIBUTE_LIST ATTRIBUTE_LIST = new ATTRIBUTE_LIST();
 		return ATTRIBUTE_LIST.getATTRIBUTE_LIST01(jsonObj);
+	}
+	
+	@GET
+	@Path("/getPRINCIPAL")
+	public String getPRINCIPAL() {
+		PRINCIPAL PRINCIPAL = new PRINCIPAL();
+		return PRINCIPAL.getPRINCIPAL();
 	}
 	
 	@POST
