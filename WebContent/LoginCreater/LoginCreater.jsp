@@ -11,8 +11,7 @@
 <script type="text/javascript" src="../sources/extjs/ext-all.js"></script>
 <script type="text/javascript" src="../sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
-<script type="text/javascript" src="../stationKanban/util/stationNode.js"></script>
-<script type="text/javascript" src="../stationKanban/stationKanban.js"></script>
+<script type="text/javascript" src="../LoginCreater/LoginCreater.js"></script>
 
 </head>
 <body>
