@@ -7,29 +7,29 @@ import net.sf.json.JSONObject;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
 
-public class PRINCIPAL {
+public class STATION {
 
 	ConnectionManager conm = new ConnectionManager();
 	
-	public String getPRINCIPAL_all(){
+	public String getSTATION_all(){
 		JSONObject resultInfo = new JSONObject();
-		String querySql = " SELECT AUTH_ID, ISNULL(AUTH_NAME,'') AS AUTH_NAME, ISNULL(AUTH_PASSWORD,'') AS AUTH_PASSWORD FROM PRINCIPAL ";
+		String querySql = " SELECT ST001, ISNULL(ST002,'') AS ST002, ISNULL(ST006,'') AS ST006, ISNULL(ST004,'') AS ST004, ISNULL(ST005,'') AS ST005, ISNULL(ST003,'') AS ST003 FROM STATION ";
 		try {
 			List list = conm.queryForList(querySql, null);
-			resultInfo.put("PRINCIPAL", list);
+			resultInfo.put("STATION", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return resultInfo.toString();
 	}
 	
-	public String getPRINCIPAL_search(String jsonString){
+	public String getSTATION_search(String jsonString){
 		JSONObject queryInfo = JSONObject.fromObject(jsonString);
 		JSONObject resultInfo = new JSONObject();
-		String querySql = " SELECT AUTH_ID, ISNULL(AUTH_NAME,'') AS AUTH_NAME, ISNULL(AUTH_PASSWORD,'') AS AUTH_PASSWORD FROM PRINCIPAL WHERE 1=1 "+queryInfo.getString("wherecon");
+		String querySql = " SELECT ST001, ISNULL(ST002,'') AS ST002, ISNULL(ST006,'') AS ST006, ISNULL(ST004,'') AS ST004, ISNULL(ST005,'') AS ST005, ISNULL(ST003,'') AS ST003 FROM STATION WHERE 1=1 "+queryInfo.getString("wherecon");
 		try {
 			List list = conm.queryForList(querySql, null);
-			resultInfo.put("PRINCIPAL", list);
+			resultInfo.put("STATION", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,7 +39,7 @@ public class PRINCIPAL {
 	public String deleteUser(String jsonObj) {
 		JSONObject deleteInfo = JSONObject.fromObject(jsonObj);
 		JSONObject resultInfo = new JSONObject();
-		String deleteSql = " DELETE FROM PRINCIPAL WHERE AUTH_ID=:AUTH_ID ";
+		String deleteSql = " DELETE FROM STATION WHERE ST001=:ST001 ";
 		try {
 			conm.sqlUpdate(deleteSql, deleteInfo);
 			resultInfo.put("result", "success");
@@ -53,10 +53,10 @@ public class PRINCIPAL {
 	public String saveUser(String jsonObj) {
 		JSONObject saveInfo = JSONObject.fromObject(jsonObj);
 		JSONObject resultInfo = new JSONObject();
-		String saveSql = " INSERT INTO PRINCIPAL (AUTH_ID, AUTH_NAME, AUTH_PASSWORD) VALUES(:AUTH_ID, :AUTH_NAME, :AUTH_PASSWORD)";
+		String saveSql = " INSERT INTO STATION (ST001, ST002, ST003, ST004, ST005, ST006) VALUES(:ST001, :ST002, :ST003, :ST004, :ST005, :ST006)";
 		try {
-			if(conm.queryForSingleInteger(SqlFile.getCheckSqlFile("PRINCIPAL", "02"), saveInfo) > 0){
-				saveSql = " UPDATE PRINCIPAL SET AUTH_NAME=:AUTH_NAME, AUTH_PASSWORD=:AUTH_PASSWORD WHERE AUTH_ID=:AUTH_ID ";
+			if(conm.queryForSingleInteger(SqlFile.getCheckSqlFile("STATION", "01"), saveInfo) > 0){
+				saveSql = " UPDATE STATION SET ST002=:ST002, ST003=:ST003, ST004=:ST004, ST005=:ST005, ST006=:ST006 WHERE ST001=:ST001 ";
 			}
 			conm.sqlUpdate(saveSql, saveInfo);
 			resultInfo.put("result", "success");

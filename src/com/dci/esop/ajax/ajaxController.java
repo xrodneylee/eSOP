@@ -26,6 +26,7 @@ import com.dci.esop.authentication.UserCheck;
 import com.dci.esop.dao.ATTRIBUTE_LIST;
 import com.dci.esop.dao.CONFIG;
 import com.dci.esop.dao.PRINCIPAL;
+import com.dci.esop.dao.STATION;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
@@ -168,10 +169,59 @@ public class ajaxController {
 	}
 	
 	@GET
-	@Path("/getPRINCIPAL")
-	public String getPRINCIPAL() {
+	@Path("/getPRINCIPAL_all")
+	public String getPRINCIPAL_all() {
 		PRINCIPAL PRINCIPAL = new PRINCIPAL();
-		return PRINCIPAL.getPRINCIPAL();
+		return PRINCIPAL.getPRINCIPAL_all();
+	}
+	
+	@POST
+	@Path("/getPRINCIPAL_search")
+	public String getPRINCIPAL_search(@FormParam("data") String jsonObj) {
+		PRINCIPAL PRINCIPAL = new PRINCIPAL();
+		return PRINCIPAL.getPRINCIPAL_search(jsonObj);
+	}
+	
+	@POST
+	@Path("/deleteUser_PRINCIPAL")
+	public String deleteUser_PRINCIPAL(@FormParam("data") String jsonObj) {
+		PRINCIPAL PRINCIPAL = new PRINCIPAL();
+		return PRINCIPAL.deleteUser(jsonObj);
+	}
+	
+	@POST
+	@Path("/saveUser_PRINCIPAL")
+	public String saveUser_PRINCIPAL(@FormParam("data") String jsonObj) {
+		PRINCIPAL PRINCIPAL = new PRINCIPAL();
+		return PRINCIPAL.saveUser(jsonObj);
+	}
+	
+	@GET
+	@Path("/getSTATION_all")
+	public String getSTATION_all() {
+		STATION STATION = new STATION();
+		return STATION.getSTATION_all();
+	}
+	
+	@POST
+	@Path("/getSTATION_search")
+	public String getSTATION_search(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.getSTATION_search(jsonObj);
+	}
+	
+	@POST
+	@Path("/deleteUser_STATION")
+	public String deleteUser_STATION(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.deleteUser(jsonObj);
+	}
+	
+	@POST
+	@Path("/saveUser_STATION")
+	public String saveUser_STATION(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.saveUser(jsonObj);
 	}
 	
 	@POST

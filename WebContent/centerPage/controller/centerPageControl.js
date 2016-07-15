@@ -25,6 +25,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 			},
 			'#loginCreater' : {
 				click : this.onLoginCreater
+			},
+			'#stationManager' : {
+				click : this.onStationManager
 			}
 		});
 	},
@@ -39,6 +42,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 	},
 	onLoginCreater : function(){
 		openOperation('LoginCreater');
+	},
+	onStationManager : function(){
+		openOperation('StationManager');
 	},
 	onCenterPageAfterrender : function(){
 		ActivityMonitor.init({verbose : false, maxInactive: maxInactiveInterval * 1000});
@@ -57,9 +63,9 @@ function openOperation(OPID){
 	}else if(OPID=='FileExplorer'){
 		title='檔案管理';
 		src='';
-	}else if(OPID=='stationManager'){
+	}else if(OPID=='StationManager'){
 		title='工位管理';
-		src='';
+		src='/eSOP/StationManager/StationManager.jsp';
 	}else if(OPID=='LoginCreater'){
 		title='登入者代號建立';
 		src='/eSOP/LoginCreater/LoginCreater.jsp';
