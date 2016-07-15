@@ -1,13 +1,13 @@
 /**
  * 
  */
-Ext.define('LoginCreater.view.Viewport', {
+Ext.define('StationManager.view.Viewport', {
 	extend : 'Ext.container.Viewport',
 	requires : [],
 	layout : 'fit',
 	items : [ {
 		xtype : 'tabpanel',
-		id : 'LoginCreaterTabpanel',
+		id : 'StationManagerTabpanel',
 		activeTab : 0,
 		width : '100%',
 		items : [ {
@@ -103,18 +103,34 @@ Ext.define('LoginCreater.view.Viewport', {
 				autoScroll : true,
 				columnLines : true,
 				columns : [ {
-					header : '登入者代號',
-					dataIndex : 'AUTH_ID',
+					header : '工位編號',
+					dataIndex : 'ST001',
 					width : 150
 				}, {
-					header : '名稱',
-					dataIndex : 'AUTH_NAME',
+					header : '工位說明',
+					dataIndex : 'ST002',
 					width : 150
 				}, {
-					header : '密碼',
-					dataIndex : 'AUTH_PASSWORD',
+					header : '失效',
+					dataIndex : 'ST006',
 					width : 150,
-					hidden : true
+					renderer: function(val, metaData){
+				       if(val == "N")val='V';
+				       else val='';
+				       return val;
+					}
+				}, {
+					header : '區域',
+					dataIndex : 'ST004',
+					width : 150
+				}, {
+					header : '廠區',
+					dataIndex : 'ST005',
+					width : 150
+				}, {
+					header : 'MAC位址',
+					dataIndex : 'ST003',
+					width : 150
 				} ]
 			} ]
 		}, {
@@ -162,30 +178,60 @@ Ext.define('LoginCreater.view.Viewport', {
 			}],
 			items : [{
 				xtype : 'textfield',
-				fieldLabel : '登入者代號',
-				id : 'AUTH_ID',
+				fieldLabel : '工位編號',
+				id : 'ST001',
 				labelAlign : "left",
-				labelWidth : 80,
+				labelWidth : 60,
 				anchor : "25%",
 				allowBlank : false,
 				disabled : true,
 				margin : '10 0 0 0'
 			},{
 				xtype : 'textfield',
-				fieldLabel : '名稱',
-				id : 'AUTH_NAME',
+				fieldLabel : '工位說明',
+				id : 'ST002',
 				labelAlign : "left",
-				labelWidth : 80,
+				labelWidth : 60,
 				anchor : "25%",
 				disabled : true,
 				margin : '5 0 0 0'
 			},{
-				xtype : 'textfield',
-				fieldLabel : '密碼',
-				id : 'AUTH_PASSWORD',
-				inputType : "password",
+				xtype : 'checkbox',
+				fieldLabel : '失效',
+				id : 'ST006',
 				labelAlign : "left",
-				labelWidth : 80,
+				labelWidth : 60,
+				anchor : "25%",
+				disabled : true,
+				margin : '5 0 0 0'
+			},{
+				xtype : 'triggerfield',
+				fieldLabel : '區域',
+				id : 'ST004',
+				labelAlign : "left",
+				labelWidth : 60,
+				anchor : "25%",
+				disabled : true,
+				margin : '5 0 0 0',
+				editable : false,
+				triggerClass : 'x-form-search-trigger'
+			},{
+				xtype : 'triggerfield',
+				fieldLabel : '廠區',
+				id : 'ST005',
+				labelAlign : "left",
+				labelWidth : 60,
+				anchor : "25%",
+				disabled : true,
+				margin : '5 0 0 0',
+				editable : false,
+				triggerClass : 'x-form-search-trigger'
+			},{
+				xtype : 'textfield',
+				fieldLabel : 'MAC位址',
+				id : 'ST003',
+				labelAlign : "left",
+				labelWidth : 60,
 				anchor : "25%",
 				disabled : true,
 				margin : '5 0 0 0'

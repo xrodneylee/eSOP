@@ -1,13 +1,13 @@
-Ext.define('LoginCreater.store.browseJsonStore', {
+Ext.define('StationManager.store.browseJsonStore', {
 	id:'browseJsonStore',
 	extend : 'Ext.data.Store',
     autoLoad: true,
     proxy: {
         type: 'ajax',
-        url: '/eSOP/api/ajax/getPRINCIPAL_all',
+        url: '/eSOP/api/ajax/getSTATION_all',
         reader: {
             type: 'json',
-            root: 'PRINCIPAL'
+            root: 'STATION'
         },
         writer: {
             type: 'json'
@@ -25,5 +25,5 @@ Ext.define('LoginCreater.store.browseJsonStore', {
             store.load();
         }
     },
-	model : 'LoginCreater.model.browseModel'
+	model : 'StationManager.model.browseModel'
 });

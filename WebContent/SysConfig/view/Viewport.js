@@ -23,6 +23,7 @@ Ext.define('SysConfig.view.Viewport',{
 			id : 'SysConfigGrid',
 			store : 'SysConfig',
 			selType : 'cellmodel',
+			columnLines : true,
 			columns : [ {
 				header : '設定說明',
 				dataIndex : 'CD001',
