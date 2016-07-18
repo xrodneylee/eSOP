@@ -28,6 +28,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 			},
 			'#stationManager' : {
 				click : this.onStationManager
+			},
+			'#fileExplorer' : {
+				click : this.onFileExplorer
 			}
 		});
 	},
@@ -46,6 +49,9 @@ Ext.define('centerPage.controller.centerPageControl', {
 	onStationManager : function(){
 		openOperation('StationManager');
 	},
+	onFileExplorer : function(){
+		openOperation('FileExplorer');
+	},
 	onCenterPageAfterrender : function(){
 		ActivityMonitor.init({verbose : false, maxInactive: maxInactiveInterval * 1000});
 		ActivityMonitor.start();
@@ -62,7 +68,7 @@ function openOperation(OPID){
 		src='/eSOP/StationKanban/StationKanban.jsp';
 	}else if(OPID=='FileExplorer'){
 		title='檔案管理';
-		src='';
+		src='/eSOP/FileExplorer/FileExplorer.jsp';
 	}else if(OPID=='StationManager'){
 		title='工位管理';
 		src='/eSOP/StationManager/StationManager.jsp';

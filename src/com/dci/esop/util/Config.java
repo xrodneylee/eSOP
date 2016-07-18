@@ -13,12 +13,13 @@ import net.sf.json.JSONObject;
 public class Config extends Properties{
 	private static final long serialVersionUID = 2509826808934185629L;
 	private static Config instance = null;
-	private static String eSOP_Home=new File(".").getAbsolutePath();
+	private static String eSOP_Home=System.getenv("eSOP_HOME");;
 	
 	public static Config getInstance(){
 		if (instance == null) {
 			instance = new Config();
 			try {
+				if(eSOP_Home == null)eSOP_Home = new File(".").getAbsolutePath();
 				instance.load(new FileInputStream(eSOP_Home+"/database.conf.properties"));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

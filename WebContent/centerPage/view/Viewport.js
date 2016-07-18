@@ -17,7 +17,7 @@ Ext.define('centerPage.view.Viewport', {
 					text : '工位狀態總覽'
 				},'-',{
 					xtype : 'button',
-					id : 'FileExplorer',
+					id : 'fileExplorer',
 					text : '檔案管理'
 				},'-',{
 					xtype : 'button',
