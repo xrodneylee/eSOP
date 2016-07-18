@@ -146,12 +146,11 @@ Ext.define('FileExplorer.view.Viewport', {
 				id : 'import',
 				iconCls : 'icon-import'
 			} ],
+			selModel: {
+		        selType: 'checkboxmodel',
+		        showHeaderCheckbox: true
+		    },
 			columns : [ {
-				xtype : 'checkcolumn',
-				header : '',
-				dataIndex : 'chk',
-				width : 40
-			}, {
 				header : '歸檔',
 				dataIndex : 'exist',
 				width : 40

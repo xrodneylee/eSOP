@@ -31,7 +31,7 @@ Ext.define('SysConfig.view.Viewport',{
 				renderer: function(val, metaData){
 			       if(val == "logOffUserPw")val='踢除使用者密碼'
 			       else if(val == "eSOPFileRoute")val='實體檔案路徑'
-		    	   else if(val == "maxInactiveInterval")val='前端閒置超過時間自動登出WIP(單位：分鐘)'
+		    	   else if(val == "maxInactiveInterval")val='前端閒置超過時間自動登出eSOP(單位：分鐘)'
 	    		   else if(val == "checkFileInterval")val='工位檢查推播間隔(秒)'
 				    
 	    		   return val;
