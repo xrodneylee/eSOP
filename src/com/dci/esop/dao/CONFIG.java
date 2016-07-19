@@ -1,5 +1,8 @@
 package com.dci.esop.dao;
 
+import java.util.List;
+import java.util.Map;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -11,7 +14,16 @@ public class CONFIG {
 	public String getConfigData(String cd006){
 		JSONObject jsonObj = new JSONObject();
 		String sql = " select CD001,CD003 from CONFIG WHERE CD006='"+cd006+"' ";
-		jsonObj.put("CONFIG", conm.queryForList(sql, null));
+		List list = conm.queryForList(sql, null);
+		for(int i = 0; i < list.size(); i++){
+			Map record = (Map)list.get(i);
+			if(record.get("CD001").toString().equals("maxInactiveInterval")){
+				record.put("CD003", Long.parseLong(record.get("CD003").toString())/60);
+				list.set(i, record);
+				break;
+			}
+		}
+		jsonObj.put("CONFIG", list);
 		return jsonObj.toString();
 	}
 	

@@ -5,11 +5,22 @@
 <%@ page import="com.dci.esop.register.VirtualMachine" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-CONFIG CONFIG = new CONFIG();
-VirtualMachine vm = new VirtualMachine();
-InetAddress server = InetAddress.getLocalHost();
-String ServerIP = server.getHostAddress().toString();
-boolean isVm = vm.isVM();
+String ServerIP="",getGuardManagerNetCard="",getGuardManagerIP="",getGuardManagerPort="",getHardwareKey="";
+boolean isVm = false;
+try{
+	CONFIG CONFIG = new CONFIG();
+	VirtualMachine vm = new VirtualMachine();
+	InetAddress server = InetAddress.getLocalHost();
+	ServerIP = server.getHostAddress().toString();
+	isVm = vm.isVM();
+	getGuardManagerNetCard = CONFIG.getGuardManagerNetCard();
+	getGuardManagerIP = CONFIG.getGuardManagerIP();
+	getGuardManagerPort = CONFIG.getGuardManagerPort();
+	getHardwareKey = CONFIG.getHardwareKey();
+}catch(Exception e){
+	response.sendRedirect("/eSOP/databaseInfo/databaseInfo.jsp");
+}
+
 %>
 <html>
 <head>
@@ -28,12 +39,13 @@ boolean isVm = vm.isVM();
 </head>
 <body>
 <script type="text/javascript">
-var getGuardManagerNetCard='<%= CONFIG.getGuardManagerNetCard() %>';
+var getGuardManagerNetCard='<%= getGuardManagerNetCard %>';
 if(getGuardManagerNetCard == '')getGuardManagerNetCard='<%= ServerIP %>';
-var getGuardManagerIP='<%= CONFIG.getGuardManagerIP() %>';
-var getGuardManagerPort='<%= CONFIG.getGuardManagerPort() %>';
-var getHardwareKey='<%= CONFIG.getHardwareKey() %>';
+var getGuardManagerIP='<%= getGuardManagerIP %>';
+var getGuardManagerPort='<%= getGuardManagerPort %>';
+var getHardwareKey='<%= getHardwareKey %>';
 var isVm='<%= isVm %>'
+
 </script>
 </body>
 </html>
