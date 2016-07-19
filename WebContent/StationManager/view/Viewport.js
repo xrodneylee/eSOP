@@ -214,7 +214,7 @@ Ext.define('StationManager.view.Viewport', {
 				disabled : true,
 				margin : '5 0 0 0',
 				editable : false,
-				triggerClass : 'x-form-search-trigger'
+				triggerCls : 'x-form-search-trigger'
 			},{
 				xtype : 'triggerfield',
 				fieldLabel : '廠區',
@@ -225,7 +225,7 @@ Ext.define('StationManager.view.Viewport', {
 				disabled : true,
 				margin : '5 0 0 0',
 				editable : false,
-				triggerClass : 'x-form-search-trigger'
+				triggerCls : 'x-form-search-trigger'
 			},{
 				xtype : 'textfield',
 				fieldLabel : 'MAC位址',

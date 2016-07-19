@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.dci.esop.sql.ConnectionManager;
@@ -81,6 +82,23 @@ public class SOP {
 			resultInfo.put("SOP_01", new ArrayList());
 		}
 		
+		return resultInfo.toString();
+	}
+
+	public String deleteSOP(String jsonString) {
+		JSONArray deleteInfo = JSONArray.fromObject(jsonString);
+		JSONObject resultInfo = new JSONObject();
+		String deleteSql = " DELETE FROM SOP WHERE SP001=:SP001 AND SP002=:SP002 ";
+		try {
+			for(int i = 0; i < deleteInfo.size(); i++){
+				JSONObject record = deleteInfo.getJSONObject(i);
+				conm.sqlUpdate(deleteSql, record);
+			}
+			resultInfo.put("result", "success");
+		} catch (Exception e) {
+			resultInfo.put("result", "failure");
+			e.printStackTrace();
+		}
 		return resultInfo.toString();
 	}
 

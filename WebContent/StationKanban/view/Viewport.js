@@ -21,7 +21,7 @@ Ext.define('StationKanban.view.Viewport',{
 			labelWidth : 50,
 			labelAlign : 'right',
 			editable : false,
-			triggerClass : 'x-form-search-trigger'
+			triggerCls : 'x-form-search-trigger'
 		}, {
 			xtype : 'triggerfield',
 			id : 'area',
@@ -29,7 +29,7 @@ Ext.define('StationKanban.view.Viewport',{
 			labelWidth : 50,
 			labelAlign : 'right',
 			editable : false,
-			triggerClass : 'x-form-search-trigger'
+			triggerCls : 'x-form-search-trigger'
 		},"&nbsp", {
 			xtype : 'button',
 			text : '查詢',

@@ -240,6 +240,13 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/deleteSOP")
+	public String deleteSOP(@FormParam("data") String jsonObj) {
+		SOP SOP = new SOP();
+		return SOP.deleteSOP(jsonObj);
+	}
+	
+	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response uploadFile(
