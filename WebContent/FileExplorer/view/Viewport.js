@@ -13,7 +13,6 @@ Ext.define('FileExplorer.view.Viewport', {
 			xtype : 'fieldset',
 			title : '查詢區',
 			layout : 'vbox',
-//			collapsible: true,
 			items : [ {
 				layout : 'column',
 				border : false,
@@ -27,7 +26,7 @@ Ext.define('FileExplorer.view.Viewport', {
 					labelAlign : 'right',
 					editable : false,
 					width : 300,
-					triggerClass : 'x-form-search-trigger'
+					triggerCls : 'x-form-search-trigger'
 				}, {
 					xtype : 'triggerfield',
 					id : 'SP001',
@@ -36,7 +35,7 @@ Ext.define('FileExplorer.view.Viewport', {
 					labelAlign : 'right',
 					editable : false,
 					width : 300,
-					triggerClass : 'x-form-search-trigger'
+					triggerCls : 'x-form-search-trigger'
 				}, {
 					xtype : 'triggerfield',
 					id : 'AL002@1',
@@ -45,7 +44,7 @@ Ext.define('FileExplorer.view.Viewport', {
 					labelAlign : 'right',
 					editable : false,
 					width : 300,
-					triggerClass : 'x-form-search-trigger'
+					triggerCls : 'x-form-search-trigger'
 				} ]
 			}, {
 				layout : 'column',
@@ -60,7 +59,7 @@ Ext.define('FileExplorer.view.Viewport', {
 					labelAlign : 'right',
 					editable : false,
 					width : 300,
-					triggerClass : 'x-form-search-trigger'
+					triggerCls : 'x-form-search-trigger'
 				}, {
 					xtype : 'textfield',
 					id : 'SP004',
@@ -76,7 +75,7 @@ Ext.define('FileExplorer.view.Viewport', {
 					labelAlign : 'right',
 					editable : false,
 					width : 300,
-					triggerClass : 'x-form-search-trigger'
+					triggerCls : 'x-form-search-trigger'
 				} ]
 			}, {
 				layout : 'column',
@@ -146,6 +145,20 @@ Ext.define('FileExplorer.view.Viewport', {
 				id : 'import',
 				iconCls : 'icon-import'
 			} ],
+			plugins : [ {
+				ptype : 'cellediting',
+				clicksToEdit : 1,
+				listeners : {
+					beforeedit: function(editor, e, eOpts){
+						if(e.field == 'SP001' && e.record.get('exist') == 'Y'){
+							e.cancel = true;
+						}
+						if(e.field == 'SP002' && e.record.get('exist') == 'Y'){
+							e.cancel = true;
+						}
+					}
+				}
+			} ],
 			selModel: {
 		        selType: 'checkboxmodel',
 		        showHeaderCheckbox: true
@@ -157,7 +170,11 @@ Ext.define('FileExplorer.view.Viewport', {
 			}, {
 				header : '實體檔案',
 				dataIndex : 'SP003',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'fileuploadfield',
+					buttonText: '瀏覽...'
+				}
 			}, {
 				header : '檔案日期',
 				dataIndex : 'SP010',
@@ -165,35 +182,68 @@ Ext.define('FileExplorer.view.Viewport', {
 			}, {
 				header : '編號',
 				dataIndex : 'SP001',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
 			}, {
 				header : '版號',
 				dataIndex : 'SP002',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
 			}, {
 				header : '說明',
 				dataIndex : 'SP004',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
 			}, {
 				header : '品號',
 				dataIndex : 'SP005',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'triggerfield',
+					id : 'SP005_editor',
+					editable : false,
+					triggerCls : 'x-form-search-trigger'
+				}
 			}, {
 				header : '工序',
 				dataIndex : 'SP007',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'textfield'
+				}
 			}, {
 				header : '作業',
 				dataIndex : 'SP006',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'triggerfield',
+					id : 'SP006_editor',
+					editable : false,
+					triggerCls : 'x-form-search-trigger'
+				}
 			}, {
 				header : '順序',
 				dataIndex : 'SP008',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'numberfield'
+				}
 			}, {
 				header : '廠區',
 				dataIndex : 'SP009',
-				width : 150
+				width : 150,
+				editor : {
+					xtype : 'triggerfield',
+					id : 'SP009_editor',
+					editable : false,
+					triggerCls : 'x-form-search-trigger'
+				}
 			} ]
 		} ]
 	} ]
