@@ -172,8 +172,10 @@ Ext.define('FileExplorer.view.Viewport', {
 				dataIndex : 'SP003',
 				width : 150,
 				editor : {
-					xtype : 'fileuploadfield',
-					buttonText: '瀏覽...'
+					xtype : 'triggerfield',
+					id : 'SP003_editor',
+					editable : false,
+					triggerCls : 'x-form-search-trigger'
 				}
 			}, {
 				header : '檔案日期',

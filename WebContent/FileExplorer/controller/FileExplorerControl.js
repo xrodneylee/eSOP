@@ -30,6 +30,9 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 			'#save' : {
 				click : this.onSave
 			},
+			'#SP003_editor' : {
+				beforerender : this.SP003_editorBeforerender
+			},
 			'#SP005_editor' : {
 				beforerender : this.SP005_editorBeforerender
 			},
@@ -38,11 +41,24 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 			},
 			'#SP009_editor' : {
 				beforerender : this.SP009_editorBeforerender
+			},
+			'#upload' : {
+				click : this.onUpload
 			}
 		});
 	},
 	onbrowseGridPanelCellclick : function(component, td, cellIndex, record, tr, rowIndex, e, eOpts){
 		selectIndex = rowIndex;
+	},
+	SP003_editorBeforerender : function(component, eOpts){
+		// 實體檔案Trigger
+    	Ext.getCmp("SP003_editor").onTriggerClick=function(){
+    		if(sp003Win==undefined){
+    			sp003Win=sp003_Win_editor();
+    		}
+    		Ext.getCmp('uploadField').reset();
+    		sp003Win.show();
+    	};
 	},
 	SP005_editorBeforerender : function(component, eOpts){
 		// 品號Trigger
@@ -220,7 +236,50 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 	},
 	onSave : function(){
 		var data = Ext.getCmp('browseGridPanel').getStore().getRange();
-		console.log(data)
+		var saveInfo = new Array();
+		for(var i = 0; i < data.length; i++){
+			var record = new Object();
+			record.exist = data[i].get('exist');
+			record.SP001 = data[i].get('SP001');
+			record.SP002 = data[i].get('SP002');
+			record.SP003 = data[i].get('SP003');
+			record.SP004 = data[i].get('SP004');
+			record.SP005 = data[i].get('SP005');
+			record.SP006 = data[i].get('SP006');
+			record.SP007 = data[i].get('SP007');
+			record.SP008 = data[i].get('SP008');
+			record.SP009 = data[i].get('SP009');
+			record.SP010 = data[i].get('SP010');
+			record.USERID = userID;
+			saveInfo[i] = record;
+		}
+		Ext.Ajax.request({
+			waitMsg: 'Please wait...',
+			url : '/eSOP/api/ajax/saveSOP',
+		    method : "POST",
+		    params :{
+				data : Ext.encode(saveInfo)
+			},
+		    success : function (response) {
+//		    	response = Ext.decode(response.responseText);
+		    	Ext.getCmp("query").fireEvent('click', 0) ;
+		    	Ext.Msg.alert('','儲存成功');
+		    },
+		    failure : function (response) {
+		    	Ext.Msg.alert('','儲存失敗');
+		    }
+		});
+	},
+	onUpload : function(){
+		sp003_form.getForm().submit({
+            url: '/eSOP/api/ajax/upload',
+            waitMsg: '上傳中...'
+        });
+		var data = Ext.getCmp('browseGridPanel').getStore().getRange();
+		var path = Ext.getCmp('uploadField').getValue()
+		var fileName = path.substring(path.lastIndexOf('\\') + 1);
+        data[selectIndex].set("SP003", fileName);
+		sp003Win.hide();
 	}
 });
 //工廠_跳窗_建置
@@ -653,6 +712,38 @@ function sp001_Win(){
     });
     return sp001formwin;
 }
+var sp003Win,sp003_form;
+function sp003_Win_editor(){
+	sp003_form = Ext.create('Ext.form.Panel', {
+		id : 'sp003_form',
+		frame : true,
+		style : 'border-width: 0px;',
+		tbar : [{
+			xtype : 'button',
+			text : '上傳',
+			id : 'upload',
+			iconCls : 'icon-up'
+		}],
+		items: [{
+			xtype : 'fileuploadfield',
+			id : 'uploadField',
+			name : 'file',
+			buttonText: '瀏覽...',
+			allowBlank: false
+	    }],
+	});
+    var sp003formwin_editor= new Ext.Window({
+        width:300,
+        height:100,
+        closeAction:'hide', 
+        layout : 'fit',
+        plain: false,
+        items: sp003_form,
+        layout:'border',
+        title:'檔案上傳'
+    });
+    return sp003formwin_editor;
+}
 //ATTRIBUTE_LIST跳窗_上方查詢
 function sql_fun_attribute(value,al001,type){
     var dataObj=new Object();
@@ -694,36 +785,6 @@ function sql_fun_attribute(value,al001,type){
 					}
 				}
 				
-			}
-		}
-	});
-}
-function sql_fun_attribute_editor(value,al001){
-    var dataObj=new Object();
-    dataObj.Condition = " WHERE AL001 = '"+al001+"' AND AL002 LIKE '%"+value+"%' ";
-    Ext.Ajax.request({
-    	waitMsg: 'Please wait...',
-    	url: "/eSOP/api/ajax/getATTRIBUTE_LIST01",
-    	method:"POST",
-    	params:{
-    		data : Ext.encode(dataObj)
-    	},
-    	failure : function(xhr) {
-    		Ext.MessageBox.alert('Ajax error', 'Ajax request 發生錯誤' + xhr);
-    	},
-    	success : function(response){
-			response=Ext.decode(response.responseText);
-			if (response != null){
-//				if(al001 == 3){
-//					factory_Win_grid.store.removeAll();
-//					factory_Win_grid.store.loadRawData(response, true);
-//				}else if(al001 == 1){
-					item_Win_grid_editor.store.removeAll();
-					item_Win_grid_editor.store.loadRawData(response, true);
-//				}else if(al001 == 2){
-//					operation_Win_grid.store.removeAll();
-//					operation_Win_grid.store.loadRawData(response, true);
-//				}
 			}
 		}
 	});
