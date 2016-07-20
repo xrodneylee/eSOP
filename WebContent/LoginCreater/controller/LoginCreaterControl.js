@@ -204,6 +204,7 @@ Ext.define('LoginCreater.controller.LoginCreaterControl', {
     	saveInfo.AUTH_ID = Ext.getCmp('AUTH_ID').getValue();
     	saveInfo.AUTH_NAME = Ext.getCmp('AUTH_NAME').getValue();
     	saveInfo.AUTH_PASSWORD = Ext.getCmp('AUTH_PASSWORD').getValue();
+    	saveInfo.USERID = userID;
     	
     	Ext.Ajax.request({
 			waitMsg: 'Please wait...',

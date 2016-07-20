@@ -1,5 +1,7 @@
 package com.dci.esop.authentication;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,9 +79,11 @@ public class Station {
 	}
 	
 	public String register(String jsonString){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		JSONObject registerInfo = JSONObject.fromObject(jsonString);
 		JSONObject resultInfo = new JSONObject();
-		String insertSql = "INSERT INTO STATION (ST001, ST002, ST003, ST004, ST005) VALUES(:ST001, :ST002, :ST003, :ST004, :ST005)";
+		registerInfo.put("DATE", sdf.format(new Date()));
+		String insertSql = "INSERT INTO STATION (CREATER, CREATE_DATE, MODEIFIER, MODI_DATE, FLAG, ST001, ST002, ST003, ST004, ST005) VALUES('註冊', :DATE, '註冊', :DATE, 0, :ST001, :ST002, :ST003, :ST004, :ST005)";
 		conm.setAutoCommit(false);
 		try {
 			conm.sqlUpdate(insertSql, registerInfo);
