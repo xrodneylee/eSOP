@@ -13,8 +13,13 @@
 
 <script type="text/javascript" src="../StationManager/StationManager.js"></script>
 
+<%
+	String userId=request.getParameter("userId");
+%>
 </head>
 <body>
-
+<script language="JavaScript" type="text/JavaScript">
+	var userID="<%=userId%>";
+</script>
 </body>
 </html>

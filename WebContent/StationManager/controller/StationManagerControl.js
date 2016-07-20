@@ -248,6 +248,7 @@ Ext.define('StationManager.controller.StationManagerControl', {
     	saveInfo.ST003 = Ext.getCmp('ST003').getValue();
     	saveInfo.ST004 = Ext.getCmp('ST004').getValue();
     	saveInfo.ST005 = Ext.getCmp('ST005').getValue();
+    	saveInfo.USERID = userID;
     	if(Ext.getCmp('ST006').getValue()){
     		saveInfo.ST006 = 'N';
     	}else{

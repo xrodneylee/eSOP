@@ -1,5 +1,7 @@
 package com.dci.esop.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import net.sf.json.JSONObject;
@@ -51,12 +53,14 @@ public class PRINCIPAL {
 	}
 
 	public String saveUser(String jsonObj) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		JSONObject saveInfo = JSONObject.fromObject(jsonObj);
 		JSONObject resultInfo = new JSONObject();
-		String saveSql = " INSERT INTO PRINCIPAL (AUTH_ID, AUTH_NAME, AUTH_PASSWORD) VALUES(:AUTH_ID, :AUTH_NAME, :AUTH_PASSWORD)";
+		saveInfo.put("DATE", sdf.format(new Date()));
+		String saveSql = " INSERT INTO PRINCIPAL (CREATER, CREATE_DATE, MODEIFIER, MODI_DATE, FLAG, AUTH_ID, AUTH_NAME, AUTH_PASSWORD) VALUES(:USERID, :DATE, :USERID, :DATE, 0, :AUTH_ID, :AUTH_NAME, :AUTH_PASSWORD)";
 		try {
 			if(conm.queryForSingleInteger(SqlFile.getCheckSqlFile("PRINCIPAL", "02"), saveInfo) > 0){
-				saveSql = " UPDATE PRINCIPAL SET AUTH_NAME=:AUTH_NAME, AUTH_PASSWORD=:AUTH_PASSWORD WHERE AUTH_ID=:AUTH_ID ";
+				saveSql = " UPDATE PRINCIPAL SET MODEIFIER=:USERID, MODI_DATE=:DATE, FLAG=FLAG+1, AUTH_NAME=:AUTH_NAME, AUTH_PASSWORD=:AUTH_PASSWORD WHERE AUTH_ID=:AUTH_ID ";
 			}
 			conm.sqlUpdate(saveSql, saveInfo);
 			resultInfo.put("result", "success");
