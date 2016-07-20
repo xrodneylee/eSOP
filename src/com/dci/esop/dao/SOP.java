@@ -4,6 +4,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,7 +49,8 @@ public class SOP {
 				+"        								  SP008,  " 
 				+"        ISNULL(SP009,'')             AS SP009,  " 
 				+"        convert(varchar, SP010, 112)    SP010,  " 
-				+"        'Y'                          AS exist  " 
+				+"        'Y'                          AS exist,  "
+				+"        convert(varchar, MODI_DATE, 120) MODI_DATE " 
 				+"FROM  " 
 				+"        SOP  " 
 				+"WHERE   1=1 ";
@@ -102,4 +104,80 @@ public class SOP {
 		return resultInfo.toString();
 	}
 
+	public void saveSOP(String jsonString) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		JSONArray saveInfo = JSONArray.fromObject(jsonString);
+		String insertSql = getInsertSql();
+		String updateSql = getUpdateSql();
+		for(int i = 0; i < saveInfo.size(); i++){
+			JSONObject record = saveInfo.getJSONObject(i);
+			record.put("DATE", sdf.format(new Date()));
+			if(record.getString("exist").equals("Y")){
+				conm.sqlUpdate(updateSql, record);
+			}else{
+				conm.sqlUpdate(insertSql, record);
+			}
+		}
+	}
+
+	private String getInsertSql(){
+		String insertSql = "" 
+				+"INSERT INTO SOP  " 
+				+"        (  " 
+				+"                CREATER    ,  " 
+				+"                CREATE_DATE,  " 
+				+"                MODEIFIER  ,  " 
+				+"                MODI_DATE  ,  " 
+				+"                FLAG       ,  " 
+				+"                SP001      ,  " 
+				+"                SP002      ,  " 
+				+"                SP003      ,  " 
+				+"                SP004      ,  " 
+				+"                SP005      ,  " 
+				+"                SP006      ,  " 
+				+"                SP007      ,  " 
+				+"                SP008      ,  " 
+				+"                SP009      ,  " 
+				+"                SP010  " 
+				+"        )  " 
+				+"        VALUES  " 
+				+"        (  " 
+				+"                :USERID     ,  " 
+				+"                :DATE,  " 
+				+"                :USERID     ,  " 
+				+"                :DATE  ,  " 
+				+"                0           ,  " 
+				+"                :SP001      ,  " 
+				+"                :SP002      ,  " 
+				+"                :SP003      ,  " 
+				+"                :SP004      ,  " 
+				+"                :SP005      ,  " 
+				+"                :SP006      ,  " 
+				+"                :SP007      ,  " 
+				+"                :SP008      ,  " 
+				+"                :SP009      ,  " 
+				+"                :SP010  " 
+				+"        )";
+		return insertSql;
+	}
+	
+	private String getUpdateSql(){
+		String updateSql = "" 
+					+"UPDATE  " 
+					+"        SOP  " 
+					+"SET     MODEIFIER=:USERID   ,  " 
+					+"        MODI_DATE=:DATE     ,  " 
+					+"        FLAG     =FLAG+1    ,  " 
+					+"        SP003    =:SP003    ,  " 
+					+"        SP004    =:SP004    ,  " 
+					+"        SP005    =:SP005    ,  " 
+					+"        SP006    =:SP006    ,  " 
+					+"        SP007    =:SP007    ,  " 
+					+"        SP008    =:SP008    ,  " 
+					+"        SP009    =:SP009    ,  " 
+					+"        SP010    =:SP010  " 
+					+"WHERE   SP001    =:SP001  " 
+					+"        AND SP002=:SP002";
+		return updateSql;
+	}
 }

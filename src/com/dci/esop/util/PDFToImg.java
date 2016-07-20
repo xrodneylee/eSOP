@@ -26,7 +26,7 @@ public class PDFToImg {
         	List pages = doc.getDocumentCatalog().getAllPages();
             PDPage page = (PDPage) pages.get(0);
             BufferedImage image = page.convertToImage();
-			ImageIO.write(image, "jpg", new File(imageFile + File.separator + fileName.split(".")[0] + ".jpg"));
+			ImageIO.write(image, "jpg", new File(CONFIG.getESOPFileRoute()+"images" + File.separator + fileName.replace(".pdf",".jpg")));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{
