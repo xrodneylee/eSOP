@@ -44,6 +44,15 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 			},
 			'#upload' : {
 				click : this.onUpload
+			},
+			'#export' : {
+				click : this.onExport
+			},
+			'#import' : {
+				click : this.onImport
+			},
+			'#importFile' : {
+				click : this.onImportFile
 			}
 		});
 	},
@@ -182,7 +191,11 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 	onAdd : function(){
 		var store = Ext.getCmp('browseGridPanel').getStore();
     	var data = store.getRange();
-    	var p = [{'exist':'','SP003':'','SP010':'','SP001':'','SP002':'','SP004':'',
+    	var now = new Date();
+    	var Y = now.getFullYear()+'';
+    	var M = paddingLeft((now.getMonth()+1)+'',2);
+    	var D = paddingLeft(now.getDate()+'',2);
+    	var p = [{'exist':'','SP003':'','SP010':Y+M+D,'SP001':'','SP002':'','SP004':'',
 			  'SP005':'','SP007':'','SP006':'','SP008':'0','SP009':''}];
     	store.insert(data.length, p);
 	},
@@ -261,7 +274,6 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 				data : Ext.encode(saveInfo)
 			},
 		    success : function (response) {
-//		    	response = Ext.decode(response.responseText);
 		    	Ext.getCmp("query").fireEvent('click', 0) ;
 		    	Ext.Msg.alert('','儲存成功');
 		    },
@@ -280,6 +292,48 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 		var fileName = path.substring(path.lastIndexOf('\\') + 1);
         data[selectIndex].set("SP003", fileName);
 		sp003Win.hide();
+	},
+	onImport : function(){
+		if(importWin==undefined){
+			importWin=import_Win_editor();
+		}
+		Ext.getCmp('importField').reset();
+		importWin.show();
+	},
+	onImportFile : function(){
+		
+	},
+	onExport : function(){
+		var data = Ext.getCmp('browseGridPanel').getStore().getRange();
+		var exportInfo = new Array();
+		for(var i = 0; i < data.length; i++){
+			var record = new Object();
+			record.SP001 = data[i].get('SP001');
+			record.SP002 = data[i].get('SP002');
+			record.SP003 = data[i].get('SP003');
+			record.SP004 = data[i].get('SP004');
+			record.SP005 = data[i].get('SP005');
+			record.SP006 = data[i].get('SP006');
+			record.SP007 = data[i].get('SP007');
+			record.SP008 = data[i].get('SP008');
+			record.SP009 = data[i].get('SP009');
+			record.SP010 = data[i].get('SP010');
+			exportInfo[i] = record;
+		}
+		Ext.Ajax.request({
+			waitMsg: 'Please wait...',
+			url : '/eSOP/api/ajax/exportSOP',
+		    method : "POST",
+		    params :{
+				data : Ext.encode(exportInfo)
+			},
+		    success : function (response) {
+		    	window.open("../"+response.responseText, "viewReport");
+		    },
+		    failure : function (response) {
+		    	Ext.Msg.alert('','匯出失敗');
+		    }
+		});
 	}
 });
 //工廠_跳窗_建置
@@ -743,6 +797,38 @@ function sp003_Win_editor(){
         title:'檔案上傳'
     });
     return sp003formwin_editor;
+}
+var importWin,import_form;
+function import_Win_editor(){
+	import_form = Ext.create('Ext.form.Panel', {
+		id : 'import_form',
+		frame : true,
+		style : 'border-width: 0px;',
+		tbar : [{
+			xtype : 'button',
+			text : '匯入',
+			id : 'importFile',
+			iconCls : 'icon-up'
+		}],
+		items: [{
+			xtype : 'fileuploadfield',
+			id : 'importField',
+			name : 'file',
+			buttonText: '瀏覽...',
+			allowBlank: false
+	    }],
+	});
+    var importformwin_editor= new Ext.Window({
+        width:300,
+        height:100,
+        closeAction:'hide', 
+        layout : 'fit',
+        plain: false,
+        items: import_form,
+        layout:'border',
+        title:'檔案匯入'
+    });
+    return importformwin_editor;
 }
 //ATTRIBUTE_LIST跳窗_上方查詢
 function sql_fun_attribute(value,al001,type){

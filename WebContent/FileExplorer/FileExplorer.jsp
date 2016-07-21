@@ -12,6 +12,7 @@
 <script type="text/javascript" src="../sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
 <script type="text/javascript" src="../FileExplorer/FileExplorer.js"></script>
+<script type="text/javascript" src="../util/eSOP_util.js"></script>
 
 <%
 	String userId=request.getParameter("userId");
