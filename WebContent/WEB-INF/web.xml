@@ -13,7 +13,13 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
-
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>eSOP.root</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.dci.esop.ApplicationListener</listener-class>
+	</listener>
 	<servlet>
 		<servlet-name>JerseyAPI</servlet-name>
 		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>

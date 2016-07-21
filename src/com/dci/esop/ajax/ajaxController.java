@@ -261,6 +261,13 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/exportSOP")
+	public String exportSOP(@FormParam("data") String jsonObj) {
+		SOP SOP = new SOP();
+		return SOP.exportSOP(jsonObj);
+	}
+	
+	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public String uploadFile(
