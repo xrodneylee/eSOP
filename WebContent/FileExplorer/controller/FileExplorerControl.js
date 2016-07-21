@@ -301,7 +301,21 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 		importWin.show();
 	},
 	onImportFile : function(){
-		
+		import_form.getForm().submit({
+			url: 'receive.jsp',
+	        waitMsg: '匯入中...',
+	        success: function(import_form, o){
+	        	var result = Ext.decode(o.response.responseText);
+	        	console.log(result)
+	        	Ext.getCmp('browseGridPanel').getStore().removeAll();
+				Ext.getCmp('browseGridPanel').getStore().loadData(result.msg.eSOP);
+				importWin.hide();
+	        },
+			failure: function(import_form, o){
+				var result = Ext.decode(o.response.responseText);
+				alert('匯入失敗:\n'+result.msg);
+	        }
+	    });
 	},
 	onExport : function(){
 		var data = Ext.getCmp('browseGridPanel').getStore().getRange();
