@@ -249,14 +249,10 @@ public class SOP {
 		Cell c = null;
 		
 		
-		JSONObject resultObj = new JSONObject();
-		JSONArray records = new JSONArray();
+		JSONObject resultObj= new JSONObject();		JSONArray records = new JSONArray();
 		
 		try{
 			FileInputStream fis = new FileInputStream(uploadFile);
-//			if(!fileName.split(".xls")[0].matches("^[a-zA-Z0-9_]+$")){
-//				throw new Exception("Excel檔名只允許英文及數字及底線");
-//			}
 			if(uploadFile.getPath().substring(uploadFile.getPath().lastIndexOf(".")).toLowerCase().equals(".xlsx")){
 //				readWorkbook = new XSSFWorkbook (fis);
 //				int sNo = readWorkbook.getNumberOfSheets();	//該檔案中有幾個sheet(幾個箱號)
@@ -295,21 +291,53 @@ public class SOP {
 				readWorkbook = new HSSFWorkbook(fis);
 				sheet = readWorkbook.getSheetAt(0);
 				int rNo = sheet.getPhysicalNumberOfRows(); //取得列總數
-				for(int i = 0; i < rNo; i++) {
+				for(int i = 1; i < rNo; i++) {
 					JSONObject record = new JSONObject();
 					row = (HSSFRow)sheet.getRow(i);//先取出列
 					int cNo = 10; //確認只有10個欄位
 					for(int j = 0; j < cNo; j++){
-						record.put("SP001",row.getCell(2).getStringCellValue());
-						record.put("SP002",row.getCell(3).getStringCellValue());
-						record.put("SP003",row.getCell(0).getStringCellValue());
-						record.put("SP004",row.getCell(4).getStringCellValue());
-						record.put("SP005",row.getCell(5).getStringCellValue());
-						record.put("SP006",row.getCell(7).getStringCellValue());
-						record.put("SP007",row.getCell(6).getStringCellValue());
-						record.put("SP008",row.getCell(8).getStringCellValue());
-						record.put("SP009",row.getCell(9).getStringCellValue());
-						record.put("SP010",row.getCell(1).getStringCellValue());
+						if(row.getCell(2).getStringCellValue() == null){
+							record.put("SP001","");
+						}else{
+							record.put("SP001",row.getCell(2).getStringCellValue());
+						}
+						if(row.getCell(3).getStringCellValue() == null){
+							record.put("SP002","");
+						}else{
+							record.put("SP002",row.getCell(3).getStringCellValue());
+						}
+						if(row.getCell(0).getStringCellValue() == null){
+							record.put("SP003","");
+						}else{
+							record.put("SP003",row.getCell(0).getStringCellValue());
+						}
+						if(row.getCell(4).getStringCellValue() == null){
+							record.put("SP004","");
+						}else{
+							record.put("SP004",row.getCell(4).getStringCellValue());
+						}
+						if(row.getCell(5).getStringCellValue() == null){
+							record.put("SP005","");
+						}else{
+							record.put("SP005",row.getCell(5).getStringCellValue());
+						}
+						if(row.getCell(7).getStringCellValue() == null){
+							record.put("SP006","");
+						}else{
+							record.put("SP006",row.getCell(7).getStringCellValue());
+						}
+						record.put("SP007",row.getCell(6).getNumericCellValue());
+						record.put("SP008",row.getCell(8).getNumericCellValue());
+						if(row.getCell(9).getStringCellValue() == null){
+							record.put("SP009","");
+						}else{
+							record.put("SP009",row.getCell(9).getStringCellValue());
+						}
+						if(row.getCell(1).getStringCellValue() == null){
+							record.put("SP010","");
+						}else{
+							record.put("SP010",row.getCell(1).getStringCellValue());
+						}
 					}
 					records.add(record);
 				}
