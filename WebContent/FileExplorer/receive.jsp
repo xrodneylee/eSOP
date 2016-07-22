@@ -36,7 +36,6 @@ if (isMultipart) {
                     itename = item.getName().substring(index,item.getName().length());
                 else
                     itename = item.getName();
-                System.out.println("PATH==========="+repository.getPath() + "\\" + itename);
                 File file = new File( repository.getPath() + "\\" + itename);
                 item.write(file);  
                 

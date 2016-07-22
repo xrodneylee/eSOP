@@ -246,47 +246,38 @@ public class SOP {
 		Workbook readWorkbook = null;
 		Sheet sheet = null;
 		Row row = null;
-		Cell c = null;
-		
 		
 		JSONObject resultObj= new JSONObject();		JSONArray records = new JSONArray();
 		
 		try{
+			String checkSql = SqlFile.getCheckSqlFile("SOP", "01");
 			FileInputStream fis = new FileInputStream(uploadFile);
 			if(uploadFile.getPath().substring(uploadFile.getPath().lastIndexOf(".")).toLowerCase().equals(".xlsx")){
-//				readWorkbook = new XSSFWorkbook (fis);
-//				int sNo = readWorkbook.getNumberOfSheets();	//該檔案中有幾個sheet(幾個箱號)
-//				if(sNo > 50) throw new Exception("Excel Sheet最多為50頁！");
-//				for(int i = 0; i < sNo; i++){	//走訪所有sheet
-//					JSONObject sheetObj = new JSONObject();
-//					JSONArray BoxNoLINEAry = new JSONArray();
-//					sheet = readWorkbook.getSheetAt(i);
-//					sheetObj.put("BoxNo",sheet.getSheetName());
-//					int rNo = sheet.getPhysicalNumberOfRows(); //取得列總數
-//					List colName = new ArrayList();
-//					for(int j = 0; j < rNo; j++) {
-//						JSONObject rowObj = new JSONObject();
-//						row = (XSSFRow)sheet.getRow(j);//先取出列
-//						int cNo = 4; //確認只有4個欄位，LotNo、SN、DATE、USER
-//						for(int k = 0; k < cNo; k++){
-//							if(j == 0){
-//								colName.add(row.getCell(k).toString());
-//								if(!row.getCell(0).toString().equals("LotNo"))throw new Exception("資料格式不符，請檢視欄位是否符合規格！");
-//								if(!row.getCell(1).toString().equals("SN"))throw new Exception("資料格式不符，請檢視欄位是否符合規格！");
-//								if(!row.getCell(2).toString().equals("DATE"))throw new Exception("資料格式不符，請檢視欄位是否符合規格！");
-//								if(!row.getCell(3).toString().equals("USER"))throw new Exception("資料格式不符，請檢視欄位是否符合規格！");
-//							}else{
-//								rowObj.put(colName.get(k),row.getCell(k).toString());
-//							}
-//						}
-//						if(j > 0)
-//							BoxNoLINEAry.add(rowObj);
-//					}
-//					sheetObj.put("BoxNoLINE",BoxNoLINEAry);
-//					ExcelAry.add(sheetObj);
-//				}
-//				System.out.println(ExcelAry.toString());
-			
+				readWorkbook = new XSSFWorkbook(fis);
+				sheet = readWorkbook.getSheetAt(0);
+				int rNo = sheet.getPhysicalNumberOfRows(); //取得列總數
+				for(int i = 1; i < rNo; i++) {
+					JSONObject record = new JSONObject();
+					row = (XSSFRow)sheet.getRow(i);//先取出列
+					
+					record.put("SP001",getCellValue(row,2));
+					record.put("SP002",getCellValue(row,3));
+					record.put("SP003",getCellValue(row,0));
+					record.put("SP004",getCellValue(row,4));
+					record.put("SP005",getCellValue(row,5));
+					record.put("SP006",getCellValue(row,7));
+					record.put("SP007",getCellValue(row,6));
+					record.put("SP008",getCellValue(row,8));
+					record.put("SP009",getCellValue(row,9));
+					record.put("SP010",getCellValue(row,1));
+						
+					if(conm.queryForSingleInteger(checkSql, record) > 0){
+						record.put("exist","Y");
+					}
+					
+					records.add(record);
+				}
+				fis.close();
 			}else if(uploadFile.getPath().substring(uploadFile.getPath().lastIndexOf(".")).toLowerCase().equals(".xls")){
 				readWorkbook = new HSSFWorkbook(fis);
 				sheet = readWorkbook.getSheetAt(0);
@@ -294,51 +285,22 @@ public class SOP {
 				for(int i = 1; i < rNo; i++) {
 					JSONObject record = new JSONObject();
 					row = (HSSFRow)sheet.getRow(i);//先取出列
-					int cNo = 10; //確認只有10個欄位
-					for(int j = 0; j < cNo; j++){
-						if(row.getCell(2).getStringCellValue() == null){
-							record.put("SP001","");
-						}else{
-							record.put("SP001",row.getCell(2).getStringCellValue());
-						}
-						if(row.getCell(3).getStringCellValue() == null){
-							record.put("SP002","");
-						}else{
-							record.put("SP002",row.getCell(3).getStringCellValue());
-						}
-						if(row.getCell(0).getStringCellValue() == null){
-							record.put("SP003","");
-						}else{
-							record.put("SP003",row.getCell(0).getStringCellValue());
-						}
-						if(row.getCell(4).getStringCellValue() == null){
-							record.put("SP004","");
-						}else{
-							record.put("SP004",row.getCell(4).getStringCellValue());
-						}
-						if(row.getCell(5).getStringCellValue() == null){
-							record.put("SP005","");
-						}else{
-							record.put("SP005",row.getCell(5).getStringCellValue());
-						}
-						if(row.getCell(7).getStringCellValue() == null){
-							record.put("SP006","");
-						}else{
-							record.put("SP006",row.getCell(7).getStringCellValue());
-						}
-						record.put("SP007",row.getCell(6).getNumericCellValue());
-						record.put("SP008",row.getCell(8).getNumericCellValue());
-						if(row.getCell(9).getStringCellValue() == null){
-							record.put("SP009","");
-						}else{
-							record.put("SP009",row.getCell(9).getStringCellValue());
-						}
-						if(row.getCell(1).getStringCellValue() == null){
-							record.put("SP010","");
-						}else{
-							record.put("SP010",row.getCell(1).getStringCellValue());
-						}
+					
+					record.put("SP001",getCellValue(row,2));
+					record.put("SP002",getCellValue(row,3));
+					record.put("SP003",getCellValue(row,0));
+					record.put("SP004",getCellValue(row,4));
+					record.put("SP005",getCellValue(row,5));
+					record.put("SP006",getCellValue(row,7));
+					record.put("SP007",getCellValue(row,6));
+					record.put("SP008",getCellValue(row,8));
+					record.put("SP009",getCellValue(row,9));
+					record.put("SP010",getCellValue(row,1));
+						
+					if(conm.queryForSingleInteger(checkSql, record) > 0){
+						record.put("exist","Y");
 					}
+					
 					records.add(record);
 				}
 				fis.close();
@@ -352,5 +314,23 @@ public class SOP {
 		resultObj.put("eSOP", records);
 		
 		return resultObj.toString();
+	}
+	
+	private String getCellValue(Row row, int cell_index){
+		String value = "";
+		if(row.getCell(cell_index) == null){
+			value = "";
+		}else{
+			if(row.getCell(cell_index).getCellType() == Cell.CELL_TYPE_NUMERIC){
+				if(cell_index == 6){//處理工序補0
+					value = String.format("%04d", ((int)row.getCell(cell_index).getNumericCellValue()));
+				}else{
+					value = String.valueOf((int)row.getCell(cell_index).getNumericCellValue());
+				}
+			}else{
+				value = row.getCell(cell_index).getRichStringCellValue().getString();
+			}
+		}
+		return value;
 	}
 }

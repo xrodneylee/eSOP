@@ -1,7 +1,11 @@
 package com.dci.esop.authentication;
 
+import java.io.UnsupportedEncodingException;
+
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
+import com.digwin.cross.exception.IllegalDataException;
+import com.digwin.cross.util.CodeUtil;
 
 import net.sf.json.JSONObject;
 
@@ -14,6 +18,7 @@ public class UserCheck {
 		String checkSql = "";
 		try {
 			checkSql = SqlFile.getCheckSqlFile("PRINCIPAL", "01");
+			loginInfo.put("AUTH_PASSWORD", CodeUtil.encodeMessage(loginInfo.getString("AUTH_PASSWORD")));
 			if(conm.queryForSingleInteger(checkSql, loginInfo) > 0){
 				resultInfo.put("result", "success");
 				resultInfo.put("url", "/eSOP/centerPage/centerPage.jsp?userId="+loginInfo.getString("AUTH_ID"));
@@ -26,5 +31,9 @@ public class UserCheck {
 		}
 		
 		return resultInfo.toString();
+	}
+	
+	public static void main(String[] args) throws UnsupportedEncodingException, IllegalDataException{
+		System.out.println(CodeUtil.encodeMessage("DS"));
 	}
 }

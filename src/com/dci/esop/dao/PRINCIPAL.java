@@ -3,11 +3,13 @@ package com.dci.esop.dao;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
+import com.digwin.cross.util.CodeUtil;
 
 public class PRINCIPAL {
 
@@ -18,6 +20,11 @@ public class PRINCIPAL {
 		String querySql = " SELECT AUTH_ID, ISNULL(AUTH_NAME,'') AS AUTH_NAME, ISNULL(AUTH_PASSWORD,'') AS AUTH_PASSWORD FROM PRINCIPAL ";
 		try {
 			List list = conm.queryForList(querySql, null);
+			for(int i = 0; i < list.size(); i++){
+				Map record = (Map)list.get(i);
+				record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
+				list.set(i, record);
+			}
 			resultInfo.put("PRINCIPAL", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -31,6 +38,11 @@ public class PRINCIPAL {
 		String querySql = " SELECT AUTH_ID, ISNULL(AUTH_NAME,'') AS AUTH_NAME, ISNULL(AUTH_PASSWORD,'') AS AUTH_PASSWORD FROM PRINCIPAL WHERE 1=1 "+queryInfo.getString("wherecon");
 		try {
 			List list = conm.queryForList(querySql, null);
+			for(int i = 0; i < list.size(); i++){
+				Map record = (Map)list.get(i);
+				record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
+				list.set(i, record);
+			}
 			resultInfo.put("PRINCIPAL", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -62,6 +74,7 @@ public class PRINCIPAL {
 			if(conm.queryForSingleInteger(SqlFile.getCheckSqlFile("PRINCIPAL", "02"), saveInfo) > 0){
 				saveSql = " UPDATE PRINCIPAL SET MODEIFIER=:USERID, MODI_DATE=:DATE, FLAG=FLAG+1, AUTH_NAME=:AUTH_NAME, AUTH_PASSWORD=:AUTH_PASSWORD WHERE AUTH_ID=:AUTH_ID ";
 			}
+			saveInfo.put("AUTH_PASSWORD", CodeUtil.encodeMessage(saveInfo.getString("AUTH_PASSWORD")));
 			conm.sqlUpdate(saveSql, saveInfo);
 			resultInfo.put("result", "success");
 		} catch (Exception e) {
