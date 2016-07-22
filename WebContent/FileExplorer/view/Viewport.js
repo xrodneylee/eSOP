@@ -133,7 +133,7 @@ Ext.define('FileExplorer.view.Viewport', {
 				xtype : 'button',
 				text : '儲存',
 				id : 'save',
-				iconCls : 'icon-save',
+				iconCls : 'icon-save'
 			}, {
 				xtype : 'button',
 				text : '匯出',

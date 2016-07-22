@@ -32,12 +32,12 @@ import com.dci.esop.dao.CONFIG;
 import com.dci.esop.dao.PRINCIPAL;
 import com.dci.esop.dao.SOP;
 import com.dci.esop.dao.STATION;
+import com.dci.esop.dao.STATION_SOP;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
 import com.dci.esop.util.PDFToImg;
 import com.digwin.cross.exception.IllegalDataException;
-import com.digwin.cross.util.CodeUtil;
 
 import net.sf.json.JSONObject;
 
@@ -265,6 +265,13 @@ public class ajaxController {
 	public String exportSOP(@FormParam("data") String jsonObj) {
 		SOP SOP = new SOP();
 		return SOP.exportSOP(jsonObj);
+	}
+	
+	@POST
+	@Path("/getChoiceList")
+	public String getChoiceList(@FormParam("data") String jsonObj) {
+		STATION_SOP STATION_SOP = new STATION_SOP();
+		return STATION_SOP.getChoiceList(jsonObj);
 	}
 	
 	@POST

@@ -306,7 +306,6 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 	        waitMsg: '匯入中...',
 	        success: function(import_form, o){
 	        	var result = Ext.decode(o.response.responseText);
-	        	console.log(result)
 	        	Ext.getCmp('browseGridPanel').getStore().removeAll();
 				Ext.getCmp('browseGridPanel').getStore().loadData(result.msg.eSOP);
 				importWin.hide();
