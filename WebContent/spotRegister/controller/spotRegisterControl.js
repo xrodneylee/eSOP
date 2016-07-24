@@ -104,9 +104,9 @@ Ext.define('spotRegister.controller.spotRegisterControl', {
 		    	response = Ext.decode(response.responseText);
 		    	if(response.result == "success"){
 		    		//導向推播頁面
-		    		Ext.Msg.alert('','註冊成功！');
+		    		window.location.replace("/eSOP/BroadcastingPage/BroadcastingPage.jsp?SS001="+values["station"]);
 		    	}else{
-		    		Ext.Msg.alert('','註冊失敗！');
+		    		Ext.Msg.alert('','註冊失敗，請檢查工位編號是否已使用！');
 		    	}
 		    },
 		    failure : function (response) {

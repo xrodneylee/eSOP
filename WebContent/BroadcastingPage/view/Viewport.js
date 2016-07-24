@@ -1,9 +1,6 @@
 /**
  * 
  */
-/**
- * 
- */
 Ext.define('BroadcastingPage.view.Viewport', {
     extend: 'Ext.container.Viewport',
     requires: [],
@@ -37,6 +34,7 @@ Ext.define('BroadcastingPage.view.Viewport', {
 			region:'center',
 			xtype:'panel',
 			id:'pdfPanel',
+			layout : 'fit',
 			frame : true,
 			width:'85%',
 			height:'85%'
@@ -48,7 +46,14 @@ Ext.define('BroadcastingPage.view.Viewport', {
 			frame : true,
 			collapsible: true,
 			width:'100%',
-			height:'15%'
+			height:'15%',
+			items : [{
+		        xtype : 'textareafield',
+		        grow : true,
+		        id : 'message',
+		        width : '100%',
+		        anchor : '100%'
+		    }]
 		}
 	]
 });
