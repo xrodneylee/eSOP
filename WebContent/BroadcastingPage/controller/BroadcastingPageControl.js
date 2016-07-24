@@ -30,7 +30,8 @@ Ext.define('BroadcastingPage.controller.BroadcastingPageControl', {
 		    			Ext.getCmp('choicePanel').add(new stationObj({
 		    				ss003 : response.record[i].SS003,
 		    				ss005 : response.record[i].SS005,
-		    				ss007 : response.record[i].SS007
+		    				ss007 : response.record[i].SS007,
+		    				ss008 : response.record[i].SS008
 		    			}).create());
 		    		}
 		    	}
@@ -41,6 +42,10 @@ Ext.define('BroadcastingPage.controller.BroadcastingPageControl', {
 		});
 	}
 });
-function onload(){
-	alert()
+function onload(ss005,ss008){
+	Ext.getCmp('message').setValue(ss008);
+	Ext.getCmp('pdfPanel').removeAll();
+	Ext.getCmp('pdfPanel').add({
+    	html:"<iframe scrolling=no frameborder=0 src='/eSOP/StationKanban/PDFLoader.jsp?fileName="+ss005+"' width=100% height=100%/>"
+    });
 }
