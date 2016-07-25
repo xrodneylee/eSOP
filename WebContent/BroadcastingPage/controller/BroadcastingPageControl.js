@@ -1,6 +1,7 @@
 /**
  * 
  */
+var versionAry = new Array();
 Ext.define('BroadcastingPage.controller.BroadcastingPageControl', {
 	extend : 'Ext.app.Controller',
 	views : [],
