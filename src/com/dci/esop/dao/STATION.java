@@ -70,4 +70,21 @@ public class STATION {
 		}
 		return resultInfo.toString();
 	}
+
+	public String update_ST009_ST010(String jsonObj) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		JSONObject updateInfo = JSONObject.fromObject(jsonObj);
+		JSONObject resultInfo = new JSONObject();
+		updateInfo.put("DATE", sdf.format(new Date()));
+		String updateSql = " UPDATE STATION SET MODEIFIER=:ST001, MODI_DATE=:DATE, FLAG=FLAG+1, ST009=:ST009, ST010=:ST010 WHERE ST001=:ST001 ";
+		
+		try {
+			conm.sqlUpdate(updateSql, updateInfo);
+			resultInfo.put("result", "success");
+		} catch (Exception e) {
+			resultInfo.put("result", "failure");
+			e.printStackTrace();
+		}
+		return resultInfo.toString();
+	}
 }

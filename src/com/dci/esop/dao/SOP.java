@@ -333,4 +333,19 @@ public class SOP {
 		}
 		return value;
 	}
+
+	public String getVersionList(String jsonString) {
+		JSONObject queryInfo = JSONObject.fromObject(jsonString);
+		JSONObject resultInfo = new JSONObject();
+		String querySql = " SELECT SP002 FROM SOP WHERE SP001=:SS003 ORDER BY SP002 DESC ";
+		
+		List list = conm.queryForList(querySql, queryInfo);
+		if(list.size() > 0){
+			resultInfo.put("result", "success");
+			resultInfo.put("record", list);
+		}else{
+			resultInfo.put("result", "failure");
+		}
+		return resultInfo.toString();
+	}
 }

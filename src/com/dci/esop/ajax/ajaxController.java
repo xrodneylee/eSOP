@@ -245,6 +245,13 @@ public class ajaxController {
 		STATION STATION = new STATION();
 		return STATION.saveUser(jsonObj);
 	}
+	
+	@POST
+	@Path("/update_ST009_ST010")
+	public String update_ST009_ST010(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.update_ST009_ST010(jsonObj);
+	}
 
 	@POST
 	@Path("/deleteSOP")
@@ -268,10 +275,24 @@ public class ajaxController {
 	}
 	
 	@POST
+	@Path("/getVersionList")
+	public String getVersionList(@FormParam("data") String jsonObj) {
+		SOP SOP = new SOP();
+		return SOP.getVersionList(jsonObj);
+	}
+	
+	@POST
 	@Path("/getChoiceList")
 	public String getChoiceList(@FormParam("data") String jsonObj) {
 		STATION_SOP STATION_SOP = new STATION_SOP();
 		return STATION_SOP.getChoiceList(jsonObj);
+	}
+	
+	@POST
+	@Path("/getSingleVersion")
+	public String getSingleVersion(@FormParam("data") String jsonObj) {
+		STATION_SOP STATION_SOP = new STATION_SOP();
+		return STATION_SOP.getSingleVersion(jsonObj);
 	}
 	
 	@POST
