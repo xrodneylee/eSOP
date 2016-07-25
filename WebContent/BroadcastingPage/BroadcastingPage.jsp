@@ -13,7 +13,9 @@
 <script type="text/javascript" src="../sources/extjs/ext-all.js"></script>
 <script type="text/javascript" src="../sources/extjs/locale/ext-lang-zh_TW.js"></script>
 
-<script type="text/javascript" src="../BroadcastingPage/util/stationNode.js"></script>
+<script type="text/javascript" src="../BroadcastingPage/util/hashset.js"></script>
+<script type="text/javascript" src="../BroadcastingPage/util/fileNode.js"></script>
+<script type="text/javascript" src="../BroadcastingPage/util/versionNode.js"></script>
 <script type="text/javascript" src="../BroadcastingPage/BroadcastingPage.js"></script>
 
 </head>
