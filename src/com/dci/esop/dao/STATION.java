@@ -87,4 +87,38 @@ public class STATION {
 		}
 		return resultInfo.toString();
 	}
+
+	public String doReload(String jsonString) {
+		JSONObject queryInfo = JSONObject.fromObject(jsonString);
+		JSONObject resultInfo = new JSONObject();
+		String querySql = " SELECT ISNULL(ST011,'') AS ST011 FROM STATION WHERE ST001=:ST001 ";
+		try {
+			String ST011 = conm.queryForSingleString(querySql, queryInfo);
+			if(!ST011.equals(queryInfo.getString("ST011"))){
+				resultInfo.put("result", "reload");
+				resultInfo.put("ST001", ST011);
+			}else{
+				resultInfo.put("result", "notReload");
+			}
+		} catch (Exception e) {
+			resultInfo.put("result", "failure");
+			e.printStackTrace();
+		}
+		return resultInfo.toString();
+	}
+
+	public String getST011(String jsonString) {
+		JSONObject queryInfo = JSONObject.fromObject(jsonString);
+		JSONObject resultInfo = new JSONObject();
+		String querySql = " SELECT ISNULL(ST011,'') AS ST011 FROM STATION WHERE ST001=:ST001 ";
+		try {
+			String ST011 = conm.queryForSingleString(querySql, queryInfo);
+			resultInfo.put("result", "success");
+			resultInfo.put("ST001", ST011);
+		} catch (Exception e) {
+			resultInfo.put("result", "failure");
+			e.printStackTrace();
+		}
+		return resultInfo.toString();
+	}
 }

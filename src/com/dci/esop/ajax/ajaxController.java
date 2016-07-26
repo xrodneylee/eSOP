@@ -32,6 +32,7 @@ import com.dci.esop.dao.CONFIG;
 import com.dci.esop.dao.PRINCIPAL;
 import com.dci.esop.dao.SOP;
 import com.dci.esop.dao.STATION;
+import com.dci.esop.dao.STATION_HISTORY;
 import com.dci.esop.dao.STATION_SOP;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
@@ -252,7 +253,21 @@ public class ajaxController {
 		STATION STATION = new STATION();
 		return STATION.update_ST009_ST010(jsonObj);
 	}
+	
+	@POST
+	@Path("/doReload")
+	public String doReload(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.doReload(jsonObj);
+	}
 
+	@POST
+	@Path("/getST011")
+	public String getST011(@FormParam("data") String jsonObj) {
+		STATION STATION = new STATION();
+		return STATION.getST011(jsonObj);
+	}
+	
 	@POST
 	@Path("/deleteSOP")
 	public String deleteSOP(@FormParam("data") String jsonObj) {
@@ -282,17 +297,38 @@ public class ajaxController {
 	}
 	
 	@POST
-	@Path("/getChoiceList")
-	public String getChoiceList(@FormParam("data") String jsonObj) {
+	@Path("/getChoiceList_standard")
+	public String getChoiceList_standard(@FormParam("data") String jsonObj) {
 		STATION_SOP STATION_SOP = new STATION_SOP();
 		return STATION_SOP.getChoiceList(jsonObj);
 	}
 	
 	@POST
-	@Path("/getSingleVersion")
-	public String getSingleVersion(@FormParam("data") String jsonObj) {
+	@Path("/getChoiceList_history")
+	public String getChoiceList_history(@FormParam("data") String jsonObj) {
+		STATION_HISTORY STATION_HISTORY = new STATION_HISTORY();
+		return STATION_HISTORY.getChoiceList(jsonObj);
+	}
+	
+	@POST
+	@Path("/getSingleVersion_standard")
+	public String getSingleVersion_standard(@FormParam("data") String jsonObj) {
 		STATION_SOP STATION_SOP = new STATION_SOP();
 		return STATION_SOP.getSingleVersion(jsonObj);
+	}
+	
+	@POST
+	@Path("/getSingleVersion_history")
+	public String getSingleVersion_history(@FormParam("data") String jsonObj) {
+		STATION_HISTORY STATION_HISTORY = new STATION_HISTORY();
+		return STATION_HISTORY.getSingleVersion(jsonObj);
+	}
+	
+	@POST
+	@Path("/insertHistory")
+	public String insertHistory(@FormParam("data") String jsonObj) {
+		STATION_HISTORY STATION_HISTORY = new STATION_HISTORY();
+		return STATION_HISTORY.insertHistory(jsonObj);
 	}
 	
 	@POST

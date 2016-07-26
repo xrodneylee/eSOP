@@ -27,7 +27,8 @@ Ext.define('BroadcastingPage.view.Viewport', {
 				xtype : 'button',
 				text : '標準',
 				id : 'standard',
-				width : '50%'
+				width : '50%',
+				iconCls : '	icon-taskList'
 			}, {
 				xtype : 'button',
 				text : '歷史',
@@ -54,7 +55,6 @@ Ext.define('BroadcastingPage.view.Viewport', {
 		items : [ {
 			xtype : 'panel',
 			region: 'center',
-			title : '瀏覽區',
 			id : 'pdfPanel',
 			frame : true,
 			layout : 'fit',

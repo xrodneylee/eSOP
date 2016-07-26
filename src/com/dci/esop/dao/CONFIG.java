@@ -64,6 +64,10 @@ public class CONFIG {
 		return getSingleConfig("maxInactiveInterval");
 	}
 	
+	public String getCheckFileInterval(){
+		return getSingleConfig("checkFileInterval");
+	}
+	
 	public String getESOPFileRoute(){
 		return getSingleConfig("eSOPFileRoute");
 	}

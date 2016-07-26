@@ -1,5 +1,6 @@
 package com.dci.esop.sql;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -191,6 +192,27 @@ public class ConnectionManager {
 
 			}
 		}			
+		return data;
+	}
+	
+	public double queryForSingleDouble(String sql, Object obj) {
+		double data = 0;
+		List rows = queryForList(sql, obj);
+		try {
+			if (rows.size() == 0)
+				data= 0;
+			else {
+				int i = 0;
+				Iterator it = rows.iterator();
+				if (it.hasNext()) {
+					Map dataMap = (Map) it.next();
+					Object[] keySet = dataMap.keySet().toArray();
+					data = ((BigDecimal) dataMap.get(keySet[0])).doubleValue();
+				}
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return data;
 	}
 	/**

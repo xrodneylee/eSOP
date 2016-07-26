@@ -1,7 +1,9 @@
 /**
  * 
  */
-var versionAry = new Array();
+var timeCount = 0;
+var st011 = '';
+var mode = 'standard';//判斷是【標準】還是【歷史】，預設【標準】
 Ext.define('BroadcastingPage.controller.BroadcastingPageControl', {
 	extend : 'Ext.app.Controller',
 	views : [],
@@ -21,22 +23,27 @@ Ext.define('BroadcastingPage.controller.BroadcastingPageControl', {
 		});
 	},
 	choicePanelAfterrender : function(component, eOpts){
+		ActivityMonitor.init({verbose : false, maxInactive: checkFileInterval * 1000});
+		ActivityMonitor.start();
 		loadChoicePanel_standard();
 	},
 	onStandard : function(){
+		mode = 'standard';
 		loadChoicePanel_standard();
 	},
 	onHistory : function(){
-		
+		mode = 'history';
+		loadChoicePanel_history();
 	}
 });
 function loadChoicePanel_standard(){
 	Ext.getCmp('choicePanel').removeAll();
+	Ext.getCmp('verPanel').removeAll();
 	var queryData = new Object();
 	queryData.SS001 = SS001;
 	Ext.Ajax.request({
 		waitMsg: 'Please wait...',
-		url : '/eSOP/api/ajax/getChoiceList',
+		url : '/eSOP/api/ajax/getChoiceList_standard',
 	    method : "POST",
 	    params :{
 			data : Ext.encode(queryData)
@@ -61,6 +68,63 @@ function loadChoicePanel_standard(){
 					}
 	    		}
 	    		onloadPDF(response.record[0].SS003,response.record[0].SS004,response.record[0].SS005,response.record[0].SS006,response.record[0].SS007,response.record[0].SS008);
+	    	}
+	    },
+	    failure : function (response) {
+	    	Ext.Msg.alert('','查詢失敗');
+	    }
+	});
+	//抓取推播碼(ST011)當全域變數
+	Ext.Ajax.request({
+		waitMsg: 'Please wait...',
+		url : '/eSOP/api/ajax/getST011',
+	    method : "POST",
+	    params :{
+			data : Ext.encode(queryData)
+		},
+	    success : function (response) {
+	    	response = Ext.decode(response.responseText);
+	    	if(response.result == 'success'){
+	    		st011 = response.ST011;
+	    	}
+	    },
+	    failure : function (response) {
+	    	Ext.Msg.alert('','查詢失敗');
+	    }
+	});
+}
+function loadChoicePanel_history(){
+	Ext.getCmp('choicePanel').removeAll();
+	Ext.getCmp('verPanel').removeAll();
+	var queryData = new Object();
+	queryData.SH001 = SS001;
+	Ext.Ajax.request({
+		waitMsg: 'Please wait...',
+		url : '/eSOP/api/ajax/getChoiceList_history',
+	    method : "POST",
+	    params :{
+			data : Ext.encode(queryData)
+		},
+	    success : function (response) {
+	    	var fileSet = new hashSet();
+	    	response = Ext.decode(response.responseText);
+	    	if(response.result == 'success'){
+	    		for(var i = 0; i < response.record.length; i++){
+	    			//SOP編號(SH003)重複不再顯示
+	    			if(!fileSet.contains(response.record[i].SH003)){
+	    				fileSet.add(response.record[i].SH003);
+	    				
+	    				Ext.getCmp('choicePanel').add(new fileObj({
+		    				ss003 : response.record[i].SH003,
+		    				ss004 : response.record[i].SH004,
+		    				ss005 : response.record[i].SH005,
+		    				ss006 : response.record[i].SH006,
+		    				ss007 : response.record[i].SH007,
+		    				ss008 : response.record[i].SH008
+		    			}).create());
+					}
+	    		}
+	    		onloadPDF(response.record[0].SH003,response.record[0].SH004,response.record[0].SH005,response.record[0].SH006,response.record[0].SH007,response.record[0].SH008);
 	    	}
 	    },
 	    failure : function (response) {
@@ -98,6 +162,7 @@ function onloadPDF(ss003,ss004,ss005,ss006,ss007,ss008){
 	    	Ext.Msg.alert('','更新失敗');
 	    }
 	});
+	Ext.getCmp('pdfPanel').setTitle('<font color="red">SOP編號：'+ss003+'&nbsp&nbsp&nbsp&nbsp版號：'+ss004+'</font>');
 	//動態產生版號
 	createVersionBtn(ss003,ss005,ss006);
 }
@@ -154,7 +219,112 @@ function splitPage(pages){
 				discretePage += ","+pagesContainer1[i];
 			}
 		}
-		
 	}
 	return discretePage;
+}
+
+function doSessionReload(){
+	//依參數設定只更新右視窗資料(SOP編號、版號)
+	if(timeCount == checkFileInterval){
+		timeCount = 0;
+		if(mode == 'standard'){//標準
+			var queryData = new Object();
+			queryData.ST001 = SS001;
+			queryData.ST011 = st011;
+			Ext.Ajax.request({
+				waitMsg: 'Please wait...',
+				url : '/eSOP/api/ajax/doReload',
+			    method : "POST",
+			    params :{
+					data : Ext.encode(queryData)
+				},
+			    success : function (response) {
+			    	response = Ext.decode(response.responseText);
+			    	if(response.result == 'reload'){
+			    		st011 = response.ST001;
+			    		Ext.getCmp('choicePanel').removeAll();
+						Ext.getCmp('verPanel').removeAll();
+						var queryData = new Object();
+						queryData.SS001 = SS001;
+						Ext.Ajax.request({
+							waitMsg: 'Please wait...',
+							url : '/eSOP/api/ajax/getChoiceList_standard',
+						    method : "POST",
+						    params :{
+								data : Ext.encode(queryData)
+							},
+						    success : function (response) {
+						    	var fileSet = new hashSet();
+						    	response = Ext.decode(response.responseText);
+						    	if(response.result == 'success'){
+						    		for(var i = 0; i < response.record.length; i++){
+						    			//SOP編號(SS003)重複不再顯示
+						    			if(!fileSet.contains(response.record[i].SS003)){
+						    				fileSet.add(response.record[i].SS003);
+						    				
+						    				Ext.getCmp('choicePanel').add(new fileObj({
+							    				ss003 : response.record[i].SS003,
+							    				ss004 : response.record[i].SS004,
+							    				ss005 : response.record[i].SS005,
+							    				ss006 : response.record[i].SS006,
+							    				ss007 : response.record[i].SS007,
+							    				ss008 : response.record[i].SS008
+							    			}).create());
+										}
+						    		}
+						    		createVersionBtn(response.record[0].SS003,response.record[0].SS005,response.record[0].SS006);
+						    	}
+						    },
+						    failure : function (response) {
+						    	Ext.Msg.alert('','查詢失敗');
+						    }
+						});
+			    	}
+			    },
+			    failure : function (response) {
+			    	Ext.Msg.alert('','查詢失敗');
+			    }
+			});
+		}else if(mode == 'history'){//歷史
+			Ext.getCmp('choicePanel').removeAll();
+			Ext.getCmp('verPanel').removeAll();
+			var queryData = new Object();
+			queryData.SH001 = SS001;
+			Ext.Ajax.request({
+				waitMsg: 'Please wait...',
+				url : '/eSOP/api/ajax/getChoiceList_history',
+			    method : "POST",
+			    params :{
+					data : Ext.encode(queryData)
+				},
+			    success : function (response) {
+			    	var fileSet = new hashSet();
+			    	response = Ext.decode(response.responseText);
+			    	if(response.result == 'success'){
+			    		for(var i = 0; i < response.record.length; i++){
+			    			//SOP編號(SH003)重複不再顯示
+			    			if(!fileSet.contains(response.record[i].SH003)){
+			    				fileSet.add(response.record[i].SH003);
+			    				
+			    				Ext.getCmp('choicePanel').add(new fileObj({
+				    				ss003 : response.record[i].SH003,
+				    				ss004 : response.record[i].SH004,
+				    				ss005 : response.record[i].SH005,
+				    				ss006 : response.record[i].SH006,
+				    				ss007 : response.record[i].SH007,
+				    				ss008 : response.record[i].SH008
+				    			}).create());
+							}
+			    		}
+			    		createVersionBtn(response.record[0].SH003,response.record[0].SH005,response.record[0].SH006);
+			    	}
+			    },
+			    failure : function (response) {
+			    	Ext.Msg.alert('','查詢失敗');
+			    }
+			});
+		}
+	}else{
+		timeCount++;
+	}
 }
