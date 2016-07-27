@@ -96,7 +96,7 @@ public class STATION {
 			String ST011 = conm.queryForSingleString(querySql, queryInfo);
 			if(!ST011.equals(queryInfo.getString("ST011"))){
 				resultInfo.put("result", "reload");
-				resultInfo.put("ST001", ST011);
+				resultInfo.put("ST011", ST011);
 			}else{
 				resultInfo.put("result", "notReload");
 			}

@@ -24,23 +24,15 @@ public class SFTXMLProcess extends XMLProcess {
 		SAXReader reader = new SAXReader();
 		Document document = null;
 		document = DocumentHelper.parseText(xml);
-		Element xmlElement = (Element) document.selectSingleNode("/Request/Access/Authentication");
-		baseData.put("user", xmlElement.attributeValue("user"));
-		baseData.put("password", xmlElement.attributeValue("password"));
-		xmlElement = (Element) document.selectSingleNode("/Request/Access/Connection");
-		baseData.put("application", xmlElement.attributeValue("application"));
-		baseData.put("source", xmlElement.attributeValue("source"));
-		xmlElement = (Element) document.selectSingleNode("/Request/Access/COMPANY");
-		baseData.put("COMPANY", xmlElement.attributeValue("name"));
-		xmlElement = (Element) document.selectSingleNode("/Request/Access/Locale");
-		baseData.put("language", xmlElement.attributeValue("language"));
-		xmlElement = (Element) document.selectSingleNode("/Request/RequestContent");
-		Iterator it = document.selectNodes("/Request/RequestContent").iterator();
+		Element xmlElement = (Element) document.selectSingleNode("/Request/host");
+		baseData.put("CREATER", xmlElement.attributeValue("acct"));
+		xmlElement = (Element) document.selectSingleNode("/Request/payload/param/data_request/datainfo/parameter/data");
+		Iterator it = document.selectNodes("/Request/payload/param/data_request/datainfo/parameter/data").iterator();
 		while (it.hasNext()) {
 			Element ele = (Element) it.next();
 		}
 
-		baseData.put("RequestContent", xmlElement);
+		baseData.put("data", xmlElement);
 		return baseData;
 	}
 

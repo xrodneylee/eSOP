@@ -242,7 +242,7 @@ function doSessionReload(){
 			    success : function (response) {
 			    	response = Ext.decode(response.responseText);
 			    	if(response.result == 'reload'){
-			    		st011 = response.ST001;
+			    		st011 = response.ST011;
 			    		Ext.getCmp('choicePanel').removeAll();
 						Ext.getCmp('verPanel').removeAll();
 						var queryData = new Object();
