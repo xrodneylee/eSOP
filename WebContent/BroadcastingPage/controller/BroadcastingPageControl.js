@@ -41,6 +41,7 @@ function loadChoicePanel_standard(){
 	Ext.getCmp('verPanel').removeAll();
 	var queryData = new Object();
 	queryData.SS001 = SS001;
+	queryData.ST001 = SS001;
 	Ext.Ajax.request({
 		waitMsg: 'Please wait...',
 		url : '/eSOP/api/ajax/getChoiceList_standard',
@@ -85,7 +86,7 @@ function loadChoicePanel_standard(){
 	    success : function (response) {
 	    	response = Ext.decode(response.responseText);
 	    	if(response.result == 'success'){
-	    		st011 = response.ST011;
+    			st011 = response.ST011;
 	    	}
 	    },
 	    failure : function (response) {
