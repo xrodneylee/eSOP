@@ -114,7 +114,7 @@ public class STATION {
 		try {
 			String ST011 = conm.queryForSingleString(querySql, queryInfo);
 			resultInfo.put("result", "success");
-			resultInfo.put("ST001", ST011);
+			resultInfo.put("ST011", ST011);
 		} catch (Exception e) {
 			resultInfo.put("result", "failure");
 			e.printStackTrace();
