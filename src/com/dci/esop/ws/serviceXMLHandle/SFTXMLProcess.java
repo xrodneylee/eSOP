@@ -14,24 +14,21 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 
 public class SFTXMLProcess extends XMLProcess {
 
 	public Map requestXMLDecomposition(String xml) throws DocumentException {
 		Map baseData = new HashMap();
 		JSONObject RequestContent = new JSONObject();
-		SAXReader reader = new SAXReader();
 		Document document = null;
 		document = DocumentHelper.parseText(xml);
-		Element xmlElement = (Element) document.selectSingleNode("/Request/host");
+		Element xmlElement = (Element) document.selectSingleNode("/request/host");
 		baseData.put("CREATER", xmlElement.attributeValue("acct"));
-		xmlElement = (Element) document.selectSingleNode("/Request/payload/param/data_request/datainfo/parameter/data");
-		Iterator it = document.selectNodes("/Request/payload/param/data_request/datainfo/parameter/data").iterator();
+		xmlElement = (Element) document.selectSingleNode("/request/payload/param/data_request/datainfo/parameter/data");
+		Iterator it = document.selectNodes("/request/payload/param/data_request/datainfo/parameter/data").iterator();
 		while (it.hasNext()) {
 			Element ele = (Element) it.next();
 		}
-
 		baseData.put("data", xmlElement);
 		return baseData;
 	}
@@ -39,43 +36,22 @@ public class SFTXMLProcess extends XMLProcess {
 	public String responseXMLComposition(Map resultMap) {
 		Document document = DocumentHelper.createDocument();
 		Element rootElement = document.addElement("Response");
-		Element executionElement = rootElement.addElement("Execution");
-		Element statusElement = executionElement.addElement("Status");
+		Element reqidElement = rootElement.addElement("reqid");
+		reqidElement.addText("3175562140567422664467");
+		Element srvverElement = rootElement.addElement("srvver");
+		srvverElement.addText("1.0");
+		Element srvcodeElement = rootElement.addElement("srvcode");
+		srvcodeElement.addText("000");
+		Element payloadElement = rootElement.addElement("payload");
+		Element paramElement = payloadElement.addElement("Status");
+		paramElement.addAttribute("key", "std_data");
+		paramElement.addAttribute("type", "xml");
+		Element data_responseElement = paramElement.addElement("data_response");
+		Element executionElement = data_responseElement.addElement("execution");
+		Element statusElement = executionElement.addElement("status");
 		statusElement.addAttribute("code", resultMap.get("code").toString());
 		statusElement.addAttribute("description", resultMap.get("description").toString());
 		
-		//堆栈信息不为空的作为WIP代码异常，平台将抛出异常，将堆栈信息为空的作为业务异常，在返回值中返回。
-		Element stacktraceElement = executionElement.addElement("Stacktrace");
-
-		
-		
-		Element responseContentElement = null;
-		Element parameterElement = null;
-		Element recordElement = null;
-		Element fieldElement = null;
-		// 回傳單身訊息
-
-		if (resultMap.get("resultDataArr") != null) {
-			JSONArray resultDataArr = (JSONArray) resultMap.get("resultDataArr");
-			if (resultDataArr.size() > 0) {
-				responseContentElement = rootElement.addElement("ResponseContent");
-				parameterElement = responseContentElement.addElement("Parameter");
-				for (int RecordSetCounter = 0; RecordSetCounter < resultDataArr.size(); RecordSetCounter++) {
-					recordElement = parameterElement.addElement("Record");
-					for (Object resultDataObj : resultDataArr) {
-						JSONObject RecordObj = (JSONObject) resultDataObj;
-						for (Iterator iterator = RecordObj.keys(); iterator.hasNext();) {
-							String key = (String) iterator.next();
-							fieldElement = recordElement.addElement("Field");
-							fieldElement.addAttribute("name", key);
-							fieldElement.addAttribute("value", RecordObj.getString(key));
-						}
-					}
-				}
-			}
-
-		}
-
 		return document.asXML();
 	}
 

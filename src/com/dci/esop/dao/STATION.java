@@ -72,7 +72,7 @@ public class STATION {
 	}
 
 	public String update_ST009_ST010(String jsonObj) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONObject updateInfo = JSONObject.fromObject(jsonObj);
 		JSONObject resultInfo = new JSONObject();
 		updateInfo.put("DATE", sdf.format(new Date()));
