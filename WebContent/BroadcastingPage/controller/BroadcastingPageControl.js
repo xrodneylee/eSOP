@@ -169,7 +169,7 @@ function onloadPDF(ss003,ss004,ss005,ss006,ss007,ss008){
 }
 
 function createVersionBtn(ss003,ss005,ss006){
-	if(ss006 == 'N'){
+	if(ss006 == 'N' || ss006 == ''){
 		Ext.getCmp('verPanel').removeAll();
 		var queryData = new Object();
 		queryData.SS003 = ss003;
@@ -273,7 +273,8 @@ function doSessionReload(){
 							    			}).create());
 										}
 						    		}
-						    		createVersionBtn(response.record[0].SS003,response.record[0].SS005,response.record[0].SS006);
+						    		onloadPDF(response.record[0].SS003,response.record[0].SS004,response.record[0].SS005,response.record[0].SS006,response.record[0].SS007,response.record[0].SS008);
+//						    		createVersionBtn(response.record[0].SS003,response.record[0].SS005,response.record[0].SS006);
 						    	}
 						    },
 						    failure : function (response) {
@@ -317,7 +318,8 @@ function doSessionReload(){
 				    			}).create());
 							}
 			    		}
-			    		createVersionBtn(response.record[0].SH003,response.record[0].SH005,response.record[0].SH006);
+			    		onloadPDF(response.record[0].SH003,response.record[0].SH004,response.record[0].SH005,response.record[0].SH006,response.record[0].SH007,response.record[0].SH008);
+//			    		createVersionBtn(response.record[0].SH003,response.record[0].SH005,response.record[0].SH006);
 			    	}
 			    },
 			    failure : function (response) {
