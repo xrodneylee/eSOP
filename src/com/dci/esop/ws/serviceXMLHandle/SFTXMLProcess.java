@@ -2,6 +2,7 @@ package com.dci.esop.ws.serviceXMLHandle;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.json.JSONArray;
@@ -43,7 +44,7 @@ public class SFTXMLProcess extends XMLProcess {
 		Element srvcodeElement = rootElement.addElement("srvcode");
 		srvcodeElement.addText("000");
 		Element payloadElement = rootElement.addElement("payload");
-		Element paramElement = payloadElement.addElement("Status");
+		Element paramElement = payloadElement.addElement("param");
 		paramElement.addAttribute("key", "std_data");
 		paramElement.addAttribute("type", "xml");
 		Element data_responseElement = paramElement.addElement("data_response");
@@ -51,6 +52,21 @@ public class SFTXMLProcess extends XMLProcess {
 		Element statusElement = executionElement.addElement("status");
 		statusElement.addAttribute("code", resultMap.get("code").toString());
 		statusElement.addAttribute("description", resultMap.get("description").toString());
+		
+		if(resultMap.containsKey("responseData")){
+			List responseData = (List)resultMap.get("resultMap");
+			Element datainfoElement = data_responseElement.addElement("datainfo");
+			Element parameterElement = datainfoElement.addElement("parameter");
+			parameterElement.addAttribute("key", "station_get");
+			parameterElement.addAttribute("type", "data");
+			Element dataElement = parameterElement.addElement("data");
+			dataElement.addAttribute("data", "station_get");
+			for(int i = 0; i < responseData.size(); i++){
+				Map record = (Map)responseData.get(i);
+				Element rowElement = dataElement.addElement("row");
+				rowElement.addAttribute("seq", String.valueOf((i+1)));
+			}
+		}
 		
 		return document.asXML();
 	}
