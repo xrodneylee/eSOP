@@ -1,0 +1,89 @@
+﻿/* 維護作業標準icons */
+.icon-first {
+    background-image: url(images/first.gif) !important;
+}
+
+.icon-previous {
+    background-image: url(images/previous.gif) !important;
+}
+
+.icon-next {
+    background-image: url(images/next.gif) !important;
+}
+
+.icon-last {
+    background-image: url(images/last.gif) !important;
+}
+
+.icon-add {
+    background-image: url(images/add.gif) !important;
+}
+
+.icon-update {
+    background-image: url(images/update.gif) !important;
+}
+
+.icon-delete {
+    background-image: url(images/delete.gif) !important;
+}
+
+.icon-cancel {
+    background-image: url(images/cancel.gif) !important;
+}
+
+.icon-save {
+    background-image: url(images/save.gif) !important;
+}
+
+.icon-list {
+    background-image: url(images/List.gif) !important;
+}
+
+.icon-refresh{
+ 	background-image: url(images/Refresh.gif) !important;
+}
+/* 查詢作業標準icons */
+
+.icon-chart {
+    background-image: url(images/chart.gif) !important;
+}
+
+.icon-query {
+    background-image: url(images/query.gif) !important;
+}
+
+.icon-reset {
+    background-image: url(images/reset.gif) !important;
+}
+
+/* 常用的 icons */
+
+.icon-search {
+    background-image: url(images/query.gif) !important;
+}
+
+.icon-import {
+    background-image: url(images/import.gif) !important;
+}
+
+.icon-export {
+    background-image: url(images/export.gif) !important;
+}
+
+.ExitDoor2 {
+	background-image: url(images/ExitDoor2.gif) !important;
+}
+
+.icon-select {
+    background-image: url(images/select.gif) !important;
+}
+
+.icon-up {
+    background-image: url(images/3.gif) !important;
+}
+
+.icon-taskList {
+    background-image: url(images/TaskList.gif) !important;
+}
+/* ================== */
+

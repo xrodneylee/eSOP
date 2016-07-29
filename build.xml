@@ -1,0 +1,45 @@
+<!-- Project Name 可以自定議 -->
+<project name="eSOP" basedir="." >
+	<target name="setProperties">
+		<property environment="env" />
+		<property file="build.properties" />
+		<!-- 這支ant 需要載入哪一個properties當作執行ant的屬性 -->
+		<path id="classpath">
+			<!-- 編譯過程當中，需參照的classpath -->
+			<fileset dir="./WebContent/WEB-INF/lib">
+				<include name="*.jar" />
+			</fileset>
+			<pathelement path="./WebContent/WEB-INF/classes"/>
+		</path>
+	</target>
+	<target name="prepareDir" depends="setProperties">
+		<!-- 此target執行前會執行setProperties 參照 depends屬性 -->
+		<!-- 編譯前，先建置編譯資料夾 -->
+		<mkdir dir="./WebContent/WEB-INF/classes" />
+		<delete includeemptydirs="true">
+			<!-- 編譯前，把已存在的檔案刪除，並排外哪些不刪的程式 -->
+			<fileset dir="./WebContent/WEB-INF/classes">
+				<include name="**/*.class" />
+			</fileset>
+		</delete>
+
+	</target>
+	<target name="Compiler" description="" depends="prepareDir">
+		<javac destdir="./WebContent/WEB-INF/classes" debug="true" includeantruntime="false" deprecation="false" optimize="false" failonerror="true" encoding="UTF-8">
+			<src path="./src" />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+	<target name="buildWar" depends="Compiler">
+		<copy todir="./WebContent/WEB-INF/classes">
+			<fileset dir="./src">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+		<war warfile="${BUILD_HOME}/deploy/eSOP.war" webxml="./WebContent/WEB-INF/web.xml">
+			<fileset dir="./WebContent">
+			</fileset>
+		</war>
+	</target>
+</project>
