@@ -14,7 +14,9 @@
 
 <script type="text/javascript" src="login/login.js"></script>
 
-<% 
+<%
+String sessionId = session.getId();
+String ip = request.getRemoteAddr();
 try{
 	ConnectionManager conm = new ConnectionManager();
 	conm.queryForSingleInteger(" SELECT 1 ", null);
@@ -26,6 +28,9 @@ try{
 
 </head>
 <body>
-	
+<script>
+var ip = "<%=ip %>";
+var sessionId = "<%=sessionId %>";
+</script>	
 </body>
 </html>

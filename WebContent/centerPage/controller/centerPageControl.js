@@ -96,7 +96,24 @@ function openOperation(OPID){
 }
 
 function doLogout(){
-	window.location.replace('/eSOP');
+	var logoutInfo = new Object();
+	logoutInfo.userID = userID;
+	logoutInfo.ip = ip;
+	logoutInfo.sessionId = sessionId;
+	Ext.Ajax.request({
+	    url : '/eSOP/api/ajax/logout',
+	    method : "POST",
+	    params :{
+			data : Ext.encode(logoutInfo)
+		},
+	    success : function (response) {
+	    	window.location.replace('/eSOP');
+	    },
+	    failure : function (response) {
+	    	Ext.Msg.alert('','驗證失敗');
+	    }
+	});
+	
 }
 
 function doSessionReload(){

@@ -29,6 +29,7 @@ import com.dci.esop.authentication.Station;
 import com.dci.esop.authentication.UserCheck;
 import com.dci.esop.dao.ATTRIBUTE_LIST;
 import com.dci.esop.dao.CONFIG;
+import com.dci.esop.dao.ONLINE_USER_RECORD;
 import com.dci.esop.dao.PRINCIPAL;
 import com.dci.esop.dao.SOP;
 import com.dci.esop.dao.STATION;
@@ -99,7 +100,35 @@ public class ajaxController {
 		UserCheck UserCheck = new UserCheck();
 		return UserCheck.loginProcess(jsonObj);
 	}
+	
+	@POST
+	@Path("/logout")
+	public void logout(@FormParam("data") String jsonObj) {
+		UserCheck UserCheck = new UserCheck();
+		UserCheck.logout(jsonObj);
+	}
 
+	@GET
+	@Path("/getONLINE_USER_RECORD")
+	public String getONLINE_USER_RECORD() {
+		ONLINE_USER_RECORD ONLINE_USER_RECORD = new ONLINE_USER_RECORD();
+		return ONLINE_USER_RECORD.getONLINE_USER_RECORD();
+	}
+	
+	@POST
+	@Path("/delete_ONLINE_USER_RECORD")
+	public void delete_ONLINE_USER_RECORD(@FormParam("data") String jsonObj) {
+		ONLINE_USER_RECORD ONLINE_USER_RECORD = new ONLINE_USER_RECORD();
+		ONLINE_USER_RECORD.delete_ONLINE_USER_RECORD(jsonObj);
+	}
+	
+	@GET
+	@Path("/getUserCount")
+	public String getUserCount() {
+		ONLINE_USER_RECORD ONLINE_USER_RECORD = new ONLINE_USER_RECORD();
+		return ONLINE_USER_RECORD.getUserCount();
+	}
+	
 	@POST
 	@Path("/stationCheck")
 	public String stationCheck(@FormParam("data") String jsonObj) {

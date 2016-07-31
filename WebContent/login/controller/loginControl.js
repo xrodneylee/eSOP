@@ -18,6 +18,8 @@ Ext.define('login.controller.loginControl', {
 		var loginInfo = new Object();
 		loginInfo.AUTH_ID = values["userid"];
 		loginInfo.AUTH_PASSWORD = values["password"];
+		loginInfo.sessionId = sessionId;
+		loginInfo.ip = ip;
 		Ext.Ajax.request({
 		    url : '/eSOP/api/ajax/userCheck',
 		    method : "POST",
@@ -29,7 +31,7 @@ Ext.define('login.controller.loginControl', {
 		    	if(response.result == "success"){
 		    		window.location.replace(response.url);
 		    	}else{
-		    		Ext.Msg.alert('','帳密錯誤');
+		    		Ext.Msg.alert('',response.msg);
 		    	}
 		    },
 		    failure : function (response) {
