@@ -10,6 +10,9 @@ Ext.define('login.controller.loginControl', {
 		this.control({
 			'#login' : {
 				click : this.login
+			},
+			'#OnlineUser' : {
+				click : this.onOnlineUser
 			}
 		});
 	},
@@ -38,5 +41,8 @@ Ext.define('login.controller.loginControl', {
 		    	Ext.Msg.alert('','驗證失敗');
 		    }
 		});
+	},
+	onOnlineUser : function(){
+		window.open('/eSOP/OnlineUser/OnlineUser.jsp');
 	}
 });

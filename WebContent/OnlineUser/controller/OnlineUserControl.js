@@ -49,6 +49,17 @@ Ext.define('OnlineUser.controller.OnlineUserControl', {
     			},
     		    success : function (response) {
     		    	Ext.getCmp('browseGridPanel').getStore().load();
+    		    	Ext.Ajax.request({
+    					waitMsg: 'Please wait...',
+    					url : '/eSOP/api/ajax/getUserCount',
+    				    method : "GET",
+    				    success : function (response) {
+    				    	Ext.getCmp('users').setValue(response.responseText);
+    				    },
+    				    failure : function (response) {
+    				    	Ext.Msg.alert('','載入失敗');
+    				    }
+    				});
     		    },
     		    failure : function (response) {
     		    	Ext.Msg.alert('','踢除失敗');

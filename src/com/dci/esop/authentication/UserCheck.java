@@ -33,7 +33,7 @@ public class UserCheck {
 				}
 			}else{
 				resultInfo.put("result", "failure");
-				resultInfo.put("msg", "此帳號不存在");
+				resultInfo.put("msg", "驗證錯誤");
 			}
 		} catch (Exception e) {
 			resultInfo.put("result", "failure");

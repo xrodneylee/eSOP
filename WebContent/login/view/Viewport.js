@@ -19,20 +19,33 @@ Ext.define('login.view.Viewport', {
 		},
 		fieldDefaults : {
 			labelAlign : "left",
-			labelWidth : 50,
-			anchor : "100%"
+			labelWidth : 50
 		},
 		frame : true,
 		items : [ {
-			xtype : "textfield",
-			name : "userid",
-			fieldLabel : "帳號 ",
-			allowBlank : false
+			xtype : 'fieldset',
+			layout : 'column',
+			border : false,
+			margin : '5 0 0 0',
+			style: 'padding-left: 0px;',
+			items : [{
+				xtype : "textfield",
+				name : "userid",
+				fieldLabel : "帳號 ",
+				allowBlank : false,
+				width : 240
+			},{
+				xtype : 'button',
+				id : 'OnlineUser',
+				text : '線上使用者'
+			}]
 		}, {
 			xtype : "textfield",
 			name : "password",
 			inputType : "password",
-			fieldLabel : "密碼 "
+			fieldLabel : "密碼 ",
+			margin : '5 0 0 0',
+			width : 240
 		} ],
 		buttons : [ {
 			text : "登入",

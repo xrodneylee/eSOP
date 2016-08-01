@@ -10,7 +10,7 @@ import java.util.UUID;
 
 import org.apache.axiom.om.util.Base64;
 
-import com.dci.esop.config.SFTConfig;
+import com.dci.esop.dao.CONFIG;
 import com.dci.esop.register.RealMachine;
 import com.dci.esop.register.VirtualMachine;
 
@@ -21,7 +21,7 @@ public class HardwareEncrypt {
 		return instance;
 	}
 
-	SFTConfig sc;
+	CONFIG config;
 	String guardip;
 	String apip;
 	int port = 6666;
@@ -49,15 +49,15 @@ public class HardwareEncrypt {
 	}
 
 	public HardwareEncrypt(String ip, String apipData) {
-		sc = new SFTConfig();
+		config = new CONFIG();
 		if (ip.equals("")) {
-			sc = new SFTConfig();
-			this.guardip = sc.getGuardManagerIP();
+			config = new CONFIG();
+			this.guardip = config.getGuardManagerIP();
 		} else {
 			this.guardip = ip;
 		}
 		if (apipData.equals("")) {
-			this.apip = sc.getGuardManagerNetCard();
+			this.apip = config.getGuardManagerNetCard();
 		} else {
 			this.apip = apipData;
 		}
@@ -73,15 +73,15 @@ public class HardwareEncrypt {
 	}
 
 	public String encrypt(String ip, String apipData) throws UnknownHostException, IOException {
-		sc = new SFTConfig();
+		config = new CONFIG();
 		if (ip.equals("")) {
-			sc = new SFTConfig();
-			this.guardip = sc.getGuardManagerIP();
+			config = new CONFIG();
+			this.guardip = config.getGuardManagerIP();
 		} else {
 			this.guardip = ip;
 		}
 		if (apipData.equals("")) {
-			this.apip = sc.getGuardManagerNetCard();
+			this.apip = config.getGuardManagerNetCard();
 		} else {
 			this.apip = apipData;
 		}

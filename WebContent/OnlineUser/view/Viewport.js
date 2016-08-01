@@ -21,7 +21,7 @@ Ext.define('OnlineUser.view.Viewport', {
 				items : [ {
 					xtype : 'textfield',
 					id : 'authorized',
-					fieldLabel : '授權人數',
+					fieldLabel : 'eSOP 使用者',
 					labelWidth : 100,
 					labelAlign : 'right',
 					readOnly : true,
@@ -30,7 +30,7 @@ Ext.define('OnlineUser.view.Viewport', {
 			}]
 		},{
 			xtype : 'fieldset',
-			title : '已授權人數',
+			title : '已使用授權人數',
 			layout : 'vbox',
 			items : [ {
 				layout : 'column',
@@ -40,7 +40,7 @@ Ext.define('OnlineUser.view.Viewport', {
 				items : [ {
 					xtype : 'textfield',
 					id : 'users',
-					fieldLabel : '已使用授權人數',
+					fieldLabel : 'eSOP 使用者',
 					labelWidth : 100,
 					labelAlign : 'right',
 					readOnly : true,
