@@ -15,6 +15,7 @@ import org.dom4j.Element;
 public class SFTXMLProcess extends XMLProcess {
 
 	public Map requestXMLDecomposition(String xml) throws DocumentException {
+		System.out.println("xml>>>\n"+xml);
 		Map baseData = new HashMap();
 		JSONObject RequestContent = new JSONObject();
 		Document document = null;

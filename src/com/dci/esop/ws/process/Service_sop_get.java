@@ -66,25 +66,25 @@ public class Service_sop_get extends ServiceProcess {
 		try{
 			for(int i = 0; i < dataAry.size(); i++){
 				JSONObject row = dataAry.getJSONObject(i);
-				if(!row.getString("sop_no").equals("")){
+				if(row.get("sop_no") != null && !row.getString("sop_no").equals("")){
 					selectSql += " AND SP001 LIKE '%"+row.getString("sop_no")+"%' \n";
 				}
-				if(!row.getString("sop_file").equals("")){
+				if(row.get("sop_file") != null && !row.getString("sop_file").equals("")){
 					selectSql += " AND SP003 LIKE '%"+row.getString("sop_file")+"%' \n";
 				}
-				if(!row.getString("sop_remark").equals("")){
+				if(row.get("sop_remark") != null && !row.getString("sop_remark").equals("")){
 					selectSql += " AND SP004 LIKE '%"+row.getString("sop_remark")+"%' \n";
 				}
-				if(!row.getString("item_no").equals("")){
+				if(row.get("item_no") != null && !row.getString("item_no").equals("")){
 					selectSql += " AND SP005 LIKE '%"+row.getString("item_no")+"%' \n";
 				}
-				if(!row.getString("op_no").equals("")){
+				if(row.get("op_no") != null && !row.getString("op_no").equals("")){
 					selectSql += " AND SP006 LIKE '%"+row.getString("op_no")+"%' \n";
 				}
-				if(!row.getString("site_no").equals("")){
+				if(row.get("site_no") != null && !row.getString("site_no").equals("")){
 					selectSql += " AND SP009 LIKE '%"+row.getString("site_no")+"%' \n";
 				}
-				if(!row.getString("sop_datetime_s").equals("") && !row.getString("sop_datetime_e").equals("")){
+				if(row.get("station_no") != null && !row.getString("sop_datetime_s").equals("") && !row.getString("sop_datetime_e").equals("")){
 					SimpleDateFormat sdfparse = new SimpleDateFormat("yyyyMMddHHmmss");
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					selectSql += " AND SP010 BETWEEN '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_s")))+"' AND '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_e")))+"' \n";

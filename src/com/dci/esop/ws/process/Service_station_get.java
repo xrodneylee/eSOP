@@ -51,21 +51,36 @@ public class Service_station_get extends ServiceProcess  {
 		try{
 			for(int i = 0; i < dataAry.size(); i++){
 				JSONObject row = dataAry.getJSONObject(i);
-				if(!row.getString("station_no").equals("")){
-					selectSql += " AND ST001 LIKE '%"+row.getString("station_no")+"%' \n";
+				if(row.get("station_no") != null && !row.getString("station_no").equals("")){
+					if(dataAry.size() > 1){
+						//特殊處理串 IN 語法
+						if(i == 0){
+							selectSql += " AND ST001 IN ('"+row.getString("station_no")+"'";
+						}else{
+							if(i == dataAry.size()-1){
+								selectSql += ",'"+row.getString("station_no")+"')";
+							}else{
+								selectSql += ",'"+row.getString("station_no")+"'";
+							}
+						}
+					}else{
+						selectSql += " AND ST001 LIKE '%"+row.getString("station_no")+"%' \n";
+					}
+					
 				}
-				if(!row.getString("station_remark").equals("")){
+				if(row.get("station_remark") != null && !row.getString("station_remark").equals("")){
 					selectSql += " AND ST002 LIKE '%"+row.getString("station_remark")+"%' \n";
 				}
-				if(!row.getString("station_section").equals("")){
+				if(row.get("station_section") != null && !row.getString("station_section").equals("")){
 					selectSql += " AND ST004 LIKE '%"+row.getString("station_section")+"%' \n";
 				}
-				if(!row.getString("site_no").equals("")){
+				if(row.get("site_no") != null && !row.getString("site_no").equals("")){
 					selectSql += " AND ST005 LIKE '%"+row.getString("site_no")+"%' \n";
 				}
-				List responseData = conm.queryForList(selectSql, null);
-				resultMap.put("responseData", responseData);
 			}
+			System.out.println(selectSql);
+			List responseData = conm.queryForList(selectSql, null);
+			resultMap.put("responseData", responseData);
 			resultMap.put("code", "0");
 			resultMap.put("description", "");
 			resultMap.put("service", xmlBaseData.get("service").toString());
