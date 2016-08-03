@@ -66,6 +66,29 @@ public class Service_sop_get extends ServiceProcess {
 		try{
 			for(int i = 0; i < dataAry.size(); i++){
 				JSONObject row = dataAry.getJSONObject(i);
+				if(row.get("sop_ver_assign") != null && !row.getString("sop_ver_assign").equals("")){
+					//無指定版本則撈出該SOP編號的最大版號
+					if(row.getString("sop_ver_assign").equals("N")){
+						selectSql = ""
+								+" with a as( "
+								+" select SP001,MAX(SP002) AS SP002 from SOP GROUP BY SP001 "
+								+" ) " 
+								+"SELECT  " 
+								+"        SOP.SP001 AS sop_no    ,  " 
+								+"        SOP.SP002 AS sop_ver   ,  " 
+								+"        SP003 AS sop_file  ,  " 
+								+"        SP004 AS sop_remark,  " 
+								+"        SP005 AS item_no   ,  " 
+								+"        SP006 AS op_no     ,  " 
+								+"        SP007 AS subop_no  ,  " 
+								+"        SP008 AS sop_seq   ,  " 
+								+"        SP009 AS site_no   ,  " 
+								+"        convert(varchar, SP010, 112) AS sop_datetime " 
+								+"FROM  SOP "
+								+"JOIN a ON a.SP001=SOP.SP001 and a.SP002=SOP.SP002 "
+								+"WHERE 1=1 ";
+					}
+				}
 				if(row.get("sop_no") != null && !row.getString("sop_no").equals("")){
 					selectSql += " AND SP001 LIKE '%"+row.getString("sop_no")+"%' \n";
 				}
@@ -89,6 +112,7 @@ public class Service_sop_get extends ServiceProcess {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					selectSql += " AND SP010 BETWEEN '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_s")))+"' AND '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_e")))+"' \n";
 				}
+				selectSql += " ORDER BY SOP.SP001 ";
 				List responseData = conm.queryForList(selectSql, null);
 				resultMap.put("responseData", responseData);
 			}
