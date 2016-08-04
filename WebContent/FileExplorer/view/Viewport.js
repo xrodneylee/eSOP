@@ -194,10 +194,9 @@ Ext.define('FileExplorer.view.Viewport', {
 				}
 			}, {
 				header : '檢視',
-				dataIndex : 'view',
 				width : 150,
 				renderer: function(val, metaData){
-					return "<img src='/eSOP/sources/css/images/TaskList.gif'  onclick=\"viewSOPFN('"+metaData.record.get('SP003')+"')\"; style='display:block; margin:auto';>";;
+					return "<img src='/eSOP/sources/css/images/TaskList.gif'  onclick=\"viewSOPFN('"+metaData.record.get('SP003')+"')\" style='display:block; margin:auto'>";
 				}
 			}, {
 				header : '說明',

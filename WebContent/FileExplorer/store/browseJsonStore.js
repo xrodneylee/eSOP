@@ -4,7 +4,6 @@ Ext.define('FileExplorer.store.browseJsonStore', {
     autoLoad: false,
     proxy: {
         type: 'ajax',
-        url: '/eSOP/api/ajax/geteSOP_all',
         reader: {
             type: 'json',
             root: 'eSOP'

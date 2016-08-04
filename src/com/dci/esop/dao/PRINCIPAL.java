@@ -22,7 +22,8 @@ public class PRINCIPAL {
 			List list = conm.queryForList(querySql, null);
 			for(int i = 0; i < list.size(); i++){
 				Map record = (Map)list.get(i);
-				record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
+				if(!record.get("AUTH_PASSWORD").toString().equals(""))
+					record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
 				list.set(i, record);
 			}
 			resultInfo.put("PRINCIPAL", list);
@@ -40,7 +41,8 @@ public class PRINCIPAL {
 			List list = conm.queryForList(querySql, null);
 			for(int i = 0; i < list.size(); i++){
 				Map record = (Map)list.get(i);
-				record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
+				if(!record.get("AUTH_PASSWORD").toString().equals(""))
+					record.put("AUTH_PASSWORD", CodeUtil.decodeMessage(record.get("AUTH_PASSWORD").toString()));
 				list.set(i, record);
 			}
 			resultInfo.put("PRINCIPAL", list);
