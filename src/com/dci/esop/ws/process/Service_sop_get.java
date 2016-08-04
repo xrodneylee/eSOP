@@ -1,5 +1,6 @@
 package com.dci.esop.ws.process;
 
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
@@ -48,22 +49,26 @@ public class Service_sop_get extends ServiceProcess {
 		Map resultMap = new HashMap();
 		JSONObject jsonData = getExecuteData();
 		JSONArray dataAry = jsonData.getJSONArray("data");
-		String selectSql = ""
-						+"SELECT  " 
-						+"        SP001 AS sop_no    ,  " 
-						+"        SP002 AS sop_ver   ,  " 
-						+"        SP003 AS sop_file  ,  " 
-						+"        SP004 AS sop_remark,  " 
-						+"        SP005 AS item_no   ,  " 
-						+"        SP006 AS op_no     ,  " 
-						+"        SP007 AS subop_no  ,  " 
-						+"        SP008 AS sop_seq   ,  " 
-						+"        SP009 AS site_no   ,  " 
-						+"        convert(varchar, SP010, 112) AS sop_datetime " 
-						+"FROM  SOP " 
-						+"WHERE 1=1 ";
 		
 		try{
+			InetAddress server = InetAddress.getLocalHost();
+			String ServerIP = server.getHostAddress().toString();
+			String selectSql = ""
+					+"SELECT  " 
+					+"        SP001 AS sop_no    ,  " 
+					+"        SP002 AS sop_ver   ,  " 
+					+"        SP003 AS sop_file  ,  " 
+					+"        SP004 AS sop_remark,  " 
+					+"        SP005 AS item_no   ,  " 
+					+"        SP006 AS op_no     ,  " 
+					+"        SP007 AS subop_no  ,  " 
+					+"        SP008 AS sop_seq   ,  " 
+					+"        SP009 AS site_no   ,  " 
+					+"        convert(varchar, SP010, 112) AS sop_datetime, "
+					+"'http://"+ServerIP+":8120/eSOP/StationKanban/PDFLoader.jsp?fileName='"+"+SP003 AS sop_url "
+					+"FROM  SOP " 
+					+"WHERE 1=1 ";
+			
 			for(int i = 0; i < dataAry.size(); i++){
 				JSONObject row = dataAry.getJSONObject(i);
 				if(row.get("sop_ver_assign") != null && !row.getString("sop_ver_assign").equals("")){
@@ -83,7 +88,8 @@ public class Service_sop_get extends ServiceProcess {
 								+"        SP007 AS subop_no  ,  " 
 								+"        SP008 AS sop_seq   ,  " 
 								+"        SP009 AS site_no   ,  " 
-								+"        convert(varchar, SP010, 112) AS sop_datetime " 
+								+"        convert(varchar, SP010, 112) AS sop_datetime, "
+								+"'http://"+ServerIP+":8120/eSOP/StationKanban/PDFLoader.jsp?fileName='"+"+SP003 AS sop_url "
 								+"FROM  SOP "
 								+"JOIN a ON a.SP001=SOP.SP001 and a.SP002=SOP.SP002 "
 								+"WHERE 1=1 ";
@@ -91,6 +97,9 @@ public class Service_sop_get extends ServiceProcess {
 				}
 				if(row.get("sop_no") != null && !row.getString("sop_no").equals("")){
 					selectSql += " AND SP001 LIKE '%"+row.getString("sop_no")+"%' \n";
+				}
+				if(row.get("sop_ver") != null && !row.getString("sop_ver").equals("")){
+					selectSql += " AND SP002 LIKE '%"+row.getString("sop_ver")+"%' \n";
 				}
 				if(row.get("sop_file") != null && !row.getString("sop_file").equals("")){
 					selectSql += " AND SP003 LIKE '%"+row.getString("sop_file")+"%' \n";

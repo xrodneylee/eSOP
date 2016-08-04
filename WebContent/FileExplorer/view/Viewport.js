@@ -42,7 +42,6 @@ Ext.define('FileExplorer.view.Viewport', {
 					fieldLabel : '品號',
 					labelWidth : 100,
 					labelAlign : 'right',
-					editable : false,
 					width : 300,
 					triggerCls : 'x-form-search-trigger'
 				} ]
@@ -57,7 +56,6 @@ Ext.define('FileExplorer.view.Viewport', {
 					fieldLabel : '作業',
 					labelWidth : 100,
 					labelAlign : 'right',
-					editable : false,
 					width : 300,
 					triggerCls : 'x-form-search-trigger'
 				}, {
@@ -73,7 +71,6 @@ Ext.define('FileExplorer.view.Viewport', {
 					fieldLabel : '廠區',
 					labelWidth : 100,
 					labelAlign : 'right',
-					editable : false,
 					width : 300,
 					triggerCls : 'x-form-search-trigger'
 				} ]
@@ -139,12 +136,12 @@ Ext.define('FileExplorer.view.Viewport', {
 				text : '匯出',
 				id : 'export',
 				iconCls : 'icon-export'
-			}, {
+			}/*, {
 				xtype : 'button',
 				text : '匯入',
 				id : 'import',
 				iconCls : 'icon-import'
-			} ],
+			} */],
 			plugins : [ {
 				ptype : 'cellediting',
 				clicksToEdit : 1,
@@ -196,6 +193,13 @@ Ext.define('FileExplorer.view.Viewport', {
 					xtype : 'textfield'
 				}
 			}, {
+				header : '檢視',
+				dataIndex : 'view',
+				width : 150,
+				renderer: function(val, metaData){
+					return "<img src='/eSOP/sources/css/images/TaskList.gif'  onclick=\"viewSOPFN('"+metaData.record.get('SP003')+"')\"; style='display:block; margin:auto';>";;
+				}
+			}, {
 				header : '說明',
 				dataIndex : 'SP004',
 				width : 150,
@@ -209,7 +213,6 @@ Ext.define('FileExplorer.view.Viewport', {
 				editor : {
 					xtype : 'triggerfield',
 					id : 'SP005_editor',
-					editable : false,
 					triggerCls : 'x-form-search-trigger'
 				}
 			}, {
@@ -226,7 +229,6 @@ Ext.define('FileExplorer.view.Viewport', {
 				editor : {
 					xtype : 'triggerfield',
 					id : 'SP006_editor',
-					editable : false,
 					triggerCls : 'x-form-search-trigger'
 				}
 			}, {
@@ -243,7 +245,6 @@ Ext.define('FileExplorer.view.Viewport', {
 				editor : {
 					xtype : 'triggerfield',
 					id : 'SP009_editor',
-					editable : false,
 					triggerCls : 'x-form-search-trigger'
 				}
 			} ]

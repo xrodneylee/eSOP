@@ -190,7 +190,7 @@ Ext.define('StationManager.controller.StationManagerControl', {
     },
     onDelete : function(){
     	var deleteInfo = new Object();
-    	deleteInfo.AUTH_ID = Ext.getCmp('ST001').getValue();
+    	deleteInfo.ST001 = Ext.getCmp('ST001').getValue();
     	Ext.Msg.confirm("", "確定刪除此筆資料?", function(btnText){
             if(btnText === "yes"){
             	Ext.Ajax.request({

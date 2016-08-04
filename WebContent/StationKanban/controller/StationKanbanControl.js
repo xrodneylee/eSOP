@@ -45,10 +45,6 @@ Ext.define('StationKanban.controller.StationKanbanControl', {
 		}, this, true);
 	},
 	onQuery : function(){
-		if(Ext.getCmp('area').getValue() == '' || Ext.getCmp('factory').getValue() == ''){
-			Ext.Msg.alert('','工廠、區域不可空白!');
-			return;
-		}
 		Ext.getCmp('stationKanban').removeAll();
 		var queryData = new Object();
 		queryData.ST004 = Ext.getCmp('area').getValue();

@@ -24,10 +24,16 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.dci.esop.authentication.Station;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
 
 public class SOP {
+	public static final String itemid = "1";
+	public static final String operation = "2";
+	public static final String factory = "3";
+	public static final String area = "4";
+	
 	ConnectionManager conm = new ConnectionManager();
 	CONFIG CONFIG = new CONFIG();
 	String FileServer= CONFIG.getESOPFileRoute();
@@ -78,13 +84,13 @@ public class SOP {
 			sql += " AND SP004='"+queryInfo.getString("SP004")+"'";
 		}
 		if(!queryInfo.getString("SP005").equals("")){
-			sql += " AND SP005='"+queryInfo.getString("SP005")+"'";
+			sql += " AND SP005 LIKE '%"+queryInfo.getString("SP005")+"%'";
 		}
 		if(!queryInfo.getString("SP006").equals("")){
-			sql += " AND SP006='"+queryInfo.getString("SP006")+"'";
+			sql += " AND SP006 LIKE '%"+queryInfo.getString("SP006")+"%'";
 		}
 		if(!queryInfo.getString("SP009").equals("")){
-			sql += " AND SP009='"+queryInfo.getString("SP009")+"'";
+			sql += " AND SP009 LIKE '%"+queryInfo.getString("SP009")+"%'";
 		}
 		if(queryInfo.getString("start")!="null" && queryInfo.getString("end")!="null"){
 			sql += " AND SP010 BETWEEN '"+queryInfo.getString("start")+"' AND '"+queryInfo.getString("end")+"'";
@@ -117,19 +123,32 @@ public class SOP {
 		return resultInfo.toString();
 	}
 
-	public void saveSOP(String jsonString) {
+	public void saveSOP(String jsonString){
+		Station station = new Station();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONArray saveInfo = JSONArray.fromObject(jsonString);
 		String insertSql = getInsertSql();
 		String updateSql = getUpdateSql();
-		for(int i = 0; i < saveInfo.size(); i++){
-			JSONObject record = saveInfo.getJSONObject(i);
-			record.put("DATE", sdf.format(new Date()));
-			if(record.getString("exist").equals("Y")){
-				conm.sqlUpdate(updateSql, record);
-			}else{
-				conm.sqlUpdate(insertSql, record);
+		try{
+			for(int i = 0; i < saveInfo.size(); i++){
+				JSONObject record = saveInfo.getJSONObject(i);
+				
+				if(!record.getString("SP005").equals(""))
+					station.insertATTRIBUTE_LIST(itemid,record.getString("SP005"));
+				if(!record.getString("SP006").equals(""))
+					station.insertATTRIBUTE_LIST(operation,record.getString("SP006"));
+				if(!record.getString("SP009").equals(""))
+					station.insertATTRIBUTE_LIST(factory,record.getString("SP009"));
+				
+				record.put("DATE", sdf.format(new Date()));
+				if(record.getString("exist").equals("Y")){
+					conm.sqlUpdate(updateSql, record);
+				}else{
+					conm.sqlUpdate(insertSql, record);
+				}
 			}
+		}catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 

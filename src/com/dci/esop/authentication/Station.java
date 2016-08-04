@@ -121,8 +121,14 @@ public class Station {
 						"	CASE WHEN ST006='N' THEN '失效'	 WHEN ST007='Y' THEN '上線'	 ELSE '離線' END AS STATUS "+
 						" 	FROM STATION "+
 						" 	JOIN SOP ON ST009=SP001 AND ST010=SP002 "+
-						" 	WHERE ST004=:ST004 AND ST005=:ST005 "+
-						"	ORDER BY ST001 ";
+						" 	WHERE 1=1 ";
+		if(!queryInfo.getString("ST004").equals("")){
+			querySql += " AND ST004=:ST004 ";
+		}
+		if(!queryInfo.getString("ST005").equals("")){
+			querySql += " AND ST005=:ST005 ";
+		}
+		querySql += "	ORDER BY ST001 ";
 		List list = conm.queryForList(querySql, queryInfo);
 		if(list.size() > 0){
 			resultInfo.put("result", "success");

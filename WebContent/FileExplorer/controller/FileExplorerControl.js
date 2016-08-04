@@ -110,6 +110,13 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 		Ext.getCmp("end").setValue('');
 	},
 	onQuery : function(){
+		if(Ext.getCmp('start').getValue() != '' && Ext.getCmp('end').getValue() == ''){
+			Ext.Msg.alert('','檔案日期(迄)不可為空');
+			return;
+		}else if(Ext.getCmp('start').getValue() == '' && Ext.getCmp('end').getValue() != ''){
+			Ext.Msg.alert('','檔案日期(起)不可為空');
+			return;
+		}
 		var queryInfo = new Object();
 		queryInfo.SP001 = Ext.getCmp('SP001').getValue();
 		queryInfo.SP003 = Ext.getCmp('SP003').getValue();
@@ -291,6 +298,7 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 		var path = Ext.getCmp('uploadField').getValue()
 		var fileName = path.substring(path.lastIndexOf('\\') + 1);
         data[selectIndex].set("SP003", fileName);
+        data[selectIndex].set("SP001", fileName.split('.pdf')[0]);
 		sp003Win.hide();
 	},
 	onImport : function(){
@@ -929,4 +937,8 @@ function getTriggerField(TriggerFieldId){
         }                                                  
     }, this); 
 	return SelectWinQueryField;
+}
+
+function viewSOPFN(sp003){
+	window.open("/eSOP/StationKanban/PDFLoader.jsp?fileName="+sp003,"eSOP");
 }
