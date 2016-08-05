@@ -110,10 +110,10 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 		Ext.getCmp("end").setValue('');
 	},
 	onQuery : function(){
-		if(Ext.getCmp('start').getValue() != '' && Ext.getCmp('end').getValue() == ''){
+		if(Ext.getCmp('start').getRawValue() != '' && Ext.getCmp('end').getRawValue() == ''){
 			Ext.Msg.alert('','檔案日期(迄)不可為空');
 			return;
-		}else if(Ext.getCmp('start').getValue() == '' && Ext.getCmp('end').getValue() != ''){
+		}else if(Ext.getCmp('start').getRawValue() == '' && Ext.getCmp('end').getRawValue() != ''){
 			Ext.Msg.alert('','檔案日期(起)不可為空');
 			return;
 		}
