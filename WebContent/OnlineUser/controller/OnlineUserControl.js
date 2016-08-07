@@ -19,6 +19,17 @@ Ext.define('OnlineUser.controller.OnlineUserControl', {
 	onBrowseGridPanelAfterrender : function(component, eOpts){
 		Ext.Ajax.request({
 			waitMsg: 'Please wait...',
+			url : '/eSOP/api/ajax/getMaxUser',
+		    method : "GET",
+		    success : function (response) {
+		    	Ext.getCmp('authorized').setValue(response.responseText);
+		    },
+		    failure : function (response) {
+		    	Ext.Msg.alert('','載入失敗');
+		    }
+		});
+		Ext.Ajax.request({
+			waitMsg: 'Please wait...',
 			url : '/eSOP/api/ajax/getUserCount',
 		    method : "GET",
 		    success : function (response) {

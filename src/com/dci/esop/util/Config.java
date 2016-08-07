@@ -13,7 +13,7 @@ import net.sf.json.JSONObject;
 public class Config extends Properties{
 	private static final long serialVersionUID = 2509826808934185629L;
 	private static Config instance = null;
-	private static String eSOP_Home=System.getenv("eSOP_HOME");;
+	private static String eSOP_Home=System.getenv("eSOP_HOME");
 	
 	public static Config getInstance(){
 		if (instance == null) {

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.dci.esop.register.CryptoManager;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.sql.SqlFile;
 import com.digwin.cross.exception.IllegalDataException;
@@ -100,4 +101,9 @@ public class UserCheck {
 		JSONObject logoutInfo = JSONObject.fromObject(jsonString);
 		removeUser(logoutInfo.getString("userID"),logoutInfo.getString("ip"),logoutInfo.getString("sessionId"));
 	}
+	
+	public int getOnlineMaxUser(){
+		CryptoManager cm = CryptoManager.getInstance();
+    	return  cm.getPassTotalUqtyForSFTModule();
+    }
 }

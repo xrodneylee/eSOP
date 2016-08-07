@@ -24,7 +24,7 @@ Ext.define('initSet.controller.initSetControl', {
 		window.location.replace("/eSOP/ConfigEdit/ConfigEdit.jsp");
 	},
 	onAuthorize : function() {
-
+		window.location.replace("/eSOP/Authorization/Authorization.jsp");
 	},
 	onInitSetFormAfterrender : function(component, eOpts) {
 		Ext.Ajax.request({

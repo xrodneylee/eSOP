@@ -92,7 +92,6 @@ public class HardwareEncrypt {
 		if (HARDWAREID != null && !HARDWAREID.isEmpty()) {
 			return HARDWAREID;
 		}
-
 		String code = "";
 		/* 是否為vm */
 		if (new VirtualMachine().isVM()) {

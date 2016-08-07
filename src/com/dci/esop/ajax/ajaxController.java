@@ -35,6 +35,7 @@ import com.dci.esop.dao.SOP;
 import com.dci.esop.dao.STATION;
 import com.dci.esop.dao.STATION_HISTORY;
 import com.dci.esop.dao.STATION_SOP;
+import com.dci.esop.register.CryptoManager;
 import com.dci.esop.register.HardwareEncrypt;
 import com.dci.esop.sql.ConnectionManager;
 import com.dci.esop.util.Config;
@@ -94,6 +95,13 @@ public class ajaxController {
 		return machineNumber;
 	}
 
+	@GET
+	@Path("/getMaxUser")
+	public int getMaxUser() {
+		UserCheck UserCheck = new UserCheck();
+		return UserCheck.getOnlineMaxUser();
+	}
+	
 	@POST
 	@Path("/userCheck")
 	public String userCheck(@FormParam("data") String jsonObj) {
@@ -358,6 +366,57 @@ public class ajaxController {
 	public String insertHistory(@FormParam("data") String jsonObj) {
 		STATION_HISTORY STATION_HISTORY = new STATION_HISTORY();
 		return STATION_HISTORY.insertHistory(jsonObj);
+	}
+	
+	@GET    
+	@Produces({"text/plain"})
+	@Path("/getMoudleInfo")
+	public String getMoudleInfo() throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		return cm.getMoudleInfo();
+	}
+	
+	@GET    
+	@Produces({"text/plain"})
+	@Path("/getAllSerialInfo")
+	public String getAllSerialInfo() throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		return cm.getSerialInfoDataList();
+	}
+	
+	@GET    
+	@Produces({"text/plain"})
+	@Path("/getHardwareCode")
+	public String getHardwareCode() throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		return cm.getHardwareCode();
+	}
+	
+	@GET    
+	@Produces({"text/plain"})
+	@Path("/verifySerial/{serialId}")
+	public String verifySerial(@PathParam("serialId")String serialId) throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		return cm.verifySerial(serialId);
+	}
+	
+	@GET    
+	@Produces({"text/plain"})
+	@Path("/getComboBoxInfo")
+	public String getComboBoxInfo() throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		return cm.getSerialList();
+	}
+	
+	@POST   
+	@Produces({"text/plain"})
+	@Path("/verifyExecuteCode") 
+	public String verifyExecuteCode(@FormParam("paramData")String jsonObj) throws Exception {
+		CryptoManager cm = CryptoManager.getInstance();
+		JSONObject jsonObject = JSONObject.fromObject(jsonObj);
+		return cm.verifyExecuteCode(jsonObject.getString("serial").toString(),
+				jsonObject.getString("hardware").toString(),
+				jsonObject.getString("verifyCode").toString());
 	}
 	
 	@POST
