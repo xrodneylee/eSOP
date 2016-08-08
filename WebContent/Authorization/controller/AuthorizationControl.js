@@ -55,9 +55,9 @@ Ext.define('Authorization.controller.AuthorizationControl', {
 				Ext.MessageBox.alert('Ajax error', 'Ajax request ERROR' + xhr);
 			},
 			success : function(response){
-				serialComboStore.load();
-				tsStore.load();
-				ModuleStore.load();
+				Ext.getCmp("serialCombo").getStore().load();
+				Ext.getCmp("serialGridPanel").getStore().load();
+				Ext.getCmp("moduleGridPanel").getStore().load();
 				alert(response.responseText);
 			}
 		});
@@ -81,7 +81,7 @@ Ext.define('Authorization.controller.AuthorizationControl', {
 
 		Ext.Ajax.request({
 			waitMsg: 'Please wait...',
-			url: "/SFTU02/RS/updateControll/verifyExecuteCode",
+			url: "/eSOP/api/ajax/verifyExecuteCode",
 			method:"POST",
 			params:{
 				   paramData : jsonIndexAryStr

@@ -49,7 +49,6 @@ Ext.define('Authorization.view.Viewport', {
 				displayField: 'terms',
 				valueField: 'value',
 				typeAhead : true,
-				readOnly : true,
 				mode: 'local',
 				triggerAction: 'all',
 				selectOnFocus:true,
