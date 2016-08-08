@@ -25,16 +25,18 @@ public class UserCheck {
 			loginInfo.put("AUTH_PASSWORD", CodeUtil.encodeMessage(loginInfo.getString("AUTH_PASSWORD")));
 			if(conm.queryForSingleInteger(checkSql, loginInfo) > 0){
 				if(checkUserIpExsit(loginInfo.getString("AUTH_ID"),loginInfo.getString("ip"))){
-					resultInfo.put("result", "failure");
-					resultInfo.put("msg", "此帳號己登入eSOP");
+					throw new Exception("此帳號己登入eSOP");
 				}else{
 					addUser(loginInfo.getString("AUTH_ID"),loginInfo.getString("ip"),1,loginInfo.getString("sessionId"));
+					if(!isVaild()){
+						removeUser(loginInfo.getString("AUTH_ID"), loginInfo.getString("ip"));
+						throw new Exception("人數已滿");
+					}
 					resultInfo.put("result", "success");
 					resultInfo.put("url", "/eSOP/centerPage/centerPage.jsp?userId="+loginInfo.getString("AUTH_ID"));
 				}
 			}else{
-				resultInfo.put("result", "failure");
-				resultInfo.put("msg", "驗證錯誤");
+				throw new Exception("驗證錯誤");
 			}
 		} catch (Exception e) {
 			resultInfo.put("result", "failure");
@@ -106,4 +108,14 @@ public class UserCheck {
 		CryptoManager cm = CryptoManager.getInstance();
     	return  cm.getPassTotalUqtyForSFTModule();
     }
+	
+	private boolean isVaild(){
+		boolean isVaild = true;
+		String sql = " SELECT COUNT(*) FROM ONLINE_USER_RECORD ";
+		int amountOfUser = conm.queryForSingleInteger(sql, null);
+		if(amountOfUser > getOnlineMaxUser()){
+			isVaild = false;
+		}
+		return isVaild;
+	}
 }
