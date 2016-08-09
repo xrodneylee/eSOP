@@ -115,8 +115,8 @@ Ext.define('StationManager.view.Viewport', {
 					dataIndex : 'ST006',
 					width : 150,
 					renderer: function(val, metaData){
-				       if(val == "N")val='V';
-				       else val='';
+				       if(val == "N")val='Y';
+				       else val='N';
 				       return val;
 					}
 				}, {
