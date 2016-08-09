@@ -96,30 +96,30 @@ public class Service_sop_get extends ServiceProcess {
 					}
 				}
 				if(row.get("sop_no") != null && !row.getString("sop_no").equals("")){
-					selectSql += " AND SP001 LIKE '%"+row.getString("sop_no")+"%' \n";
+					selectSql += " AND SOP.SP001 LIKE '%"+row.getString("sop_no")+"%' \n";
 				}
 				if(row.get("sop_ver") != null && !row.getString("sop_ver").equals("")){
-					selectSql += " AND SP002 LIKE '%"+row.getString("sop_ver")+"%' \n";
+					selectSql += " AND SOP.SP002 LIKE '%"+row.getString("sop_ver")+"%' \n";
 				}
 				if(row.get("sop_file") != null && !row.getString("sop_file").equals("")){
-					selectSql += " AND SP003 LIKE '%"+row.getString("sop_file")+"%' \n";
+					selectSql += " AND SOP.SP003 LIKE '%"+row.getString("sop_file")+"%' \n";
 				}
 				if(row.get("sop_remark") != null && !row.getString("sop_remark").equals("")){
-					selectSql += " AND SP004 LIKE '%"+row.getString("sop_remark")+"%' \n";
+					selectSql += " AND SOP.SP004 LIKE '%"+row.getString("sop_remark")+"%' \n";
 				}
 				if(row.get("item_no") != null && !row.getString("item_no").equals("")){
-					selectSql += " AND SP005 LIKE '%"+row.getString("item_no")+"%' \n";
+					selectSql += " AND SOP.SP005 LIKE '%"+row.getString("item_no")+"%' \n";
 				}
 				if(row.get("op_no") != null && !row.getString("op_no").equals("")){
-					selectSql += " AND SP006 LIKE '%"+row.getString("op_no")+"%' \n";
+					selectSql += " AND SOP.SP006 LIKE '%"+row.getString("op_no")+"%' \n";
 				}
 				if(row.get("site_no") != null && !row.getString("site_no").equals("")){
-					selectSql += " AND SP009 LIKE '%"+row.getString("site_no")+"%' \n";
+					selectSql += " AND SOP.SP009 LIKE '%"+row.getString("site_no")+"%' \n";
 				}
 				if(row.get("station_no") != null && !row.getString("sop_datetime_s").equals("") && !row.getString("sop_datetime_e").equals("")){
 					SimpleDateFormat sdfparse = new SimpleDateFormat("yyyyMMddHHmmss");
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					selectSql += " AND SP010 BETWEEN '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_s")))+"' AND '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_e")))+"' \n";
+					selectSql += " AND SOP.SP010 BETWEEN '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_s")))+"' AND '"+sdf.format(sdfparse.parse(row.getString("sop_datetime_e")))+"' \n";
 				}
 				selectSql += " ORDER BY SOP.SP001 ";
 				List responseData = conm.queryForList(selectSql, null);

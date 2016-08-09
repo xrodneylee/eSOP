@@ -9,7 +9,7 @@
 
 <%
 CONFIG CONFIG = new CONFIG();
-String fileName = request.getParameter("fileName");
+String fileName =  new String(request.getParameter("fileName").getBytes("ISO8859-1"), "UTF-8");
 String FileServer= CONFIG.getESOPFileRoute();
 FileServer=FileServer+fileName;
 response.setContentType("application/pdf");
