@@ -21,10 +21,18 @@ Ext.define('initSet.controller.initSetControl', {
 
 	},
 	onSetting : function() {
-		window.location.replace("/eSOP/ConfigEdit/ConfigEdit.jsp");
+		if(currentIP != '127.0.0.1'){
+			alert('只允許本地主機ip : 127.0.0.1 登入操作');
+		}else{
+			window.location.replace("/eSOP/ConfigEdit/ConfigEdit.jsp");
+		}
 	},
 	onAuthorize : function() {
-		window.location.replace("/eSOP/Authorization/Authorization.jsp");
+		if(currentIP != '127.0.0.1'){
+			alert('只允許本地主機ip : 127.0.0.1 登入操作');
+		}else{
+			window.location.replace("/eSOP/Authorization/Authorization.jsp");
+		}
 	},
 	onInitSetFormAfterrender : function(component, eOpts) {
 		Ext.Ajax.request({
