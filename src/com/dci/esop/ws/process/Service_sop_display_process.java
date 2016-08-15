@@ -48,7 +48,7 @@ public class Service_sop_display_process extends ServiceProcess {
 	@Override
 	public Map executeService() {
 		ConnectionManager conm = new ConnectionManager();
-		SimpleDateFormat sdfparse = new SimpleDateFormat("yyyyMMddHHmm");
+		SimpleDateFormat sdfparse = new SimpleDateFormat("yyyyMMddHHmmss");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Map resultMap = new HashMap();
 		JSONObject jsonData = getExecuteData();

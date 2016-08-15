@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <%
 	CONFIG CONFIG = new CONFIG();
-	String fileName = request.getParameter("fileName");
+	String fileName = new String(request.getParameter("fileName").getBytes("ISO8859-1"), "UTF-8");;
 	ServletOutputStream sOS = response.getOutputStream(); 
 	try{
 			java.io.File fileToDownload = new java.io.File(CONFIG.getESOPFileRoute()+"images/"+fileName);
