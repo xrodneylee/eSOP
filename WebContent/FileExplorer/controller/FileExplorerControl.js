@@ -281,8 +281,15 @@ Ext.define('FileExplorer.controller.FileExplorerControl', {
 				data : Ext.encode(saveInfo)
 			},
 		    success : function (response) {
-		    	Ext.getCmp("query").fireEvent('click', 0) ;
-		    	Ext.Msg.alert('','儲存成功');
+		    	var result = Ext.decode(response.responseText);
+		    	if(result.result == 'success'){
+		    		for(var i = 0; i < data.length; i++){
+						data[i].set('exist','Y');
+					}
+			    	Ext.Msg.alert('','儲存成功');
+		    	}else{
+		    		Ext.Msg.alert('',result.msg);
+		    	}
 		    },
 		    failure : function (response) {
 		    	Ext.Msg.alert('','儲存失敗');
@@ -929,7 +936,7 @@ function getTriggerField(TriggerFieldId){
 	var SelectWinQueryField=new Ext.form.TriggerField({ 
 	    id:TriggerFieldId,
 	    width:120,
-	    triggerClass:'x-form-search-trigger'
+	    triggerCls:'x-form-search-trigger'
 	});
 	SelectWinQueryField.on("specialkey",function(f, e){                   
         if(e.getKey() == e.ENTER){                        

@@ -314,9 +314,9 @@ public class ajaxController {
 
 	@POST
 	@Path("/saveSOP")
-	public void saveSOP(@FormParam("data") String jsonObj) {
+	public String saveSOP(@FormParam("data") String jsonObj) {
 		SOP SOP = new SOP();
-		SOP.saveSOP(jsonObj);
+		return SOP.saveSOP(jsonObj);
 	}
 	
 	@POST

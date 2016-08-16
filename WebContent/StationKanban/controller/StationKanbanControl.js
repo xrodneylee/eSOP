@@ -217,7 +217,7 @@ function getTriggerField(TriggerFieldId){
 	var SelectWinQueryField=new Ext.form.TriggerField({ 
 	    id:TriggerFieldId,
 	    width:120,
-	    triggerClass:'x-form-search-trigger'
+	    triggerCls:'x-form-search-trigger'
 	});
 	SelectWinQueryField.on("specialkey",function(f, e){                   
         if(e.getKey() == e.ENTER){                        

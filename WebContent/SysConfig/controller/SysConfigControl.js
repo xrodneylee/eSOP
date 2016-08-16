@@ -18,10 +18,10 @@ Ext.define('SysConfig.controller.SysConfigControl', {
 		});
 	},
 	SysConfigGridAfterrender : function(component, eOpts){
-		Ext.getCmp("SysConfigGrid").setHeight(vpHeight_c1);
+		Ext.getCmp("SysConfigGrid").setHeight(vpHeight_c1-35);
 		Ext.EventManager.onWindowResize(function(w, h) {
 			try {
-				Ext.getCmp("SysConfigGrid").setHeight(h);
+				Ext.getCmp("SysConfigGrid").setHeight(h-35);
 			} catch (e) {
 			}
 		}, this, true);

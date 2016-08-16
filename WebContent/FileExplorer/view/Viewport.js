@@ -33,7 +33,6 @@ Ext.define('FileExplorer.view.Viewport', {
 					fieldLabel : '編號',
 					labelWidth : 100,
 					labelAlign : 'right',
-					editable : false,
 					width : 300,
 					triggerCls : 'x-form-search-trigger'
 				}, {

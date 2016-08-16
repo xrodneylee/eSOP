@@ -169,9 +169,6 @@ function onloadPDF(ss003,ss004,ss005,ss006,ss007,ss008){
 }
 
 function createVersionBtn(ss003,ss005,ss006){
-	console.log('ss003>>>'+ss003);
-	console.log('ss005>>>'+ss005);
-	console.log('ss006>>>'+ss006);
 	if(ss006 == 'N' || ss006 == ''){
 		Ext.getCmp('verPanel').removeAll();
 		var queryData = new Object();

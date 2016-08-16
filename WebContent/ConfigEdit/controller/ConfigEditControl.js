@@ -206,10 +206,10 @@ Ext.define('ConfigEdit.controller.ConfigEditControl', {
 		});
 	},
 	crossSettingGridAfterrender : function(component, eOpts){
-		Ext.getCmp("crossSettingGrid").setHeight(vpHeight_c1);
+		Ext.getCmp("crossSettingGrid").setHeight(vpHeight_c1-60);
 		Ext.EventManager.onWindowResize(function(w, h) {
 			try {
-				Ext.getCmp("crossSettingGrid").setHeight(h);
+				Ext.getCmp("crossSettingGrid").setHeight(h-60);
 			} catch (e) {
 			}
 		}, this, true);

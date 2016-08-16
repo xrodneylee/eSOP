@@ -75,7 +75,7 @@ public class SOP {
 				+"WHERE   1=1 ";
 		
 		if(!queryInfo.getString("SP001").equals("")){
-			sql += " AND SP001='"+queryInfo.getString("SP001")+"'";
+			sql += " AND SP001 LIKE '%"+queryInfo.getString("SP001")+"%'";
 		}
 		if(!queryInfo.getString("SP003").equals("")){
 			sql += " AND SP003='"+queryInfo.getString("SP003")+"'";
@@ -123,16 +123,20 @@ public class SOP {
 		return resultInfo.toString();
 	}
 
-	public void saveSOP(String jsonString){
+	public String saveSOP(String jsonString){
+		JSONObject result = new JSONObject();
 		Station station = new Station();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		JSONArray saveInfo = JSONArray.fromObject(jsonString);
 		String insertSql = getInsertSql();
 		String updateSql = getUpdateSql();
 		try{
+			conm.setAutoCommit(false);
 			for(int i = 0; i < saveInfo.size(); i++){
 				JSONObject record = saveInfo.getJSONObject(i);
-				
+				if(conm.queryForSingleInteger(" SELECT COUNT(*) FROM SOP WHERE SP001=:SP001 AND SP002=:SP002 ", record) > 0){
+					throw new Exception("編號："+record.getString("SP001")+"<br/>版號："+record.getString("SP002")+ "<br/>已存在!");
+				}
 				if(!record.getString("SP005").equals(""))
 					station.insertATTRIBUTE_LIST(itemid,record.getString("SP005"));
 				if(!record.getString("SP006").equals(""))
@@ -147,9 +151,15 @@ public class SOP {
 					conm.sqlUpdate(insertSql, record);
 				}
 			}
+			result.put("result", "success");
+			conm.transactionCommit();
 		}catch(Exception e){
+			result.put("result", "failure");
+			result.put("msg", e.getMessage());
+			conm.transactionRollback();
 			e.printStackTrace();
 		}
+		return result.toString();
 	}
 
 	private String getInsertSql(){

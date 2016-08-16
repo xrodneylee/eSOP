@@ -35,7 +35,7 @@ Ext.define('SysConfig.view.Viewport',{
 	    		   else if(val == "checkFileInterval")val='工位檢查推播間隔(秒)'
 				    
 	    		   return val;
-				},
+				}
 			}, {
 				header : '值',
 				dataIndex : 'CD003',
